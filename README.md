@@ -40,7 +40,23 @@ rename), so this name wasn't a blocker on doing the consolidation.
     importable, and runnable — see ATS's `ats_seam_inventory.md`, C17).
   - `_source.py` files are the flattened raw pastes (preserved evidence,
     several do not parse); the matching `_adapter.py` files are the working
-    reconstructions.
+    reconstructions. Checked 2026-09-03 whether any of the three still
+    needed reconstructing: no — all three `_adapter.py` files already run
+    (confirmed by executing each one directly) and fully cover their
+    source's content, so none were touched, per this repo's own norm of not
+    reconstructing a `_source.py` when its `_adapter.py` already works.
+    `governance_os_security_source.py` is worth a specific flag:
+    unlike `solvar_stability_governance_source.py` and
+    `quorum_state_governance_source.py` (both flattened to one line and a
+    `SyntaxError` on import, the expected failure mode), it also flattens to
+    one line but that line happens to start with `#` — so Python treats the
+    *entire file* as a single comment and it imports cleanly as an empty
+    module, defining nothing. It fails silently instead of loudly; don't
+    mistake "imports without error" for "works." Its content (visibly two
+    AI-chat drafts of the same design concatenated together, down to a
+    leftover "If you want this split back into a proper package layout...
+    I can generate that next" mid-file) is fully present in
+    `governance_os_security_adapter.py`'s `*Module` classes.
 
 ### governance-stack cleanup, step 1 (2026-09-02)
 
