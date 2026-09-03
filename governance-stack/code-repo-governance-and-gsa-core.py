@@ -187,6 +187,27 @@ class ConstitutionalGovernorLayer:
 
 
 # --- from gsa_core_engine.py module ---
+# --- GsaCoreController + GsaTemporalDoorwayGate need these; from the same
+#     gsa_core_engine.py source. Added 2026-08-27. gsa_deep_freeze was
+#     already being called by GsaUniversalAdapter below but never defined. ---
+_GSA_MODULE_REGISTRY: Dict[str, Any] = {}
+
+def register_as_module(module_id: str) -> Callable[[Any], Any]:
+   def decorator(cls: Any) -> Any:
+       _GSA_MODULE_REGISTRY[module_id] = cls
+       return cls
+   return decorator
+
+def gsa_deep_freeze(data: Any) -> Any:
+   if isinstance(data, dict):
+       return MappingProxyType({k: gsa_deep_freeze(v) for k, v in data.items()})
+   elif isinstance(data, list):
+       return tuple(gsa_deep_freeze(item) for item in data)
+   return data
+
+# @dataclass (not frozen): raw source had frozen=True, but PipelineCycleManager
+# assigns envelope.status_string directly and would raise under frozen.
+@dataclass
 class GsaContextEnvelope:
    payload_data: Mapping[str, Any] = field(default_factory=lambda: MappingProxyType({}))
    session_state_mapping: Mapping[str, Any] = field(default_factory=lambda: MappingProxyType({}))
@@ -287,3 +308,81 @@ class PipelineCycleManager:
        envelope.status_string = "PIPELINE_ITERATION_EXECUTED"
        return envelope
 
+
+# --- GsaCoreController + GsaTemporalDoorwayGate --------------------------------
+# Reconstructed 2026-08-27 from CODE/content-pipeline-user-source.py, the
+# flattened single-line raw paste. Whitespace re-introduced to this file's
+# 3-space style; logic and identifiers unchanged. Never present in
+# content-pipeline-modularized.py, so the 5c35a2d move above never saw them.
+
+class GsaCoreController:
+   def __init__(self) -> None:
+       self.active_adapters: Dict[str, GsaUniversalAdapter] = {}
+
+   def initialize_pipeline_component(self, module_id: str, *args: Any, **kwargs: Any) -> None:
+       if module_id not in _GSA_MODULE_REGISTRY:
+           raise KeyError(f"GSA_REGISTRY_ERROR: Named component '{module_id}' not found.")
+       underlying_instance = _GSA_MODULE_REGISTRY[module_id](*args, **kwargs)
+       self.active_adapters[module_id] = GsaUniversalAdapter(underlying_instance)
+
+   async def forward_envelope(self, module_id: str, envelope: GsaContextEnvelope) -> GsaContextEnvelope:
+       if module_id not in self.active_adapters:
+           raise RuntimeError(f"GSA_EXECUTION_ERROR: Target component '{module_id}' is not active.")
+       return await self.active_adapters[module_id].process_payload(envelope)
+
+
+@register_as_module("GSA_TEMPORAL_DOORWAY_GATE")
+class GsaTemporalDoorwayGate:
+   def __init__(self, rotation_seed: str, rotation_interval_seconds: float = 0.05) -> None:
+       self._seed = rotation_seed
+       self._interval = rotation_interval_seconds
+       self._current_doorway_hash = ""
+       self._is_operating = False
+       self._lock = asyncio.Lock()
+
+   async def start_gate_engine(self) -> None:
+       self._is_operating = True
+       asyncio.create_task(self._hash_rotation_worker())
+
+   async def shutdown_gate_engine(self) -> None:
+       self._is_operating = False
+
+   async def _hash_rotation_worker(self) -> None:
+       while self._is_operating:
+           async with self._lock:
+               entropy_buffer = f"{self._seed}||{time.time_ns()}".encode("utf-8")
+               self._current_doorway_hash = hashlib.sha256(entropy_buffer).hexdigest()
+           await asyncio.sleep(self._interval)
+
+   async def execute_governance_logic(self, envelope: GsaContextEnvelope) -> GsaContextEnvelope:
+       headers = dict(envelope.header_mapping)
+       target_exit_hash = headers.get("gsa_target_exit_hash")
+       if not target_exit_hash:
+           return replace(
+               envelope,
+               status_string="GSA_DOORWAY_REJECT: Exit configuration requires 'gsa_target_exit_hash'."
+           )
+       timeout_threshold = headers.get("gsa_doorway_timeout_seconds", 3.0)
+       execution_start = time.time()
+       handshake_secured = False
+       while (time.time() - execution_start) < timeout_threshold:
+           async with self._lock:
+               if self._current_doorway_hash == target_exit_hash:
+                   handshake_secured = True
+                   break
+           await asyncio.sleep(0.005)
+       updated_headers = dict(envelope.header_mapping)
+       if handshake_secured:
+           updated_headers["gsa_doorway_cleared_hash"] = self._current_doorway_hash
+           updated_headers["gsa_doorway_timestamp_ns"] = time.time_ns()
+           return replace(
+               envelope,
+               status_string="GSA_EXIT_HANDSHAKE_COMPLETED",
+               header_mapping=gsa_deep_freeze(updated_headers)
+           )
+       else:
+           return replace(
+               envelope,
+               status_string="GSA_DOORWAY_TIMEOUT: Temporal synchronization alignment window missed.",
+               header_mapping=gsa_deep_freeze(updated_headers)
+           )

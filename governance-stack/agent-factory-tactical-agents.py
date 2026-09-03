@@ -4,7 +4,7 @@ DESCRIPTION: Scalable registry for 100+ tactical DIT agents.
 """
 
 from dataclasses import dataclass
-from typing import Dict, Type
+from typing import Any, Dict, Type
 
 @dataclass
 class AgentConfig:
