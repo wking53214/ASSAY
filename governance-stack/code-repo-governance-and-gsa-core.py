@@ -17,6 +17,19 @@ import logging
 import time
 from typing import Any, Dict, List
 
+# `logger` was referenced throughout the two module sections below
+# (governance_filters.py, gsa_core_engine.py) but never defined in either -
+# a pre-existing bug, not introduced by the 2026-08-27/09-03 reconstructions.
+# SYSTEM_GLOBALS, referenced in SystemicTrajectoryRegistry and
+# EvolutionaryRecursionEngine below, is a second pre-existing gap: no such
+# object is defined anywhere in this file or its known source. That one is
+# NOT fixed here - the 4 methods that touch it
+# (SystemicTrajectoryRegistry.check_systemic_failure_probability,
+# .pipes_system_telemetry, EvolutionaryRecursionEngine.integrate_remediation_payload,
+# .verify_resource_throttle_limits) still raise NameError if called. Every
+# other method on both classes runs correctly.
+logger = logging.getLogger(__name__)
+
 # --- from governance_filters.py module ---
 class ComplianceFiltrationFilter:
    def __init__(self):
@@ -304,7 +317,14 @@ class PipelineCycleManager:
    async def process_payload(self, envelope: ContextEnvelope) -> ContextEnvelope:
        val = envelope.payload_data.get("value", 0.0)
        self.metric_error_history.append(val)
-       envelope.session_state_mapping["cycle_state"] = GsaStaticAnchorManager.snapshot_state(self)
+       # envelope.session_state_mapping defaults to an immutable MappingProxyType
+       # (a pre-existing bug: this used to assign into it in place, which raises
+       # TypeError). The dataclass itself isn't frozen, so reassigning the field
+       # to a new dict is fine; only mutating the proxy's contents is not.
+       envelope.session_state_mapping = {
+           **envelope.session_state_mapping,
+           "cycle_state": GsaStaticAnchorManager.snapshot_state(self),
+       }
        envelope.status_string = "PIPELINE_ITERATION_EXECUTED"
        return envelope
 
