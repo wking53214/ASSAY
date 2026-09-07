@@ -29,11 +29,36 @@ reports **0 lines** to `wc -l` while carrying 10–33 KB of content.
 
 | Degraded source | Bytes | Reconstruction | Lines | Correct answer |
 |---|---|---|---|---|
-| `governance_os_security_source.py` | 11,700 | `governance_os_security_adapter.py` | 299 | **Reconstruction is faithful and complete.** Source content is two concatenated AI-chat drafts of one design; all of it appears in the adapter's `*Module` classes. A verifier must accept this pair. |
-| `quorum_state_governance_source.py` | 14,162 | `quorum_state_governance_adapter.py` | 310 | **Faithful.** `SyntaxError` on line 1, as expected of a flattened file. Confirmed 2026-09-03 this is *not* ATS's `gov4_kernel` — that question is closed. |
-| `solvar_stability_governance_source.py` | 33,137 | `solvar_stability_governance_adapter.py` | 471 | **Faithful.** Largest specimen. `SyntaxError` on line 1. |
-| `sre-system-resilience-evaluator-flattened.py` | 15,520 | `sre_system_resilience_evaluator_adapter.py` | 570 | **Faithful, with one documented divergence** — see failure-mode 4 below. Thresholds were made configurable rather than hardcoded; SRE's weights, field mapping and output are otherwise a literal reconstruction, regression-checked against the original numpy formula. |
-| `vanguard-behavioral-simulation-flattened.py` | 9,877 | `vanguard-behavioral-simulation.py` | 239 | **Faithful with one deliberate rename**: `PipelineCycleManager` → `VanguardBehavioralPipeline`, to resolve a name clash with an unrelated class of the same name in the GSA core file. A verifier that flags the rename as unfaithful is being too strict; one that misses it is not reading names. |
+| `governance_os_security_source.py` | 11,700 | `governance_os_security_adapter.py` | 299 | **Faithful — 13 debris classes, 10 adapter classes, 7 covered after normalisation (2026-09-07).** Source content is two concatenated AI-chat drafts of one design; all of it appears in the adapter's `*Module` classes. A verifier must accept this pair. |
+| `quorum_state_governance_source.py` | 14,162 | `quorum_state_governance_adapter.py` | 310 | **CONSOLIDATED / LOSSY — measured 2026-09-07.** 7 class-shaped tokens in the debris, 7 classes in the adapter, **2 covered after name normalisation**. Not a faithful reconstruction: a re-architecture into `*Module` classes. Confirmed 2026-09-03 this is *not* ATS's `gov4_kernel` — that question is closed. |
+| `solvar_stability_governance_source.py` | 33,137 | `solvar_stability_governance_adapter.py` | 471 | **CONSOLIDATED / LOSSY — measured 2026-09-07. The most divergent pair in the corpus.** 32 class-shaped tokens in the debris, 8 classes in the adapter, **3 covered (10%)**, adapter is 51% of the source size. Exactly one debris name (`EchoStateReservoir`) appears anywhere in the adapter text. Dropped without an evident home include `EthicsValidationEngine`, `EthicsViolation`, `OperationalReplayHasher`, `AdvisoryDirectiveEngine`, `HorizonForecastingEngine`. |
+| `sre-system-resilience-evaluator-flattened.py` | 15,520 | `sre_system_resilience_evaluator_adapter.py` | 570 | **FAITHFUL — measured 2026-09-07: 11 debris classes, 11 adapter classes, 11/11 covered.** With one documented divergence — see failure-mode 4 below. Thresholds were made configurable rather than hardcoded; SRE's weights, field mapping and output are otherwise a literal reconstruction, regression-checked against the original numpy formula. |
+| `vanguard-behavioral-simulation-flattened.py` | 9,877 | `vanguard-behavioral-simulation.py` | 239 | **FAITHFUL — measured 2026-09-07: 6 debris classes, 6 adapter classes, 5/6 covered (83%); the miss is the rename below.** One deliberate rename: `PipelineCycleManager` → `VanguardBehavioralPipeline`, to resolve a name clash with an unrelated class of the same name in the GSA core file. A verifier that flags the rename as unfaithful is being too strict; one that misses it is not reading names. |
+
+**Measured 2026-09-07 — the first real use of this corpus, and it corrected
+the corpus.** Every "Faithful" verdict above was inherited prose from an
+earlier README and had never been checked. Running
+`blackhole_extrapolator`'s residue detector over each flattened source and
+diffing the surviving class-name debris against the adapter beside it gives:
+
+| specimen | debris | adapter | covered | verdict |
+|---|---|---|---|---|
+| sre-system-resilience | 11 | 11 | 11 (100%) | faithful |
+| vanguard-behavioral | 6 | 6 | 5 (83%) | faithful |
+| governance_os_security | 13 | 10 | 7 (70%) | faithful |
+| quorum_state_governance | 7 | 7 | 2 (29%) | **consolidated / lossy** |
+| solvar_stability | 32 | 8 | 3 (10%) | **consolidated / lossy** |
+
+Two of five verdicts were wrong. That is the corpus working: an answer key
+whose answers had never been measured is an assertion, and this is the
+measurement.
+
+Read the coverage number for what it is. It compares class-name inventories
+after normalising common suffixes, so it detects **dropped or re-architected
+surface**, not semantic infidelity. A reconstruction could score 100% and
+still have changed behaviour, and a heavy but honest re-architecture scores
+low without anything being lost. What the low scores establish is that
+"faithful" was never checked and is not supported for those two.
 
 **What consumes this:** Conservation Kernel (does it accept a faithful
 transformation on material it did not author?), CCC's anti-probability matcher
