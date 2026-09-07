@@ -31,7 +31,7 @@ reports **0 lines** to `wc -l` while carrying 10–33 KB of content.
 |---|---|---|---|---|
 | `governance_os_security_source.py` | 11,700 | `governance_os_security_adapter.py` | 299 | **Faithful — 13 debris classes, 10 adapter classes, 7 covered after normalisation (2026-09-07).** Source content is two concatenated AI-chat drafts of one design; all of it appears in the adapter's `*Module` classes. A verifier must accept this pair. |
 | `quorum_state_governance_source.py` | 14,162 | `quorum_state_governance_adapter.py` | 310 | **CONSOLIDATED / LOSSY — measured 2026-09-07.** 7 class-shaped tokens in the debris, 7 classes in the adapter, **2 covered after name normalisation**. Not a faithful reconstruction: a re-architecture into `*Module` classes. Confirmed 2026-09-03 this is *not* ATS's `gov4_kernel` — that question is closed. |
-| `solvar_stability_governance_source.py` | 33,137 | `solvar_stability_governance_adapter.py` | 471 | **CONSOLIDATED / LOSSY — measured 2026-09-07. The most divergent pair in the corpus.** 32 class-shaped tokens in the debris, 8 classes in the adapter, **3 covered (10%)**, adapter is 51% of the source size. Exactly one debris name (`EchoStateReservoir`) appears anywhere in the adapter text. Dropped without an evident home include `EthicsValidationEngine`, `EthicsViolation`, `OperationalReplayHasher`, `AdvisoryDirectiveEngine`, `HorizonForecastingEngine`. |
+| `solvar_stability_governance_source.py` | 33,137 | **`solvar_stability_governance_cleanup.py`** | 32 classes | **FAITHFUL — 31 of 32 debris classes covered (97%), corrected 2026-09-07.** The specimen was originally paired with `solvar_stability_governance_adapter.py` (8 classes, 3 covered, 10%) and recorded as the most divergent artifact in the corpus. **That was a pairing error, not a lossy reconstruction.** An ecosystem-wide inventory diff found a second reconstruction of the same source carrying all 32 classes, including every capability the earlier note said had been dropped — `EthicsValidationEngine`, `EthicsViolation`, `OperationalReplayHasher`, `AdvisoryDirectiveEngine`, `HorizonForecastingEngine` are all present. The 8-class adapter is a genuine *consolidation* of the same material and is kept beside the pair as a second, lossier reconstruction of one source — which is itself the more interesting specimen. |
 | `sre-system-resilience-evaluator-flattened.py` | 15,520 | `sre_system_resilience_evaluator_adapter.py` | 570 | **FAITHFUL — measured 2026-09-07: 11 debris classes, 11 adapter classes, 11/11 covered.** With one documented divergence — see failure-mode 4 below. Thresholds were made configurable rather than hardcoded; SRE's weights, field mapping and output are otherwise a literal reconstruction, regression-checked against the original numpy formula. |
 | `vanguard-behavioral-simulation-flattened.py` | 9,877 | `vanguard-behavioral-simulation.py` | 239 | **FAITHFUL — measured 2026-09-07: 6 debris classes, 6 adapter classes, 5/6 covered (83%); the miss is the rename below.** One deliberate rename: `PipelineCycleManager` → `VanguardBehavioralPipeline`, to resolve a name clash with an unrelated class of the same name in the GSA core file. A verifier that flags the rename as unfaithful is being too strict; one that misses it is not reading names. |
 
@@ -47,11 +47,22 @@ diffing the surviving class-name debris against the adapter beside it gives:
 | vanguard-behavioral | 6 | 6 | 5 (83%) | faithful |
 | governance_os_security | 13 | 10 | 7 (70%) | faithful |
 | quorum_state_governance | 7 | 7 | 2 (29%) | **consolidated / lossy** |
-| solvar_stability | 32 | 8 | 3 (10%) | **consolidated / lossy** |
+| solvar_stability (vs `_cleanup`) | 32 | 32 | 31 (97%) | faithful |
+| solvar_stability (vs `_adapter`) | 32 | 8 | 3 (10%) | consolidation of the same source |
 
-Two of five verdicts were wrong. That is the corpus working: an answer key
-whose answers had never been measured is an assertion, and this is the
-measurement.
+Two of five verdicts were wrong on the first pass, and one of those
+corrections was itself wrong: solvar was recorded as the corpus's most
+divergent artifact on the strength of a comparison against the wrong file. An
+ecosystem-wide inventory diff found a second reconstruction of the same source
+at 97% coverage sitting in another directory. Nothing had been lost; the pair
+had been assembled from the wrong half.
+
+Both errors are the same shape and worth naming: a verdict recorded without
+the measurement that would support it. The first came from inherited prose,
+the second from measuring against the first candidate found rather than
+looking for all of them. An answer key whose answers have never been measured
+is an assertion; one measured against an unverified counterpart is a
+better-dressed assertion.
 
 Read the coverage number for what it is. It compares class-name inventories
 after normalising common suffixes, so it detects **dropped or re-architected

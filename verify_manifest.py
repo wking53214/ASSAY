@@ -53,7 +53,10 @@ def load(path: Path):
 PAIRS = [
     ("pairs/governance_os_security_source.py", "pairs/governance_os_security_adapter.py"),
     ("pairs/quorum_state_governance_source.py", "pairs/quorum_state_governance_adapter.py"),
-    ("pairs/solvar_stability_governance_source.py", "pairs/solvar_stability_governance_adapter.py"),
+    # Paired with _cleanup, not _adapter: the adapter is a lossier
+    # consolidation of the same source and pairing against it recorded a false
+    # "most divergent artifact in the corpus" verdict for a day.
+    ("pairs/solvar_stability_governance_source.py", "pairs/solvar_stability_governance_cleanup.py"),
     ("pairs/sre-system-resilience-evaluator-flattened.py", "pairs/sre_system_resilience_evaluator_adapter.py"),
     ("pairs/vanguard-behavioral-simulation-flattened.py", "pairs/vanguard-behavioral-simulation.py"),
 ]
