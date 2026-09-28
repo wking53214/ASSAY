@@ -1,5 +1,14 @@
 # TOUCHSTONE
 
+**Role in the governed action stack:** ASSURANCE — non-synthetic specimen corpus for scoring verifiers. **Not a system and not on the live decision path.** Pair with [ghost_tools](https://github.com/wking53214/ghost_tools) and [SWIZZLE](https://github.com/wking53214/SWIZZLE). Hub: [observe-perceive](https://github.com/wking53214/observe-perceive).
+
+```text
+Live path: Admission → OBSERVE/Keys → Locks → PERCEIVE → Decision → Conservation → Execution → Custody
+Assurance: ghost_tools · SWIZZLE · TOUCHSTONE
+```
+
+---
+
 **A specimen corpus. Not a system.**
 
 A touchstone does nothing by itself. You streak gold across it and read the
