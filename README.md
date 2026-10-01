@@ -32,4 +32,4 @@ Manifest records: specimen path, planted defect class, expected detector outcome
 VANGUARD (retired) → specimens here → SWIZZLE worlds → ghost_buster
 ```
 
-Proprietary. Copyright (c) 2026 William King. All rights reserved. See LICENSE.
+Proprietary. Copyright (c) 2026 William N. King. All rights reserved. See LICENSE.
