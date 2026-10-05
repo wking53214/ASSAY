@@ -199,4 +199,4 @@ README already documented this honestly ("not a working integration").
 >
 > ## License
 >
-> Apache-2.0 — see `LICENSE` (matching the rest of this repo ecosystem).
+> Proprietary. All rights reserved. See `LICENSE`.
