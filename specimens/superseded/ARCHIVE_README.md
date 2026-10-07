@@ -152,6 +152,24 @@ so `Dict`/`Any` in its type annotations raise `NameError` at class-definition
 time, and `system_logger` is referenced but never defined. VANGUARD's own
 README already documented this honestly ("not a working integration").
 
+### Review findings, 2026-10-07
+
+Recorded during the full-depth review before the VANGUARD repo was buried in
+`wking53214/Graveyard` (`vanguard/2026-10-07-full-retirement/`). These describe
+what the specimens above do, so the findings can be checked against them.
+
+- **Audit writer fails open.** A failed log write is ignored, so a tamper-evident
+  record can silently go missing. The same pattern appears in the flattened
+  simulation and in the reconstructed simulation under `specimens/pairs/`.
+- **Public fallback signing key.** If the signing key environment variable is
+  unset, the audit code signs with a default value that is visible in this repo.
+- **Docstring claims what the code does not do.** The simulation docstring says
+  echo state network and Lyapunov stability; neither is implemented in the file.
+  Those ideas are implemented in URE and DGK.
+- **Hardcoded keystone string.** The wrapper passes the placeholder "Coldfire"
+  as its keystone secret. The wrapper never runs.
+- **Wrapper cannot run.** It uses names it never defines.
+
 ### VANGUARD's README, as it stood before archival
 
 > # VANGUARD
