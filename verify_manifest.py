@@ -154,6 +154,27 @@ if sandbox.is_file():
             sys.modules.pop("sandbox_specimen", None)
 
 
+# --- 6. Published registry ---------------------------------------------------
+# touchstone_production/registry.json is what consumers (Elegant) read. It is
+# generated from manifest_registry.py; a stale or hand-edited copy hands them
+# an answer key that no longer matches this file.
+
+sys.path.insert(0, str(ROOT))
+try:
+    from touchstone_production import manifest_registry as _mr
+
+    check("registry: every registered specimen file exists", not _mr.missing_paths(ROOT))
+    check("registry: registry.json is published", _mr.REGISTRY_PATH.is_file())
+    if _mr.REGISTRY_PATH.is_file():
+        check("registry: registry.json matches manifest_registry.py "
+              "(regenerate with: python3 -m touchstone_production.manifest_registry --write)",
+              _mr.REGISTRY_PATH.read_text(encoding="utf-8") == _mr.render(ROOT))
+except Exception as exc:  # noqa: BLE001
+    check(f"registry: manifest_registry loads ({type(exc).__name__}: {exc})", False)
+finally:
+    sys.path.remove(str(ROOT))
+
+
 # --- report ------------------------------------------------------------------
 
 failures = [label for ok, label in results if not ok]
