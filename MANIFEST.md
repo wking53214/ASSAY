@@ -238,7 +238,7 @@ A verifier run over TOUCHSTONE should be reported as four numbers, not one:
 ## Verifying the corpus itself
 
 `python3 verify_manifest.py` checks that every specimen still behaves the way
-this manifest says it does — 26 claims, all asserted by execution.
+this manifest says it does — 29 claims, all asserted by execution. The last three guard `touchstone_production/registry.json`, the machine-readable copy of this answer key that Elegant reads; regenerate it with `python3 -m touchstone_production.manifest_registry --write` whenever an answer here changes.
 
 It deliberately asserts the **damage**. A specimen that quietly got fixed
 (someone reformatting a flattened file, someone defining UZTC's missing method)
