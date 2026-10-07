@@ -101,8 +101,11 @@ MANIFEST_SPECIMENS: List[dict] = [
 ]
 
 # --- 4. Superseded: negative examples --------------------------------------
+# Only the files MANIFEST.md section 4 names. vanguard-unified-governance-
+# wrapper.py is documented in specimens/superseded/ARCHIVE_README.md, not in
+# MANIFEST.md, so it is left out until MANIFEST.md records an answer for it.
 for _name in ["sovereign-governance-stack-v1.py", "sovereign-governance-stack-v2-expanded.py",
-              "unified-sovereign-kernel-wrapper.py", "vanguard-unified-governance-wrapper.py",
+              "unified-sovereign-kernel-wrapper.py",
               "citadel-processor-router-flattened.py", "resilience-config-dataclass.py",
               "ure-universal-resilience-engine-flattened.py"]:
     MANIFEST_SPECIMENS.append(dict(
