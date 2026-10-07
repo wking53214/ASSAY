@@ -543,28 +543,6 @@
       "superseded"
     ]
   },
-  "superseded_vanguard_unified_governance_wrapper": {
-    "epistemic_status": "RECORDED_IN_MANIFEST",
-    "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
-    "expected_verdict": "NOT_BEST_AVAILABLE",
-    "failure_mode": "superseded",
-    "intended_test": "superseded",
-    "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
-    "metadata": {
-      "companions": [],
-      "manifest_section": "4"
-    },
-    "path": "specimens/superseded/vanguard-unified-governance-wrapper.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 4",
-    "source_revision": "MANIFEST.md",
-    "specimen_class": "SUPERSEDED",
-    "specimen_id": "superseded_vanguard_unified_governance_wrapper",
-    "specimen_version": "1.0.0",
-    "tags": [
-      "superseded"
-    ]
-  },
   "uztc_progression": {
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Looks better at every step by parses/imports; the endpoint is the least functional.",
