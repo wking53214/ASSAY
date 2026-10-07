@@ -1,6 +1,6 @@
 # TOUCHSTONE
 
-**Specimen corpus, not a system.** Real code, really damaged, with independently-known correct answers. Fuel for [`ghost_tools`](https://github.com/wking53214/ghost_tools) and [`SWIZZLE`](https://github.com/wking53214/SWIZZLE). Absorbed retired [`VANGUARD`](https://github.com/wking53214/VANGUARD) files as evidence.
+**Specimen corpus, not a system.** Real code, really damaged, with independently-known correct answers. Fuel for [`ghost_tools`](https://github.com/wking53214/ghost_tools), [`SWIZZLE`](https://github.com/wking53214/SWIZZLE) and [`Elegant`](https://github.com/wking53214/Elegant), which read the answer key as data from `touchstone_production/registry.json`. Absorbed retired [`VANGUARD`](https://github.com/wking53214/VANGUARD) files as evidence.
 
 ## 1. Pipeline Position & Role
 
@@ -24,12 +24,15 @@ Independently-known answers. Manifest verification. Specimens must not be "fixed
 
 ## 6. Inputs, Outputs & Type Contracts
 
-Manifest records: specimen path, planted defect class, expected detector outcome.
+Manifest records: specimen path, specimen class, expected verdict, MANIFEST section. Published as `touchstone_production/registry.json`; regenerate with `python3 -m touchstone_production.manifest_registry --write`.
 
 ## 7. Stack Integration Topology
 
 ```text
-VANGUARD (retired) → specimens here → SWIZZLE worlds → ghost_buster
+VANGUARD (retired) → specimens here
+MANIFEST.md → touchstone_production/registry.json (generated; guarded by verify_manifest.py)
+registry.json → swizzle touchstone → ghost_buster scored (also in ghost_tools CI)
+registry.json → Elegant TouchstoneAdapter
 ```
 
 Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE). Copyright 2026 William N. King.
