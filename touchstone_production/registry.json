@@ -1,0 +1,593 @@
+{
+  "fm_3_1_silent_pass": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Whole file is one comment: imports cleanly, defines zero names.",
+    "expected_verdict": "REFUSE",
+    "failure_mode": "silent_pass",
+    "intended_test": "failure_mode",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "3.1"
+    },
+    "path": "specimens/pairs/governance_os_security_source.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 3.1",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "FAILURE_MODE",
+    "specimen_id": "fm_3_1_silent_pass",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "failure_mode"
+    ]
+  },
+  "fm_3_2_overclaim": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Described as a 7-layer construct; its only method raises AttributeError.",
+    "expected_verdict": "CLAIM_FALSE",
+    "failure_mode": "overclaim",
+    "intended_test": "failure_mode",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "3.2"
+    },
+    "path": "specimens/progressions/uztc/uztc-construct-v1.2-validated.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 3.2",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "FAILURE_MODE",
+    "specimen_id": "fm_3_2_overclaim",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "failure_mode"
+    ]
+  },
+  "fm_3_3_flattening_duplicate": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Same content twice, one flattened; wrapper/artifact_3.py is canonical.",
+    "expected_verdict": "SAME_CONTENT",
+    "failure_mode": "flattening_duplicate",
+    "intended_test": "failure_mode",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [
+        "specimens/reference/secure/artifact_1.py"
+      ],
+      "manifest_section": "3.3"
+    },
+    "path": "specimens/reference/wrapper/artifact_3.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 3.3",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "FAILURE_MODE",
+    "specimen_id": "fm_3_3_flattening_duplicate",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "failure_mode"
+    ]
+  },
+  "fm_3_4_unreachable_branch": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "EvaluationVerdict.CRITICAL cannot be reached through evaluate_system_telemetry().",
+    "expected_verdict": "UNREACHABLE",
+    "failure_mode": "unreachable_branch",
+    "intended_test": "failure_mode",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "3.4"
+    },
+    "path": "specimens/pairs/sre_system_resilience_evaluator_adapter.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 3.4",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "FAILURE_MODE",
+    "specimen_id": "fm_3_4_unreachable_branch",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "failure_mode"
+    ]
+  },
+  "fm_3_5_reskinned_duplicate": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Identical energy formula and thresholds under different class names.",
+    "expected_verdict": "SAME_DESIGN_RESKINNED",
+    "failure_mode": "reskinned_duplicate",
+    "intended_test": "failure_mode",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [
+        "specimens/pairs/sre_system_resilience_evaluator_adapter.py"
+      ],
+      "manifest_section": "3.5"
+    },
+    "path": "specimens/pairs/solvar_stability_governance_adapter.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 3.5",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "FAILURE_MODE",
+    "specimen_id": "fm_3_5_reskinned_duplicate",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "failure_mode"
+    ]
+  },
+  "pair_governance_os_security": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Flattened source and its reconstruction; 7 of 13 debris classes covered after normalisation.",
+    "expected_verdict": "FAITHFUL",
+    "failure_mode": null,
+    "intended_test": "reconstruction_pair",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [
+        "specimens/pairs/governance_os_security_adapter.py"
+      ],
+      "manifest_section": "1"
+    },
+    "path": "specimens/pairs/governance_os_security_source.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "RECONSTRUCTION_PAIR",
+    "specimen_id": "pair_governance_os_security",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reconstruction_pair"
+    ]
+  },
+  "pair_quorum_state_governance": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Re-architecture into *Module classes; 2 of 7 debris classes covered.",
+    "expected_verdict": "CONSOLIDATED_LOSSY",
+    "failure_mode": "lossy_reconstruction",
+    "intended_test": "reconstruction_pair",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [
+        "specimens/pairs/quorum_state_governance_adapter.py"
+      ],
+      "manifest_section": "1"
+    },
+    "path": "specimens/pairs/quorum_state_governance_source.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "RECONSTRUCTION_PAIR",
+    "specimen_id": "pair_quorum_state_governance",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reconstruction_pair"
+    ]
+  },
+  "pair_solvar_stability_consolidation": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Second, lossier reconstruction of the same source: 3 of 32 debris classes covered.",
+    "expected_verdict": "CONSOLIDATION_OF_SAME_SOURCE",
+    "failure_mode": "lossy_reconstruction",
+    "intended_test": "reconstruction_pair",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [
+        "specimens/pairs/solvar_stability_governance_adapter.py"
+      ],
+      "manifest_section": "1"
+    },
+    "path": "specimens/pairs/solvar_stability_governance_source.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "RECONSTRUCTION_PAIR",
+    "specimen_id": "pair_solvar_stability_consolidation",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reconstruction_pair"
+    ]
+  },
+  "pair_solvar_stability_governance": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Paired with _cleanup: 31 of 32 debris classes covered.",
+    "expected_verdict": "FAITHFUL",
+    "failure_mode": null,
+    "intended_test": "reconstruction_pair",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "manifest_section": "1"
+    },
+    "path": "specimens/pairs/solvar_stability_governance_source.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "RECONSTRUCTION_PAIR",
+    "specimen_id": "pair_solvar_stability_governance",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reconstruction_pair"
+    ]
+  },
+  "pair_sre_system_resilience": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "11 of 11 debris classes covered; thresholds made configurable.",
+    "expected_verdict": "FAITHFUL",
+    "failure_mode": null,
+    "intended_test": "reconstruction_pair",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [
+        "specimens/pairs/sre_system_resilience_evaluator_adapter.py"
+      ],
+      "manifest_section": "1"
+    },
+    "path": "specimens/pairs/sre-system-resilience-evaluator-flattened.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "RECONSTRUCTION_PAIR",
+    "specimen_id": "pair_sre_system_resilience",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reconstruction_pair"
+    ]
+  },
+  "pair_vanguard_behavioral_simulation": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "5 of 6 covered; the miss is a deliberate, documented rename.",
+    "expected_verdict": "FAITHFUL",
+    "failure_mode": null,
+    "intended_test": "reconstruction_pair",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [
+        "specimens/pairs/vanguard-behavioral-simulation.py"
+      ],
+      "manifest_section": "1"
+    },
+    "path": "specimens/pairs/vanguard-behavioral-simulation-flattened.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "RECONSTRUCTION_PAIR",
+    "specimen_id": "pair_vanguard_behavioral_simulation",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reconstruction_pair"
+    ]
+  },
+  "reference_agent_factory_tactical_agents": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
+    "expected_verdict": "ACCEPT",
+    "failure_mode": null,
+    "intended_test": "reference",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "5"
+    },
+    "path": "specimens/reference/agent-factory-tactical-agents.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "REFERENCE",
+    "specimen_id": "reference_agent_factory_tactical_agents",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reference"
+    ]
+  },
+  "reference_citadel_v1_2": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
+    "expected_verdict": "ACCEPT",
+    "failure_mode": null,
+    "intended_test": "reference",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "5"
+    },
+    "path": "specimens/reference/citadel_v1.2.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "REFERENCE",
+    "specimen_id": "reference_citadel_v1_2",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reference"
+    ]
+  },
+  "reference_code_repo_governance_and_gsa_core": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
+    "expected_verdict": "ACCEPT",
+    "failure_mode": null,
+    "intended_test": "reference",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "5"
+    },
+    "path": "specimens/reference/code-repo-governance-and-gsa-core.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "REFERENCE",
+    "specimen_id": "reference_code_repo_governance_and_gsa_core",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reference"
+    ]
+  },
+  "reference_resilience_stability_kernel": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
+    "expected_verdict": "ACCEPT",
+    "failure_mode": null,
+    "intended_test": "reference",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "5"
+    },
+    "path": "specimens/reference/resilience_stability_kernel.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "REFERENCE",
+    "specimen_id": "reference_resilience_stability_kernel",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reference"
+    ]
+  },
+  "reference_secure_artifact_2": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
+    "expected_verdict": "ACCEPT",
+    "failure_mode": null,
+    "intended_test": "reference",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "5"
+    },
+    "path": "specimens/reference/secure/artifact_2.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "REFERENCE",
+    "specimen_id": "reference_secure_artifact_2",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reference"
+    ]
+  },
+  "reference_solvar_stability_governance_cleanup": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Genuinely runs (needs matplotlib); refusing it is a false refusal.",
+    "expected_verdict": "ACCEPT",
+    "failure_mode": null,
+    "intended_test": "reference",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "5"
+    },
+    "path": "specimens/pairs/solvar_stability_governance_cleanup.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "REFERENCE",
+    "specimen_id": "reference_solvar_stability_governance_cleanup",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reference"
+    ]
+  },
+  "reference_sovereign_kernel": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
+    "expected_verdict": "ACCEPT",
+    "failure_mode": null,
+    "intended_test": "reference",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "5"
+    },
+    "path": "specimens/reference/sovereign_kernel.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "REFERENCE",
+    "specimen_id": "reference_sovereign_kernel",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "reference"
+    ]
+  },
+  "superseded_citadel_processor_router_flattened": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
+    "expected_verdict": "NOT_BEST_AVAILABLE",
+    "failure_mode": "superseded",
+    "intended_test": "superseded",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "4"
+    },
+    "path": "specimens/superseded/citadel-processor-router-flattened.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "SUPERSEDED",
+    "specimen_id": "superseded_citadel_processor_router_flattened",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "superseded"
+    ]
+  },
+  "superseded_resilience_config_dataclass": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
+    "expected_verdict": "NOT_BEST_AVAILABLE",
+    "failure_mode": "superseded",
+    "intended_test": "superseded",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "4"
+    },
+    "path": "specimens/superseded/resilience-config-dataclass.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "SUPERSEDED",
+    "specimen_id": "superseded_resilience_config_dataclass",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "superseded"
+    ]
+  },
+  "superseded_sovereign_governance_stack_v1": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
+    "expected_verdict": "NOT_BEST_AVAILABLE",
+    "failure_mode": "superseded",
+    "intended_test": "superseded",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "4"
+    },
+    "path": "specimens/superseded/sovereign-governance-stack-v1.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "SUPERSEDED",
+    "specimen_id": "superseded_sovereign_governance_stack_v1",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "superseded"
+    ]
+  },
+  "superseded_sovereign_governance_stack_v2_expanded": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
+    "expected_verdict": "NOT_BEST_AVAILABLE",
+    "failure_mode": "superseded",
+    "intended_test": "superseded",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "4"
+    },
+    "path": "specimens/superseded/sovereign-governance-stack-v2-expanded.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "SUPERSEDED",
+    "specimen_id": "superseded_sovereign_governance_stack_v2_expanded",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "superseded"
+    ]
+  },
+  "superseded_unified_sovereign_kernel_wrapper": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
+    "expected_verdict": "NOT_BEST_AVAILABLE",
+    "failure_mode": "superseded",
+    "intended_test": "superseded",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "4"
+    },
+    "path": "specimens/superseded/unified-sovereign-kernel-wrapper.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "SUPERSEDED",
+    "specimen_id": "superseded_unified_sovereign_kernel_wrapper",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "superseded"
+    ]
+  },
+  "superseded_ure_universal_resilience_engine_flattened": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
+    "expected_verdict": "NOT_BEST_AVAILABLE",
+    "failure_mode": "superseded",
+    "intended_test": "superseded",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "4"
+    },
+    "path": "specimens/superseded/ure-universal-resilience-engine-flattened.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "SUPERSEDED",
+    "specimen_id": "superseded_ure_universal_resilience_engine_flattened",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "superseded"
+    ]
+  },
+  "superseded_vanguard_unified_governance_wrapper": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
+    "expected_verdict": "NOT_BEST_AVAILABLE",
+    "failure_mode": "superseded",
+    "intended_test": "superseded",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "4"
+    },
+    "path": "specimens/superseded/vanguard-unified-governance-wrapper.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "SUPERSEDED",
+    "specimen_id": "superseded_vanguard_unified_governance_wrapper",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "superseded"
+    ]
+  },
+  "uztc_progression": {
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Looks better at every step by parses/imports; the endpoint is the least functional.",
+    "expected_verdict": "NOT_MONOTONIC_IMPROVEMENT",
+    "failure_mode": "false_progression",
+    "intended_test": "version_progression",
+    "isolation_required": true,
+    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "metadata": {
+      "companions": [
+        "specimens/progressions/uztc/uztc-construct-v1.0-flattened.py",
+        "specimens/progressions/uztc/uztc-construct-v1.1-purged.py"
+      ],
+      "manifest_section": "2"
+    },
+    "path": "specimens/progressions/uztc/uztc-construct-v1.2-validated.py",
+    "provenance": "TOUCHSTONE MANIFEST.md section 2",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "VERSION_PROGRESSION",
+    "specimen_id": "uztc_progression",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "version_progression"
+    ]
+  }
+}
