@@ -1,6 +1,6 @@
 """The MANIFEST.md answer key, as a machine-readable registry.
 
-MANIFEST.md is written for people. Consumers such as Elegant need the same
+MANIFEST.md is written for people. Consumers such as Warden need the same
 answers as data: which file, what class of specimen, what verdict a working
 verifier must reach. This module is that translation, and nothing more.
 
@@ -16,8 +16,8 @@ Rules this file keeps:
 - `registry.json` is generated from this table, never hand-edited.
   `verify_manifest.py` rebuilds it and fails if the committed copy differs.
 
-    python3 -m touchstone_production.manifest_registry          # print
-    python3 -m touchstone_production.manifest_registry --write  # regenerate
+    python3 -m assay_production.manifest_registry          # print
+    python3 -m assay_production.manifest_registry --write  # regenerate
 """
 from __future__ import annotations
 
@@ -137,7 +137,7 @@ def build_manifest_registry(root: Path = ROOT) -> SpecimenRegistry:
             specimen_class=spec["cls"], source_revision="MANIFEST.md",
             path=spec["path"], expected_behavior=spec["what"],
             failure_mode=spec["failure_mode"], epistemic_status="RECORDED_IN_MANIFEST",
-            provenance=f"TOUCHSTONE MANIFEST.md section {spec['section']}",
+            provenance=f"ASSAY MANIFEST.md section {spec['section']}",
             intended_test=spec["cls"].lower(), expected_verdict=spec["verdict"],
             tags=[spec["cls"].lower()],
             metadata={"manifest_section": spec["section"], "companions": list(spec["companions"])},
