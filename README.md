@@ -1,5 +1,7 @@
 # ASSAY
 
+*Formerly TOUCHSTONE. Renamed in October 2026; the role is unchanged.*
+
 **Specimen corpus, not a system.** Real code, really damaged, with independently-known correct answers. Fuel for [`ghost_tools`](https://github.com/wking53214/ghost_tools), [`SWIZZLE`](https://github.com/wking53214/SWIZZLE) and [`Warden`](https://github.com/wking53214/Warden), which read the answer key as data from `assay_production/registry.json`. Absorbed retired [`VANGUARD`](https://github.com/wking53214/VANGUARD) files as evidence.
 
 ## 1. Pipeline Position & Role
