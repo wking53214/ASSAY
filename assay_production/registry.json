@@ -12,7 +12,7 @@
       "manifest_section": "3.1"
     },
     "path": "specimens/pairs/governance_os_security_source.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 3.1",
+    "provenance": "ASSAY MANIFEST.md section 3.1",
     "source_revision": "MANIFEST.md",
     "specimen_class": "FAILURE_MODE",
     "specimen_id": "fm_3_1_silent_pass",
@@ -34,7 +34,7 @@
       "manifest_section": "3.2"
     },
     "path": "specimens/progressions/uztc/uztc-construct-v1.2-validated.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 3.2",
+    "provenance": "ASSAY MANIFEST.md section 3.2",
     "source_revision": "MANIFEST.md",
     "specimen_class": "FAILURE_MODE",
     "specimen_id": "fm_3_2_overclaim",
@@ -58,7 +58,7 @@
       "manifest_section": "3.3"
     },
     "path": "specimens/reference/wrapper/artifact_3.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 3.3",
+    "provenance": "ASSAY MANIFEST.md section 3.3",
     "source_revision": "MANIFEST.md",
     "specimen_class": "FAILURE_MODE",
     "specimen_id": "fm_3_3_flattening_duplicate",
@@ -80,7 +80,7 @@
       "manifest_section": "3.4"
     },
     "path": "specimens/pairs/sre_system_resilience_evaluator_adapter.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 3.4",
+    "provenance": "ASSAY MANIFEST.md section 3.4",
     "source_revision": "MANIFEST.md",
     "specimen_class": "FAILURE_MODE",
     "specimen_id": "fm_3_4_unreachable_branch",
@@ -104,7 +104,7 @@
       "manifest_section": "3.5"
     },
     "path": "specimens/pairs/solvar_stability_governance_adapter.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 3.5",
+    "provenance": "ASSAY MANIFEST.md section 3.5",
     "source_revision": "MANIFEST.md",
     "specimen_class": "FAILURE_MODE",
     "specimen_id": "fm_3_5_reskinned_duplicate",
@@ -128,7 +128,7 @@
       "manifest_section": "1"
     },
     "path": "specimens/pairs/governance_os_security_source.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "provenance": "ASSAY MANIFEST.md section 1",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_governance_os_security",
@@ -152,7 +152,7 @@
       "manifest_section": "1"
     },
     "path": "specimens/pairs/quorum_state_governance_source.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "provenance": "ASSAY MANIFEST.md section 1",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_quorum_state_governance",
@@ -176,7 +176,7 @@
       "manifest_section": "1"
     },
     "path": "specimens/pairs/solvar_stability_governance_source.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "provenance": "ASSAY MANIFEST.md section 1",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_solvar_stability_consolidation",
@@ -200,7 +200,7 @@
       "manifest_section": "1"
     },
     "path": "specimens/pairs/solvar_stability_governance_source.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "provenance": "ASSAY MANIFEST.md section 1",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_solvar_stability_governance",
@@ -224,7 +224,7 @@
       "manifest_section": "1"
     },
     "path": "specimens/pairs/sre-system-resilience-evaluator-flattened.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "provenance": "ASSAY MANIFEST.md section 1",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_sre_system_resilience",
@@ -248,7 +248,7 @@
       "manifest_section": "1"
     },
     "path": "specimens/pairs/vanguard-behavioral-simulation-flattened.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 1",
+    "provenance": "ASSAY MANIFEST.md section 1",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_vanguard_behavioral_simulation",
@@ -270,7 +270,7 @@
       "manifest_section": "5"
     },
     "path": "specimens/reference/agent-factory-tactical-agents.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "provenance": "ASSAY MANIFEST.md section 5",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_agent_factory_tactical_agents",
@@ -292,7 +292,7 @@
       "manifest_section": "5"
     },
     "path": "specimens/reference/citadel_v1.2.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "provenance": "ASSAY MANIFEST.md section 5",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_citadel_v1_2",
@@ -314,7 +314,7 @@
       "manifest_section": "5"
     },
     "path": "specimens/reference/code-repo-governance-and-gsa-core.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "provenance": "ASSAY MANIFEST.md section 5",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_code_repo_governance_and_gsa_core",
@@ -336,7 +336,7 @@
       "manifest_section": "5"
     },
     "path": "specimens/reference/resilience_stability_kernel.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "provenance": "ASSAY MANIFEST.md section 5",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_resilience_stability_kernel",
@@ -358,7 +358,7 @@
       "manifest_section": "5"
     },
     "path": "specimens/reference/secure/artifact_2.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "provenance": "ASSAY MANIFEST.md section 5",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_secure_artifact_2",
@@ -380,7 +380,7 @@
       "manifest_section": "5"
     },
     "path": "specimens/pairs/solvar_stability_governance_cleanup.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "provenance": "ASSAY MANIFEST.md section 5",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_solvar_stability_governance_cleanup",
@@ -402,7 +402,7 @@
       "manifest_section": "5"
     },
     "path": "specimens/reference/sovereign_kernel.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 5",
+    "provenance": "ASSAY MANIFEST.md section 5",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_sovereign_kernel",
@@ -424,7 +424,7 @@
       "manifest_section": "4"
     },
     "path": "specimens/superseded/citadel-processor-router-flattened.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "provenance": "ASSAY MANIFEST.md section 4",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_citadel_processor_router_flattened",
@@ -446,7 +446,7 @@
       "manifest_section": "4"
     },
     "path": "specimens/superseded/resilience-config-dataclass.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "provenance": "ASSAY MANIFEST.md section 4",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_resilience_config_dataclass",
@@ -468,7 +468,7 @@
       "manifest_section": "4"
     },
     "path": "specimens/superseded/sovereign-governance-stack-v1.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "provenance": "ASSAY MANIFEST.md section 4",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_sovereign_governance_stack_v1",
@@ -490,7 +490,7 @@
       "manifest_section": "4"
     },
     "path": "specimens/superseded/sovereign-governance-stack-v2-expanded.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "provenance": "ASSAY MANIFEST.md section 4",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_sovereign_governance_stack_v2_expanded",
@@ -512,7 +512,7 @@
       "manifest_section": "4"
     },
     "path": "specimens/superseded/unified-sovereign-kernel-wrapper.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "provenance": "ASSAY MANIFEST.md section 4",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_unified_sovereign_kernel_wrapper",
@@ -534,7 +534,7 @@
       "manifest_section": "4"
     },
     "path": "specimens/superseded/ure-universal-resilience-engine-flattened.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 4",
+    "provenance": "ASSAY MANIFEST.md section 4",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_ure_universal_resilience_engine_flattened",
@@ -559,7 +559,7 @@
       "manifest_section": "2"
     },
     "path": "specimens/progressions/uztc/uztc-construct-v1.2-validated.py",
-    "provenance": "TOUCHSTONE MANIFEST.md section 2",
+    "provenance": "ASSAY MANIFEST.md section 2",
     "source_revision": "MANIFEST.md",
     "specimen_class": "VERSION_PROGRESSION",
     "specimen_id": "uztc_progression",

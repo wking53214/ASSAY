@@ -53,7 +53,7 @@ def register_cns_specimens(registry: SpecimenRegistry, source_revision: str = "u
             specimen_class=spec["specimen_class"], source_revision=source_revision,
             path=f"specimens/cns/{spec['specimen_id']}.py",
             expected_behavior=spec["expected_behavior"], failure_mode=spec.get("failure_mode"),
-            epistemic_status=spec["epistemic_status"], provenance="TOUCHSTONE CNS-readiness laboratory",
+            epistemic_status=spec["epistemic_status"], provenance="ASSAY CNS-readiness laboratory",
             intended_test=spec["intended_test"], expected_verdict=spec["expected_verdict"],
             tags=list(spec.get("tags", [])),
         ))
