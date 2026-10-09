@@ -1,6 +1,6 @@
 """Versioned specimen registry with isolated execution."""
 from __future__ import annotations
-import ast, json, resource, subprocess, sys, tempfile
+import ast, json
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -22,7 +22,20 @@ class IsolationResult:
                 "success": self.success, "error": self.error}
 
 class IsolationExecutor:
+    """Run a specimen as a script, under the sandbox in ``sandbox.py``.
+
+    History, stated plainly: the first version of this class ran the file in a
+    subprocess with limits but used the shared temp directory as its working
+    directory, had no write guard and no network isolation, and nothing in the
+    repository called it (the verifier imported specimens in its own process).
+    It now delegates to ``sandbox.run_in_sandbox`` and the verifier uses the
+    same sandbox. ``success`` also requires that the guard was not tripped.
+    """
+
     def __init__(self, timeout_seconds=30.0, memory_mb=256, cpu_seconds=15):
+        # memory_mb and cpu_seconds are kept so old callers still construct it;
+        # the sandbox applies its own (looser) limits because numpy and
+        # matplotlib need more address space than 256 MB.
         self.timeout_seconds = timeout_seconds
         self.memory_mb = memory_mb
         self.cpu_seconds = cpu_seconds
@@ -34,27 +47,21 @@ class IsolationExecutor:
             ast.parse(source_path.read_text(encoding="utf-8", errors="replace"))
         except SyntaxError as e:
             return IsolationResult(specimen_id, -1, "", str(e), False, False, False, f"syntax: {e}")
-        preexec = None
-        if sys.platform != "win32":
-            def _limits():
-                if self.cpu_seconds:
-                    resource.setrlimit(resource.RLIMIT_CPU, (self.cpu_seconds, self.cpu_seconds))
-                if self.memory_mb:
-                    mem = self.memory_mb * 1024 * 1024
-                    try: resource.setrlimit(resource.RLIMIT_AS, (mem, mem))
-                    except Exception: pass
-            preexec = _limits
-        try:
-            proc = subprocess.run([sys.executable, str(source_path)], capture_output=True, text=True,
-                                  timeout=self.timeout_seconds, preexec_fn=preexec,
-                                  cwd=tempfile.gettempdir(),
-                                  env={"PYTHONPATH": "", "PYTHONDONTWRITEBYTECODE": "1"})
-            return IsolationResult(specimen_id, proc.returncode, proc.stdout or "", proc.stderr or "",
-                                   False, False, proc.returncode == 0)
-        except subprocess.TimeoutExpired as e:
-            return IsolationResult(specimen_id, -1, str(e.stdout or ""), str(e.stderr or ""), True, False, False, "timeout")
-        except Exception as e:
-            return IsolationResult(specimen_id, -1, "", str(e), False, False, False, str(e))
+        from .sandbox import run_in_sandbox
+        res = run_in_sandbox("script", source_path, timeout=self.timeout_seconds)
+        problems = list(res.violations) + [f"stray file in temp directory: {n}" for n in res.stray_files]
+        if res.timed_out:
+            return IsolationResult(specimen_id, -1, res.stdout, res.stderr, True, False, False, "timeout")
+        if problems:
+            return IsolationResult(specimen_id, res.exit_code, res.stdout, res.stderr, False, False, False,
+                                   "sandbox violation: " + "; ".join(problems))
+        if not res.completed:
+            return IsolationResult(specimen_id, res.exit_code, res.stdout, res.stderr, False, False, False,
+                                   res.detail or "the sandbox child did not report")
+        err = res.error
+        return IsolationResult(specimen_id, res.exit_code, res.stdout, res.stderr, False, False,
+                               res.exit_code == 0 and not err,
+                               f"{err['type']}: {err['message']}" if err else None)
 
 @dataclass
 class SpecimenRecord:
@@ -73,8 +80,17 @@ class SpecimenRecord:
     isolation_required: bool = True
     tags: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
+    # Added with the content hashes. Older consumers ignore unknown keys.
+    sha256: Optional[str] = None                     # SHA-256 of the primary file (or tree)
+    companion_sha256: Dict[str, str] = field(default_factory=dict)
+    manifest_block_sha256: Optional[str] = None      # SHA-256 of MANIFEST.md's machine block
+    validation: Dict[str, Any] = field(default_factory=dict)  # what the verifier really asserted
     def to_dict(self):
         return self.__dict__.copy()
+
+
+class DuplicateSpecimenId(ValueError):
+    """Two specimens claimed the same id. The second would silently replace the first."""
 
 class SpecimenRegistry:
     def __init__(self, root: Path, executor=None):
@@ -82,6 +98,10 @@ class SpecimenRegistry:
         self.executor = executor or IsolationExecutor()
         self._records = {}
     def register(self, record: SpecimenRecord):
+        if record.specimen_id in self._records:
+            raise DuplicateSpecimenId(
+                f"specimen id {record.specimen_id!r} is registered twice; "
+                "the later entry would silently replace the first")
         self._records[record.specimen_id] = record
     def get(self, specimen_id):
         return self._records.get(specimen_id)
