@@ -1,56 +1,92 @@
 {
   "fm_3_1_silent_pass": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Whole file is one comment: imports cleanly, defines zero names.",
     "expected_verdict": "REFUSE",
     "failure_mode": "silent_pass",
     "intended_test": "failure_mode",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
       "manifest_section": "3.1"
     },
     "path": "specimens/pairs/governance_os_security_source.py",
     "provenance": "ASSAY MANIFEST.md section 3.1",
+    "sha256": "8524f990c589199f55a71eaa7e9a08eef12e4c2549788e48501a5e222afadef5",
     "source_revision": "MANIFEST.md",
     "specimen_class": "FAILURE_MODE",
     "specimen_id": "fm_3_1_silent_pass",
     "specimen_version": "1.0.0",
     "tags": [
       "failure_mode"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "fm3_1.imports",
+        "fm3_1.zero_names"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [],
+      "reason": "",
+      "what_was_asserted": [
+        "3.1 silent pass: imports without error",
+        "3.1 silent pass: defines zero names"
+      ]
+    }
   },
   "fm_3_2_overclaim": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Described as a 7-layer construct; its only method raises AttributeError.",
     "expected_verdict": "CLAIM_FALSE",
     "failure_mode": "overclaim",
     "intended_test": "failure_mode",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
       "manifest_section": "3.2"
     },
     "path": "specimens/progressions/uztc/uztc-construct-v1.2-validated.py",
     "provenance": "ASSAY MANIFEST.md section 3.2",
+    "sha256": "c9ccd55531d29d8ecdf76ab07f771c5108d6db36aedea1d9bd048226495d3b36",
     "source_revision": "MANIFEST.md",
     "specimen_class": "FAILURE_MODE",
     "specimen_id": "fm_3_2_overclaim",
     "specimen_version": "1.0.0",
     "tags": [
       "failure_mode"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "fm3_2.v12_raises"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [
+        "uztc.v12_parses"
+      ],
+      "reason": "",
+      "what_was_asserted": [
+        "3.2 overclaim: v1.2 still raises AttributeError"
+      ]
+    }
   },
   "fm_3_3_flattening_duplicate": {
+    "companion_sha256": {
+      "specimens/reference/secure/artifact_1.py": "39dfe6d25542ababeb40e79690cdbe0a3099db98258101422b94b76e6a3d6bef"
+    },
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Same content twice, one flattened; wrapper/artifact_3.py is canonical.",
     "expected_verdict": "SAME_CONTENT",
     "failure_mode": "flattening_duplicate",
     "intended_test": "failure_mode",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_STATIC_CHECK",
     "metadata": {
       "companions": [
         "specimens/reference/secure/artifact_1.py"
@@ -59,43 +95,79 @@
     },
     "path": "specimens/reference/wrapper/artifact_3.py",
     "provenance": "ASSAY MANIFEST.md section 3.3",
+    "sha256": "a1930a5332d19f46ae422ff99bd3d50579e35c7181cf5023a2f8ed51bd7b82dd",
     "source_revision": "MANIFEST.md",
     "specimen_class": "FAILURE_MODE",
     "specimen_id": "fm_3_3_flattening_duplicate",
     "specimen_version": "1.0.0",
     "tags": [
       "failure_mode"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "fm3_3.both_present",
+        "fm3_3.secure_flattened",
+        "fm3_3.same_content"
+      ],
+      "level": "VERIFIED_BY_STATIC_CHECK",
+      "other_claims_checked": [
+        "fm3_3.differ"
+      ],
+      "reason": "",
+      "what_was_asserted": [
+        "3.3 flattening duplicate: both halves present",
+        "3.3 flattening duplicate: secure/ copy still the flattened one",
+        "3.3 flattening duplicate: same content once whitespace is ignored (text similarity 1.000, definition names shared 1.000, both must be at least 0.99)"
+      ]
+    }
   },
   "fm_3_4_unreachable_branch": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "EvaluationVerdict.CRITICAL cannot be reached through evaluate_system_telemetry().",
     "expected_verdict": "UNREACHABLE",
     "failure_mode": "unreachable_branch",
     "intended_test": "failure_mode",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
       "manifest_section": "3.4"
     },
     "path": "specimens/pairs/sre_system_resilience_evaluator_adapter.py",
     "provenance": "ASSAY MANIFEST.md section 3.4",
+    "sha256": "792edfb4c2cf565ed526b4da76ad3d64cf3869cce2da4052580e61df19217ba1",
     "source_revision": "MANIFEST.md",
     "specimen_class": "FAILURE_MODE",
     "specimen_id": "fm_3_4_unreachable_branch",
     "specimen_version": "1.0.0",
     "tags": [
       "failure_mode"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "fm3_4.critical_unreachable"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [],
+      "reason": "",
+      "what_was_asserted": [
+        "3.4 unreachable branch: the adapter's 100,000-sample search still finds no CRITICAL verdict"
+      ]
+    }
   },
   "fm_3_5_reskinned_duplicate": {
+    "companion_sha256": {
+      "specimens/pairs/sre_system_resilience_evaluator_adapter.py": "792edfb4c2cf565ed526b4da76ad3d64cf3869cce2da4052580e61df19217ba1"
+    },
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Identical energy formula and thresholds under different class names.",
     "expected_verdict": "SAME_DESIGN_RESKINNED",
     "failure_mode": "reskinned_duplicate",
     "intended_test": "failure_mode",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -105,21 +177,35 @@
     },
     "path": "specimens/pairs/solvar_stability_governance_adapter.py",
     "provenance": "ASSAY MANIFEST.md section 3.5",
+    "sha256": "0ff2d5a6602a2b2bdfaba4ccb90eaa3828f8aa89eeca12b2605b0205f45762ab",
     "source_revision": "MANIFEST.md",
     "specimen_class": "FAILURE_MODE",
     "specimen_id": "fm_3_5_reskinned_duplicate",
     "specimen_version": "1.0.0",
     "tags": [
       "failure_mode"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [
+        "fm3_5.shared_thresholds"
+      ],
+      "reason": "The verifier checks only that both files still carry the shared 1e-4 and 1e-2 thresholds under different class names. It does not re-derive that the two energy formulas are the same (they are written over different sets of inputs).",
+      "what_was_asserted": []
+    }
   },
   "pair_governance_os_security": {
+    "companion_sha256": {
+      "specimens/pairs/governance_os_security_adapter.py": "629b8d601b83f8b231caa8f78275c34a73117d743ae192291564ea633aad5dc7"
+    },
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Flattened source and its reconstruction; 7 of 13 debris classes covered after normalisation.",
     "expected_verdict": "FAITHFUL",
     "failure_mode": null,
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -129,21 +215,37 @@
     },
     "path": "specimens/pairs/governance_os_security_source.py",
     "provenance": "ASSAY MANIFEST.md section 1",
+    "sha256": "8524f990c589199f55a71eaa7e9a08eef12e4c2549788e48501a5e222afadef5",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_governance_os_security",
     "specimen_version": "1.0.0",
     "tags": [
       "reconstruction_pair"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [
+        "pair.governance_os_security.flattened",
+        "pair.governance_os_security.intact",
+        "pair.governance_os_security.parses"
+      ],
+      "reason": "The verdict rests on a class-name coverage measurement made on 2026-09-07 with an outside tool (blackhole_extrapolator), which this verifier does not repeat. It checks only that both files exist, the source is still one flattened line, and the reconstruction parses.",
+      "what_was_asserted": []
+    }
   },
   "pair_quorum_state_governance": {
+    "companion_sha256": {
+      "specimens/pairs/quorum_state_governance_adapter.py": "9933b252bd21401f1a8c9d7d27ce468be6859c326dfb0491a9f8848994bd9a32"
+    },
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Re-architecture into *Module classes; 2 of 7 debris classes covered.",
     "expected_verdict": "CONSOLIDATED_LOSSY",
     "failure_mode": "lossy_reconstruction",
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -153,21 +255,37 @@
     },
     "path": "specimens/pairs/quorum_state_governance_source.py",
     "provenance": "ASSAY MANIFEST.md section 1",
+    "sha256": "fac2de2337ad6d9702d08e7f7827ffd41177c5140e1d20fadf0a9f748a86e321",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_quorum_state_governance",
     "specimen_version": "1.0.0",
     "tags": [
       "reconstruction_pair"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [
+        "pair.quorum_state_governance.flattened",
+        "pair.quorum_state_governance.intact",
+        "pair.quorum_state_governance.parses"
+      ],
+      "reason": "The verdict rests on a class-name coverage measurement made on 2026-09-07 with an outside tool (blackhole_extrapolator), which this verifier does not repeat. It checks only that both files exist, the source is still one flattened line, and the reconstruction parses.",
+      "what_was_asserted": []
+    }
   },
   "pair_solvar_stability_consolidation": {
+    "companion_sha256": {
+      "specimens/pairs/solvar_stability_governance_adapter.py": "0ff2d5a6602a2b2bdfaba4ccb90eaa3828f8aa89eeca12b2605b0205f45762ab"
+    },
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Second, lossier reconstruction of the same source: 3 of 32 debris classes covered.",
     "expected_verdict": "CONSOLIDATION_OF_SAME_SOURCE",
     "failure_mode": "lossy_reconstruction",
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -177,21 +295,36 @@
     },
     "path": "specimens/pairs/solvar_stability_governance_source.py",
     "provenance": "ASSAY MANIFEST.md section 1",
+    "sha256": "81935555240ddfbb7c2b85ba72a43220e30c5c8d44891d3279b5b4d6e295224c",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_solvar_stability_consolidation",
     "specimen_version": "1.0.0",
     "tags": [
       "reconstruction_pair"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [
+        "pair.solvar_consolidation.intact",
+        "pair.solvar_consolidation.parses"
+      ],
+      "reason": "The verdict rests on a class-name coverage measurement made on 2026-09-07 with an outside tool (blackhole_extrapolator), which this verifier does not repeat. It checks only that both files exist, the source is still one flattened line, and the reconstruction parses.",
+      "what_was_asserted": []
+    }
   },
   "pair_solvar_stability_governance": {
+    "companion_sha256": {
+      "specimens/pairs/solvar_stability_governance_cleanup.py": "19968ebd42ed1c35f87c7a9cd2fa2b32235bc57c23e857fb4ff9d4fb9e553d8b"
+    },
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Paired with _cleanup: 31 of 32 debris classes covered.",
     "expected_verdict": "FAITHFUL",
     "failure_mode": null,
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -201,21 +334,37 @@
     },
     "path": "specimens/pairs/solvar_stability_governance_source.py",
     "provenance": "ASSAY MANIFEST.md section 1",
+    "sha256": "81935555240ddfbb7c2b85ba72a43220e30c5c8d44891d3279b5b4d6e295224c",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_solvar_stability_governance",
     "specimen_version": "1.0.0",
     "tags": [
       "reconstruction_pair"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [
+        "pair.solvar_stability_governance.flattened",
+        "pair.solvar_stability_governance.intact",
+        "pair.solvar_stability_governance.parses"
+      ],
+      "reason": "The verdict rests on a class-name coverage measurement made on 2026-09-07 with an outside tool (blackhole_extrapolator), which this verifier does not repeat. It checks only that both files exist, the source is still one flattened line, and the reconstruction parses.",
+      "what_was_asserted": []
+    }
   },
   "pair_sre_system_resilience": {
+    "companion_sha256": {
+      "specimens/pairs/sre_system_resilience_evaluator_adapter.py": "792edfb4c2cf565ed526b4da76ad3d64cf3869cce2da4052580e61df19217ba1"
+    },
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "11 of 11 debris classes covered; thresholds made configurable.",
     "expected_verdict": "FAITHFUL",
     "failure_mode": null,
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -225,21 +374,37 @@
     },
     "path": "specimens/pairs/sre-system-resilience-evaluator-flattened.py",
     "provenance": "ASSAY MANIFEST.md section 1",
+    "sha256": "7c7911fe682f9c949a96afa012860b04d89275ec2d74e8b793e9367eea795a37",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_sre_system_resilience",
     "specimen_version": "1.0.0",
     "tags": [
       "reconstruction_pair"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [
+        "pair.sre_system_resilience.flattened",
+        "pair.sre_system_resilience.intact",
+        "pair.sre_system_resilience.parses"
+      ],
+      "reason": "The verdict rests on a class-name coverage measurement made on 2026-09-07 with an outside tool (blackhole_extrapolator), which this verifier does not repeat. It checks only that both files exist, the source is still one flattened line, and the reconstruction parses.",
+      "what_was_asserted": []
+    }
   },
   "pair_vanguard_behavioral_simulation": {
+    "companion_sha256": {
+      "specimens/pairs/vanguard-behavioral-simulation.py": "ed2a1f32bce6461c2fa5f4c5a3058b2817c4a55d6d09e1440d4ae6220db103d5"
+    },
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "5 of 6 covered; the miss is a deliberate, documented rename.",
     "expected_verdict": "FAITHFUL",
     "failure_mode": null,
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -249,175 +414,291 @@
     },
     "path": "specimens/pairs/vanguard-behavioral-simulation-flattened.py",
     "provenance": "ASSAY MANIFEST.md section 1",
+    "sha256": "c4341e110285f09f4cc3795c91e44be5fec84efb69a831f500e07902a6b99764",
     "source_revision": "MANIFEST.md",
     "specimen_class": "RECONSTRUCTION_PAIR",
     "specimen_id": "pair_vanguard_behavioral_simulation",
     "specimen_version": "1.0.0",
     "tags": [
       "reconstruction_pair"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [
+        "pair.vanguard_behavioral_simulation.flattened",
+        "pair.vanguard_behavioral_simulation.intact",
+        "pair.vanguard_behavioral_simulation.parses"
+      ],
+      "reason": "The verdict rests on a class-name coverage measurement made on 2026-09-07 with an outside tool (blackhole_extrapolator), which this verifier does not repeat. It checks only that both files exist, the source is still one flattened line, and the reconstruction parses.",
+      "what_was_asserted": []
+    }
   },
   "reference_agent_factory_tactical_agents": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
     "expected_verdict": "ACCEPT",
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
       "manifest_section": "5"
     },
     "path": "specimens/reference/agent-factory-tactical-agents.py",
     "provenance": "ASSAY MANIFEST.md section 5",
+    "sha256": "bc8ceb904a4d8e6b8776e859ae7cb63487b1b5ef043e2192b8ee2c17ae912f1a",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_agent_factory_tactical_agents",
     "specimen_version": "1.0.0",
     "tags": [
       "reference"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "ref.agent_factory.runs"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [],
+      "reason": "",
+      "what_was_asserted": [
+        "reference agent-factory-tactical-agents.py runs as a script and exits 0"
+      ]
+    }
   },
   "reference_citadel_v1_2": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
     "expected_verdict": "ACCEPT",
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
       "manifest_section": "5"
     },
     "path": "specimens/reference/citadel_v1.2.py",
     "provenance": "ASSAY MANIFEST.md section 5",
+    "sha256": "86803a4ca3b30867007f469b237720ed161a627b9b9f38afa8e1ac3cd6855c42",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_citadel_v1_2",
     "specimen_version": "1.0.0",
     "tags": [
       "reference"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "ref.citadel.runs"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [],
+      "reason": "",
+      "what_was_asserted": [
+        "reference citadel_v1.2.py runs as a script and exits 0"
+      ]
+    }
   },
   "reference_code_repo_governance_and_gsa_core": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
     "expected_verdict": "ACCEPT",
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
       "manifest_section": "5"
     },
     "path": "specimens/reference/code-repo-governance-and-gsa-core.py",
     "provenance": "ASSAY MANIFEST.md section 5",
+    "sha256": "9921b7aaf4c3c505b5e9738d18820dcc93110d483ed40ebe2f6a6ae786647ac2",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_code_repo_governance_and_gsa_core",
     "specimen_version": "1.0.0",
     "tags": [
       "reference"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "ref.code_repo_governance.runs"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [],
+      "reason": "",
+      "what_was_asserted": [
+        "reference code-repo-governance-and-gsa-core.py runs as a script and exits 0"
+      ]
+    }
   },
   "reference_resilience_stability_kernel": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
     "expected_verdict": "ACCEPT",
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
       "manifest_section": "5"
     },
     "path": "specimens/reference/resilience_stability_kernel.py",
     "provenance": "ASSAY MANIFEST.md section 5",
+    "sha256": "acfafed90652bb989a7694ac0e9a1e23093ca99e06f70583fc1bb4ea14e25691",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_resilience_stability_kernel",
     "specimen_version": "1.0.0",
     "tags": [
       "reference"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "ref.resilience_kernel.runs"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [],
+      "reason": "",
+      "what_was_asserted": [
+        "reference resilience_stability_kernel.py runs as a script and exits 0 and prints 'all property checks passed'"
+      ]
+    }
   },
   "reference_secure_artifact_2": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
     "expected_verdict": "ACCEPT",
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
       "manifest_section": "5"
     },
     "path": "specimens/reference/secure/artifact_2.py",
     "provenance": "ASSAY MANIFEST.md section 5",
+    "sha256": "a5e0b6da365e3ee430297dd877f20d5572ec73debc2bfebfd843277b9e04a3f6",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_secure_artifact_2",
     "specimen_version": "1.0.0",
     "tags": [
       "reference"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "ref.sandbox.runs",
+        "ref.sandbox.enforces"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [
+        "ref.sandbox_present"
+      ],
+      "reason": "",
+      "what_was_asserted": [
+        "reference artifact_2.py runs as a script and exits 0",
+        "reference sandbox still enforces capabilities"
+      ]
+    }
   },
   "reference_solvar_stability_governance_cleanup": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Genuinely runs (needs matplotlib); refusing it is a false refusal.",
     "expected_verdict": "ACCEPT",
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
       "manifest_section": "5"
     },
     "path": "specimens/pairs/solvar_stability_governance_cleanup.py",
     "provenance": "ASSAY MANIFEST.md section 5",
+    "sha256": "19968ebd42ed1c35f87c7a9cd2fa2b32235bc57c23e857fb4ff9d4fb9e553d8b",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_solvar_stability_governance_cleanup",
     "specimen_version": "1.0.0",
     "tags": [
       "reference"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "ref.solvar_cleanup.runs"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [],
+      "reason": "",
+      "what_was_asserted": [
+        "reference solvar_stability_governance_cleanup.py runs as a script and exits 0"
+      ]
+    }
   },
   "reference_sovereign_kernel": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Genuinely runs; refusing it is a false refusal.",
     "expected_verdict": "ACCEPT",
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
       "manifest_section": "5"
     },
     "path": "specimens/reference/sovereign_kernel.py",
     "provenance": "ASSAY MANIFEST.md section 5",
+    "sha256": "880207967555d514398a6a5cdf2fe1d061116e4a6efdb7846ef44c6a54ca0299",
     "source_revision": "MANIFEST.md",
     "specimen_class": "REFERENCE",
     "specimen_id": "reference_sovereign_kernel",
     "specimen_version": "1.0.0",
     "tags": [
       "reference"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "ref.sovereign_kernel.runs_assembled"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [],
+      "reason": "",
+      "what_was_asserted": [
+        "reference sovereign_kernel.py runs and passes its own checks once the siblings it loads are placed beside it"
+      ]
+    }
   },
   "superseded_citadel_processor_router_flattened": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
     "expected_verdict": "NOT_BEST_AVAILABLE",
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -425,21 +706,31 @@
     },
     "path": "specimens/superseded/citadel-processor-router-flattened.py",
     "provenance": "ASSAY MANIFEST.md section 4",
+    "sha256": "275999d7639698dbb00f2da6c5d6b5f15e28fbab38ed4fd7751d420a7c8bc7d1",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_citadel_processor_router_flattened",
     "specimen_version": "1.0.0",
     "tags": [
       "superseded"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [],
+      "reason": "The verdict is an editorial judgement (tried and replaced). There is no executable claim to assert; the file is pinned only by its recorded hash.",
+      "what_was_asserted": []
+    }
   },
   "superseded_resilience_config_dataclass": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
     "expected_verdict": "NOT_BEST_AVAILABLE",
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -447,21 +738,31 @@
     },
     "path": "specimens/superseded/resilience-config-dataclass.py",
     "provenance": "ASSAY MANIFEST.md section 4",
+    "sha256": "78fb83b4e0b6f2757e782f952d4ce2dad5968a88b63722bb3777440bd8730de6",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_resilience_config_dataclass",
     "specimen_version": "1.0.0",
     "tags": [
       "superseded"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [],
+      "reason": "The verdict is an editorial judgement (tried and replaced). There is no executable claim to assert; the file is pinned only by its recorded hash.",
+      "what_was_asserted": []
+    }
   },
   "superseded_sovereign_governance_stack_v1": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
     "expected_verdict": "NOT_BEST_AVAILABLE",
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -469,21 +770,31 @@
     },
     "path": "specimens/superseded/sovereign-governance-stack-v1.py",
     "provenance": "ASSAY MANIFEST.md section 4",
+    "sha256": "f1aa6c075b22667794667f7b71daef8366e60db177d87062b439a0357b56f5b7",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_sovereign_governance_stack_v1",
     "specimen_version": "1.0.0",
     "tags": [
       "superseded"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [],
+      "reason": "The verdict is an editorial judgement (tried and replaced). There is no executable claim to assert; the file is pinned only by its recorded hash.",
+      "what_was_asserted": []
+    }
   },
   "superseded_sovereign_governance_stack_v2_expanded": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
     "expected_verdict": "NOT_BEST_AVAILABLE",
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -491,21 +802,31 @@
     },
     "path": "specimens/superseded/sovereign-governance-stack-v2-expanded.py",
     "provenance": "ASSAY MANIFEST.md section 4",
+    "sha256": "b5123cbc9df3e54968c5ff95ec6bb07a4e2ec765f9d9ee2b1044f8992bbd0a1c",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_sovereign_governance_stack_v2_expanded",
     "specimen_version": "1.0.0",
     "tags": [
       "superseded"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [],
+      "reason": "The verdict is an editorial judgement (tried and replaced). There is no executable claim to assert; the file is pinned only by its recorded hash.",
+      "what_was_asserted": []
+    }
   },
   "superseded_unified_sovereign_kernel_wrapper": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
     "expected_verdict": "NOT_BEST_AVAILABLE",
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -513,21 +834,31 @@
     },
     "path": "specimens/superseded/unified-sovereign-kernel-wrapper.py",
     "provenance": "ASSAY MANIFEST.md section 4",
+    "sha256": "597b61a5f183fce2241aa9298884cdcce9894c78bc19f10b59343ab82b5cda94",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_unified_sovereign_kernel_wrapper",
     "specimen_version": "1.0.0",
     "tags": [
       "superseded"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [],
+      "reason": "The verdict is an editorial judgement (tried and replaced). There is no executable claim to assert; the file is pinned only by its recorded hash.",
+      "what_was_asserted": []
+    }
   },
   "superseded_ure_universal_resilience_engine_flattened": {
+    "companion_sha256": {},
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Tried and replaced; a verifier picking the best implementation must not choose this.",
     "expected_verdict": "NOT_BEST_AVAILABLE",
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -535,22 +866,35 @@
     },
     "path": "specimens/superseded/ure-universal-resilience-engine-flattened.py",
     "provenance": "ASSAY MANIFEST.md section 4",
+    "sha256": "f83b12c06b3b15eb4871988ce2eb0a53ad3544f791714856e149de4bb318cdde",
     "source_revision": "MANIFEST.md",
     "specimen_class": "SUPERSEDED",
     "specimen_id": "superseded_ure_universal_resilience_engine_flattened",
     "specimen_version": "1.0.0",
     "tags": [
       "superseded"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [],
+      "level": "UNVALIDATED",
+      "other_claims_checked": [],
+      "reason": "The verdict is an editorial judgement (tried and replaced). There is no executable claim to assert; the file is pinned only by its recorded hash.",
+      "what_was_asserted": []
+    }
   },
   "uztc_progression": {
+    "companion_sha256": {
+      "specimens/progressions/uztc/uztc-construct-v1.0-flattened.py": "d8262fef6bd17ad72ad0d8e111b4a49ff07fa30aea07f943e4b93dfce16fd9fa",
+      "specimens/progressions/uztc/uztc-construct-v1.1-purged.py": "077c6b9f5a75b53f99861b6badf045feeb7ba2ef708dd3d59f1da8c6102f0cfb"
+    },
     "epistemic_status": "RECORDED_IN_MANIFEST",
     "expected_behavior": "Looks better at every step by parses/imports; the endpoint is the least functional.",
     "expected_verdict": "NOT_MONOTONIC_IMPROVEMENT",
     "failure_mode": "false_progression",
     "intended_test": "version_progression",
     "isolation_required": true,
-    "manifest_status": "ANSWER_KEY_UNVALIDATED",
+    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [
         "specimens/progressions/uztc/uztc-construct-v1.0-flattened.py",
@@ -560,12 +904,31 @@
     },
     "path": "specimens/progressions/uztc/uztc-construct-v1.2-validated.py",
     "provenance": "ASSAY MANIFEST.md section 2",
+    "sha256": "c9ccd55531d29d8ecdf76ab07f771c5108d6db36aedea1d9bd048226495d3b36",
     "source_revision": "MANIFEST.md",
     "specimen_class": "VERSION_PROGRESSION",
     "specimen_id": "uztc_progression",
     "specimen_version": "1.0.0",
     "tags": [
       "version_progression"
-    ]
+    ],
+    "validation": {
+      "claims_asserted": [
+        "uztc.v10_not_parse",
+        "uztc.v11_imports",
+        "fm3_2.v12_raises"
+      ],
+      "level": "VERIFIED_BY_EXECUTION",
+      "other_claims_checked": [
+        "uztc.v11_parses",
+        "uztc.v12_parses"
+      ],
+      "reason": "",
+      "what_was_asserted": [
+        "uztc v1.0 still does not parse",
+        "uztc v1.1 imports without error",
+        "3.2 overclaim: v1.2 still raises AttributeError"
+      ]
+    }
   }
 }
