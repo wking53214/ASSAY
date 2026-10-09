@@ -37,3 +37,14 @@ class ManifestVerifier:
         remaining = [e for e in result.unvalidated_entries if e not in validated_ids]
         return ManifestCheckResult(result.manifest_consistent, result.manifest_consistent and len(remaining) == 0,
                                    result.inconsistencies, remaining)
+
+    def result_from_statuses(self, statuses) -> ManifestCheckResult:
+        """Start from the derived per-entry statuses (see verification.py).
+
+        Every entry begins unvalidated; `mark_validated` then removes the ones
+        the verifier really proved. Until this existed nothing called
+        `mark_validated`, which is why every entry stayed ANSWER_KEY_UNVALIDATED
+        whatever was checked.
+        """
+        inconsistencies = [] if self.manifest_path.exists() else [f"manifest missing: {self.manifest_path}"]
+        return ManifestCheckResult(len(inconsistencies) == 0, False, inconsistencies, sorted(statuses))
