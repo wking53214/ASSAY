@@ -16,8 +16,9 @@ READ_BY_CONSUMERS = ("specimen_id", "specimen_class", "path", "expected_verdict"
                      "isolation_required", "metadata")
 
 
-def _find(env_name: str, sibling: str):
-    for candidate in (os.environ.get(env_name), ROOT.parent / sibling):
+def _find(env_name: str, *siblings: str):
+    """The checkout named by the environment variable, else a sibling folder (either capitalisation)."""
+    for candidate in (os.environ.get(env_name), *(ROOT.parent / name for name in siblings)):
         if candidate and Path(candidate).is_dir():
             return Path(candidate)
     return None
@@ -45,7 +46,7 @@ def test_registry_loads_back_into_the_registry_class():
 
 
 def test_swizzle_still_loads_and_proves_the_key():
-    swizzle = _find("SWIZZLE_ROOT", "SWIZZLE")
+    swizzle = _find("SWIZZLE_ROOT", "SWIZZLE", "swizzle")
     if swizzle is None:
         pytest.skip("SWIZZLE checkout not found (set SWIZZLE_ROOT)")
     sys.path.insert(0, str(swizzle))
@@ -60,7 +61,7 @@ def test_swizzle_still_loads_and_proves_the_key():
 
 
 def test_warden_still_loads_the_registry():
-    warden = _find("WARDEN_ROOT", "Elegant")
+    warden = _find("WARDEN_ROOT", "Warden", "warden")
     if warden is None:
         pytest.skip("Warden checkout not found (set WARDEN_ROOT)")
     sys.path.insert(0, str(warden))

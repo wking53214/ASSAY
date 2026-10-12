@@ -42,9 +42,9 @@ The numbers below are generated. If they ever disagree with what the verifier fi
 
 **Known gaps, stated plainly**
 
-- `reference/sovereign_kernel.py` is listed as a working reference, but it loads five sibling files from its own folder and three of them live in `pairs/`. It cannot run where it sits. The verifier proves it by placing its siblings next to it in a scratch folder. The same is true of `pairs/sre_system_resilience_evaluator_adapter.py`, which needs `reference/resilience_stability_kernel.py` beside it. Nobody has changed the layout, because that would change the specimens.
+- `specimens/reference/sovereign_kernel.py` is listed as a working reference, but it loads five sibling files from its own folder and three of them live in `specimens/pairs/`. It cannot run where it sits. The verifier proves it by placing its siblings next to it in a scratch folder. The same is true of `specimens/pairs/sre_system_resilience_evaluator_adapter.py`, which needs `specimens/reference/resilience_stability_kernel.py` beside it. Nobody has changed the layout, because that would change the specimens.
 - The sandbox is a safety net for accidents and careless code, not a wall. See the top of `assay_production/sandbox.py` for exactly what it blocks and what it cannot.
-- If numpy or matplotlib is missing, the claims that need them are reported as skipped (and fail under `--strict`) instead of being counted as drift.
+- If numpy or matplotlib is missing, the claims that need them are reported as skipped (and fail under `--strict`) instead of being counted as drift. Install them with `pip install numpy matplotlib` to run every claim; with both installed, `pytest` skipped nothing on the 2026-10-12 check (70 passed).
 
 **How the verifier runs specimens, and what it cannot stop**
 
