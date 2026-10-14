@@ -167,6 +167,8 @@ RULES: Dict[str, Rule] = {
                                                  "fm3_3.same_content")),
     "fm_3_4_unreachable_branch": Rule(EXECUTION, ("fm3_4.critical_unreachable",)),
     "fm_3_5_reskinned_duplicate": Rule(UNVALIDATED, gap=_RESKIN_GAP),
+    "fm_3_6_cannot_fail": Rule(STATIC, ("fm3_6.parses", "fm3_6.four_tests", "fm3_6.no_live_assertion")),
+    "fm_3_7_unbacked_claim": Rule(STATIC, ("fm3_7.present", "fm3_7.labels", "fm3_7.no_code")),
     "reference_sovereign_kernel": Rule(EXECUTION, ("ref.sovereign_kernel.runs_assembled",)),
     "reference_secure_artifact_2": Rule(EXECUTION, ("ref.sandbox.runs", "ref.sandbox.enforces")),
 }
@@ -180,6 +182,26 @@ for _spec in mr.MANIFEST_SPECIMENS:
 
 
 # ------------------------------------------------------------------- helpers
+
+def _live_asserts(func: ast.FunctionDef) -> list:
+    """`assert` statements in `func` that are not nested under an `if` (so they always run)."""
+    found = []
+
+    def walk(nodes, guarded):
+        for node in nodes:
+            if isinstance(node, ast.Assert) and not guarded:
+                found.append(node)
+            elif isinstance(node, ast.If):
+                walk(node.body, True)
+                walk(node.orelse, True)
+            else:
+                for field in ("body", "orelse", "finalbody", "handlers"):
+                    inner = getattr(node, field, None)
+                    if isinstance(inner, list):
+                        walk(inner, guarded)
+    walk(func.body, False)
+    return found
+
 
 def parses(path: Path) -> bool:
     try:
@@ -459,6 +481,45 @@ class Verifier:
                        "3.5 reskinned duplicate: both files still carry the 1e-4 / 1e-2 thresholds "
                        "under different class names", ok, entries=["fm_3_5_reskinned_duplicate"],
                        problem="the shared thresholds or the two different class names are no longer there")
+
+        # 3.6 Test that cannot fail: a property of the file text, checked by reading its
+        # syntax tree, never by running it. "Live" assertion: an `assert` statement not
+        # nested under an `if`. The guarded one in test_quorum_is_reached is not live.
+        e36 = "fm_3_6_cannot_fail"
+        cannot = self.specimens / "failure-modes/cannot_fail/test_governance_boots.py"
+        tree = None
+        if cannot.is_file():
+            try:
+                tree = ast.parse(cannot.read_text(errors="replace"))
+            except SyntaxError:
+                tree = None
+        self.check("fm3_6.parses", "3.6 cannot fail: the test module is present and parses", tree is not None,
+                   entries=[e36], problem="the specimen is missing or no longer parses")
+        if tree is not None:
+            tests = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name.startswith("test_")]
+            self.check("fm3_6.four_tests", "3.6 cannot fail: four test functions are collected",
+                       len(tests) == 4, entries=[e36], problem=f"{len(tests)} test functions, not 4")
+            live = [n for t in tests for n in _live_asserts(t)]
+            self.check("fm3_6.no_live_assertion",
+                       "3.6 cannot fail: no test holds an assert statement that is not nested under an if",
+                       not live, entries=[e36],
+                       problem="a test now asserts unconditionally, so the suite could fail and the specimen is gone")
+
+        # 3.7 Unbacked status claim: the labels are there, in prose, and nothing is beside them.
+        e37 = "fm_3_7_unbacked_claim"
+        claim = self.specimens / "failure-modes/status_claims/README.md"
+        self.check("fm3_7.present", "3.7 unbacked claim: the README is present", claim.is_file(), entries=[e37],
+                   problem="the specimen README is missing")
+        if claim.is_file():
+            text = claim.read_text(errors="replace")
+            labels = ("Production-ready", "Battle-tested", "RL Ready", "Multi-AI Orchestration Ready",
+                      "100% test coverage")
+            missing = [lb for lb in labels if lb not in text]
+            self.check("fm3_7.labels", "3.7 unbacked claim: every status label is still in the README",
+                       not missing, entries=[e37], problem="labels gone: " + ", ".join(missing))
+            code = sorted(p.name for p in claim.parent.iterdir() if p.suffix == ".py")
+            self.check("fm3_7.no_code", "3.7 unbacked claim: the README's folder still holds no code and no test",
+                       not code, entries=[e37], problem="code appeared beside the README: " + ", ".join(code))
 
     # -- 4. references -------------------------------------------------------
     def references_phase(self) -> None:
