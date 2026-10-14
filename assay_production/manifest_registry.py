@@ -51,6 +51,7 @@ P = "specimens/pairs/"
 R = "specimens/reference/"
 S = "specimens/superseded/"
 U = "specimens/progressions/uztc/"
+F = "specimens/failure-modes/"
 
 
 def _row(find: str, *says: str) -> dict:
@@ -139,6 +140,18 @@ MANIFEST_SPECIMENS: List[dict] = [
          verdict="SAME_DESIGN_RESKINNED", failure_mode="reskinned_duplicate", section="3.5",
          what="Identical energy formula and thresholds under different class names.",
          prose=_section("### 3.5", "**the same design, reskinned")),
+    # 3.6 and 3.7 are constructed specimens, reproducing failures recorded in the
+    # ecosystem's own history; their files and MANIFEST sections say so.
+    dict(id="fm_3_6_cannot_fail", cls="FAILURE_MODE",
+         path=F + "cannot_fail/test_governance_boots.py", companions=[],
+         verdict="CANNOT_FAIL", failure_mode="cannot_fail", section="3.6",
+         what="Four green tests: a stub, an assertless one, a guarded assertion that never runs, a mock-only one.",
+         prose=_section("### 3.6", "**CANNOT_FAIL.**")),
+    dict(id="fm_3_7_unbacked_claim", cls="FAILURE_MODE",
+         path=F + "status_claims/README.md", companions=[],
+         verdict="CLAIM_UNBACKED", failure_mode="unbacked_claim", section="3.7",
+         what="A README calling itself production-ready and 'RL Ready', in a folder with no code and no test.",
+         prose=_section("### 3.7", "**CLAIM_UNBACKED.**")),
 ]
 
 # --- 4. Superseded: negative examples --------------------------------------
