@@ -7,7 +7,7 @@
     "failure_mode": "silent_pass",
     "intended_test": "failure_mode",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
@@ -45,7 +45,7 @@
     "failure_mode": "overclaim",
     "intended_test": "failure_mode",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
@@ -85,7 +85,7 @@
     "failure_mode": "flattening_duplicate",
     "intended_test": "failure_mode",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_STATIC_CHECK",
     "metadata": {
       "companions": [
@@ -129,7 +129,7 @@
     "failure_mode": "unreachable_branch",
     "intended_test": "failure_mode",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
@@ -167,7 +167,7 @@
     "failure_mode": "reskinned_duplicate",
     "intended_test": "failure_mode",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -195,6 +195,86 @@
       "what_was_asserted": []
     }
   },
+  "fm_3_6_cannot_fail": {
+    "companion_sha256": {},
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "Four green tests: a stub, an assertless one, a guarded assertion that never runs, a mock-only one.",
+    "expected_verdict": "CANNOT_FAIL",
+    "failure_mode": "cannot_fail",
+    "intended_test": "failure_mode",
+    "isolation_required": true,
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_STATIC_CHECK",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "3.6"
+    },
+    "path": "specimens/failure-modes/cannot_fail/test_governance_boots.py",
+    "provenance": "ASSAY MANIFEST.md section 3.6",
+    "sha256": "de00f598673ec47264e35547bd30cf6fed174eb3111f16c8fad5447adc96dfc9",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "FAILURE_MODE",
+    "specimen_id": "fm_3_6_cannot_fail",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "failure_mode"
+    ],
+    "validation": {
+      "claims_asserted": [
+        "fm3_6.parses",
+        "fm3_6.four_tests",
+        "fm3_6.no_live_assertion"
+      ],
+      "level": "VERIFIED_BY_STATIC_CHECK",
+      "other_claims_checked": [],
+      "reason": "",
+      "what_was_asserted": [
+        "3.6 cannot fail: the test module is present and parses",
+        "3.6 cannot fail: four test functions are collected",
+        "3.6 cannot fail: no test holds an assert statement that is not nested under an if"
+      ]
+    }
+  },
+  "fm_3_7_unbacked_claim": {
+    "companion_sha256": {},
+    "epistemic_status": "RECORDED_IN_MANIFEST",
+    "expected_behavior": "A README calling itself production-ready and 'RL Ready', in a folder with no code and no test.",
+    "expected_verdict": "CLAIM_UNBACKED",
+    "failure_mode": "unbacked_claim",
+    "intended_test": "failure_mode",
+    "isolation_required": true,
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
+    "manifest_status": "ANSWER_KEY_VERIFIED_BY_STATIC_CHECK",
+    "metadata": {
+      "companions": [],
+      "manifest_section": "3.7"
+    },
+    "path": "specimens/failure-modes/status_claims/README.md",
+    "provenance": "ASSAY MANIFEST.md section 3.7",
+    "sha256": "b6abf24e1024fed604d454e9eb0d06a5f7c690e745e249dd4520b6a51d634e6b",
+    "source_revision": "MANIFEST.md",
+    "specimen_class": "FAILURE_MODE",
+    "specimen_id": "fm_3_7_unbacked_claim",
+    "specimen_version": "1.0.0",
+    "tags": [
+      "failure_mode"
+    ],
+    "validation": {
+      "claims_asserted": [
+        "fm3_7.present",
+        "fm3_7.labels",
+        "fm3_7.no_code"
+      ],
+      "level": "VERIFIED_BY_STATIC_CHECK",
+      "other_claims_checked": [],
+      "reason": "",
+      "what_was_asserted": [
+        "3.7 unbacked claim: the README is present",
+        "3.7 unbacked claim: every status label is still in the README",
+        "3.7 unbacked claim: the README's folder still holds no code and no test"
+      ]
+    }
+  },
   "pair_governance_os_security": {
     "companion_sha256": {
       "specimens/pairs/governance_os_security_adapter.py": "629b8d601b83f8b231caa8f78275c34a73117d743ae192291564ea633aad5dc7"
@@ -205,7 +285,7 @@
     "failure_mode": null,
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -245,7 +325,7 @@
     "failure_mode": "lossy_reconstruction",
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -285,7 +365,7 @@
     "failure_mode": "lossy_reconstruction",
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -324,7 +404,7 @@
     "failure_mode": null,
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -364,7 +444,7 @@
     "failure_mode": null,
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -404,7 +484,7 @@
     "failure_mode": null,
     "intended_test": "reconstruction_pair",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [
@@ -442,7 +522,7 @@
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
@@ -478,7 +558,7 @@
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
@@ -514,7 +594,7 @@
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
@@ -550,7 +630,7 @@
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
@@ -586,7 +666,7 @@
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
@@ -626,7 +706,7 @@
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
@@ -662,7 +742,7 @@
     "failure_mode": null,
     "intended_test": "reference",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [],
@@ -698,7 +778,7 @@
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -730,7 +810,7 @@
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -762,7 +842,7 @@
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -794,7 +874,7 @@
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -826,7 +906,7 @@
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -858,7 +938,7 @@
     "failure_mode": "superseded",
     "intended_test": "superseded",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_UNVALIDATED",
     "metadata": {
       "companions": [],
@@ -893,7 +973,7 @@
     "failure_mode": "false_progression",
     "intended_test": "version_progression",
     "isolation_required": true,
-    "manifest_block_sha256": "baa6611eca4d7ea8512ef35304d7b60e9948263043b3bb2992811f517503e188",
+    "manifest_block_sha256": "17f0d709a1eb63f364476e69a6a5d2996dab3d4d8943fec1c1821d9fb680891f",
     "manifest_status": "ANSWER_KEY_VERIFIED_BY_EXECUTION",
     "metadata": {
       "companions": [

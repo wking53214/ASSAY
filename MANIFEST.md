@@ -187,6 +187,49 @@ shared formula has since been extracted once into
 `specimens/reference/resilience_stability_kernel.py` and property-verified.
 This is the specimen for *"can your duplicate detection see past naming?"*
 
+### 3.6 Test that cannot fail — `specimens/failure-modes/cannot_fail/test_governance_boots.py`
+
+**Is:** a constructed specimen, and it says so in its own docstring. Four
+`test_*` functions that pytest collects and passes: one with no body, one that
+does work and asserts nothing, one whose only assertion sits behind a guard
+the module's own constant makes false forever, and one that asserts only on a
+`Mock`. The other named specimens in this corpus are recovered files; this
+one reproduces, in the smallest shape that keeps every property, a failure
+recorded in the ecosystem's own history (sentinel_os, finding F9: tests whose
+assertions sat behind guards that were never true, so the suite stayed green
+while the code was broken).
+
+**Measured:** the file parses; of its four test functions, none holds an
+`assert` statement that is not inside an `if`, and the one `assert` there is
+sits behind `if STRICT_MODE` with `STRICT_MODE = False`.
+
+**Proves:** that "N tests pass" is not evidence until the tests could have
+failed. Every one of these makes the count bigger and the knowledge no larger.
+
+**Correct answer:** **CANNOT_FAIL.** A verifier that counts these as passing
+tests has been told nothing. A scanner asked *"is this suite evidence?"* that
+stays silent here has failed the corpus.
+
+### 3.7 Unbacked status claim — `specimens/failure-modes/status_claims/README.md`
+
+**Is:** a constructed specimen, and it says so at its foot. A README that calls
+its project production-ready, battle-tested and hardened, lists "RL Ready",
+"Multi-AI Orchestration Ready" and "100% test coverage", and sits in a folder
+with no code and no test. It reproduces, in the smallest shape that keeps every
+property, a failure recorded in the ecosystem's own history: a README that
+claimed "RL Ready" and "Multi-AI Orchestration Ready" for things that had not
+shipped, beside docstrings in marketing language the code did not back.
+
+**Measured:** the file holds each of those phrases in prose, outside code, not
+negated and not quoted; its folder holds no `.py` file.
+
+**Proves:** that a status label is a claim awaiting evidence, and that a reader
+takes it as a verdict somebody reached. Nobody did.
+
+**Correct answer:** **CLAIM_UNBACKED.** The right response is to surface every
+such label for independent re-verification, never to take it. A scanner that
+reads this README and reports nothing has failed the corpus.
+
 ---
 
 ## 4. Superseded — `specimens/superseded/`
@@ -275,7 +318,9 @@ files on disk makes verification fail. It also records the SHA-256 of every file
 ```json
 {
  "corpus_files": {
-  "specimens/failure-modes/README.md": "58f7d814a0b97c47f84e355f580fbfec31e7de69dbe5ee0a81c4184fc9cee2ca",
+  "specimens/failure-modes/README.md": "da8e8a59a44fe720af89123a679694bec6f1ffa10d65f201d97756ebd6004c54",
+  "specimens/failure-modes/cannot_fail/test_governance_boots.py": "de00f598673ec47264e35547bd30cf6fed174eb3111f16c8fad5447adc96dfc9",
+  "specimens/failure-modes/status_claims/README.md": "b6abf24e1024fed604d454e9eb0d06a5f7c690e745e249dd4520b6a51d634e6b",
   "specimens/pairs/governance_os_security_adapter.py": "629b8d601b83f8b231caa8f78275c34a73117d743ae192291564ea633aad5dc7",
   "specimens/pairs/governance_os_security_source.py": "8524f990c589199f55a71eaa7e9a08eef12e4c2549788e48501a5e222afadef5",
   "specimens/pairs/quorum_state_governance_adapter.py": "9933b252bd21401f1a8c9d7d27ce468be6859c326dfb0491a9f8848994bd9a32",
@@ -585,6 +630,44 @@ files on disk makes verification fail. It also records the SHA-256 of every file
    "sha256": "0ff2d5a6602a2b2bdfaba4ccb90eaa3828f8aa89eeca12b2605b0205f45762ab",
    "verdict": "SAME_DESIGN_RESKINNED",
    "what": "Identical energy formula and thresholds under different class names."
+  },
+  {
+   "class": "FAILURE_MODE",
+   "companion_sha256": {},
+   "companions": [],
+   "failure_mode": "cannot_fail",
+   "id": "fm_3_6_cannot_fail",
+   "path": "specimens/failure-modes/cannot_fail/test_governance_boots.py",
+   "prose": {
+    "find": "### 3.6",
+    "says": [
+     "**CANNOT_FAIL.**"
+    ],
+    "unit": "section"
+   },
+   "section": "3.6",
+   "sha256": "de00f598673ec47264e35547bd30cf6fed174eb3111f16c8fad5447adc96dfc9",
+   "verdict": "CANNOT_FAIL",
+   "what": "Four green tests: a stub, an assertless one, a guarded assertion that never runs, a mock-only one."
+  },
+  {
+   "class": "FAILURE_MODE",
+   "companion_sha256": {},
+   "companions": [],
+   "failure_mode": "unbacked_claim",
+   "id": "fm_3_7_unbacked_claim",
+   "path": "specimens/failure-modes/status_claims/README.md",
+   "prose": {
+    "find": "### 3.7",
+    "says": [
+     "**CLAIM_UNBACKED.**"
+    ],
+    "unit": "section"
+   },
+   "section": "3.7",
+   "sha256": "b6abf24e1024fed604d454e9eb0d06a5f7c690e745e249dd4520b6a51d634e6b",
+   "verdict": "CLAIM_UNBACKED",
+   "what": "A README calling itself production-ready and 'RL Ready', in a folder with no code and no test."
   },
   {
    "class": "SUPERSEDED",

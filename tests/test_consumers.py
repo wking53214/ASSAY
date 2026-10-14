@@ -26,7 +26,7 @@ def _find(env_name: str, *siblings: str):
 
 def test_old_fields_are_all_still_there():
     data = json.loads(REGISTRY.read_text())
-    assert len(data) == 25
+    assert len(data) == 27
     for sid, d in data.items():
         for key in READ_BY_CONSUMERS:
             assert key in d, (sid, key)
@@ -41,7 +41,7 @@ def test_old_fields_are_all_still_there():
 def test_registry_loads_back_into_the_registry_class():
     reg = SpecimenRegistry(ROOT)
     reg.load(REGISTRY)
-    assert len(reg._records) == 25
+    assert len(reg._records) == 27
     assert reg.get("fm_3_1_silent_pass").sha256
 
 
@@ -55,7 +55,7 @@ def test_swizzle_still_loads_and_proves_the_key():
     finally:
         sys.path.remove(str(swizzle))
     key = assay.load_answer_key(ROOT)
-    assert len(key) == 25
+    assert len(key) == 27
     proven, summary = assay.prove_answer_key(ROOT)
     assert proven, summary
 
@@ -70,5 +70,5 @@ def test_warden_still_loads_the_registry():
     finally:
         sys.path.remove(str(warden))
     refs = AssayAdapter(ROOT).load_registry()
-    assert len(refs) == 25
+    assert len(refs) == 27
     assert {r.expected_verdict for r in refs} >= {"REFUSE", "ACCEPT", "SAME_CONTENT"}
