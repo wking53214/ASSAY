@@ -96,7 +96,7 @@ Run the tests with `python3 -m pytest tests -q`. They copy the corpus to a tempo
 VANGUARD (retired) → specimens here
 MANIFEST.md → assay_production/registry.json (generated; guarded by verify_manifest.py)
 registry.json → swizzle assay → ghost_buster scored (also in ghost_tools CI)
-registry.json → Warden AssayAdapter
+registry.json → Warden AssayAdapter (and `warden tagteam --assay-root` or `--stack FOLDER`: Ghost is graded here before anything is written; see STACK.md)
 ```
 
 Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE). Copyright 2026 William N. King.
