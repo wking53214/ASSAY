@@ -29,6 +29,8 @@ Homepage = "https://github.com/wking53214/ASSAY"
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+# Optional: lets the answer key be asked as a CNS gate (assay_production.cns_connector). Nothing in ASSAY imports CNS otherwise.
+cns = ["cns @ git+https://github.com/wking53214/CNS.git@v1.8.0"]
 
 [tool.setuptools]
 packages = ["assay_production"]
