@@ -119,11 +119,13 @@ The candidate is the path of an ASSAY checkout. The gate runs that checkout's `v
 | only claims that timed out | `RETRY` | A slow machine, not a changed specimen (the hash claims held). |
 | a claim could not be run here (numpy or matplotlib missing) | `RETRY` | It was not measured, so nothing is proven. Install them and ask again. |
 | the verifier crashed, was killed, could not be started, or ran out of time; or the key changed while it was being proven | `RETRY` | Nothing was measured. |
-| a summary or exit code the gate does not recognise | `TERMINAL_BREACH` | An unknown answer is never read as permission. |
+| a summary or exit code the gate does not recognise, or a summary the installed CNS's shared `cns.assay` row refuses (see below) | `TERMINAL_BREACH` | An unknown answer is never read as permission. |
 | a candidate that is not a path, not an ASSAY checkout, or whose key cannot be read and hashed | `TERMINAL_BREACH`, unbound | Nothing can be proven about it. |
 
 The verdict is bound with `cns.gate.subject_digest` to the key's real content, read with the verifier's own functions: the parsed `registry.json` (with the recorded SHA-256 of every specimen), the SHA-256 the verifier computes now for every file under `specimens/`, the hash of `MANIFEST.md`, and the hash of `verify_manifest.py` and the modules that prove the key. A PASS therefore cannot be moved onto a different key, and the same key at another path digests alike. This is tamper-evidence: a consumer compares the digest with the one it expects (`GateResult.binds`).
 
-The connector tests (`tests/test_cns_connector.py`) skip where CNS is absent and run in CI, which installs the extra.
+From CNS 1.9.0 the `ASSAY-SUMMARY` line also has a shared shape, `cns.assay.AssaySummary`. When the installed CNS has it, the gate passes every summary it has already accepted through that row too, and a summary the row refuses is a `TERMINAL_BREACH` that says so: ASSAY and CNS have drifted apart and neither is guessed at. Where the installed CNS is older the row is absent and the gate relies on its own reading, as before. The row is looked up only when a summary is read, so loading the package still never imports CNS.
+
+The connector tests (`tests/test_cns_connector.py`) skip where CNS is absent and run in CI, which installs the extra. `tests/test_cns_assay_row.py` covers the row with a stand-in, so it runs against any CNS, and against the real row where CNS has one.
 
 Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE). Copyright 2026 William N. King.
