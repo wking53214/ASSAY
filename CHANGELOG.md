@@ -41,6 +41,10 @@ Cleanup after an independent audit of 0.11.0.
   that no longer refuses all fail the verifier and are refused by `--write`. Not asserted, on purpose:
   `initialize_full_agent_array()` raises `KeyError: 'AGENT_000'` as written (a defect in the specimen, left
   untouched because editing a specimen is a change to the answer key).
+- `.gitignore` now lists `*.egg-info/`, `build/` and `dist/`, so the documented `pip install -e .` and a wheel build
+  leave no untracked files.
+- README, the `--help` epilog and `runtime.py` listed `ASSAY_LOG_LEVEL` values without `CRITICAL`, which
+  `runtime.py` has always accepted. A test now compares the README list with the accepted set.
 - The tag wording in this file and in the README: it said or implied that no tag exists. An older `v0.10.0` tag
   exists and matches no current version; tagging 0.11.x is the owner's decision.
 

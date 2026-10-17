@@ -59,3 +59,42 @@ def test_a_drifted_number_in_the_readme_fails_verification(corpus, old, new):
     assert proc.returncode == 1, proc.stdout[-500:]
     assert "readme.status_block" in proc.stdout
     assert "overclaim or underclaim" in proc.stdout
+
+
+def test_readme_log_levels_equal_the_accepted_set():
+    import logging
+
+    from assay_production import runtime
+
+    line = next(ln for ln in README.splitlines() if "at the level named by `ASSAY_LOG_LEVEL`" in ln)
+    listed = re.search(r"`ASSAY_LOG_LEVEL` \(([^;]*);", line)
+    assert listed is not None, line
+    names = set(re.findall(r"`([A-Z]+)`", listed.group(1)))
+    assert names == set(runtime._LEVELS) == {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}
+    # and every listed name really is accepted, case-insensitively
+    for name in names:
+        assert runtime.configure_logging({runtime.LOG_LEVEL_ENV: name.lower()}) == getattr(logging, name)
+    runtime.configure_logging({})
+
+
+def test_log_levels_in_help_and_module_docs_match_the_accepted_set():
+    import subprocess
+    import sys
+
+    from assay_production import runtime
+    from conftest import _env
+
+    helped = subprocess.run([sys.executable, str(ROOT / "verify_manifest.py"), "--help"], capture_output=True,
+                            text=True, env=_env(), timeout=120).stdout
+    flat = " ".join(helped.split())
+    help_levels = re.search(r"ASSAY_LOG_LEVEL \(([A-Z, ]+)\)", flat)
+    assert help_levels is not None
+    assert {n.strip() for n in help_levels.group(1).split(",")} == set(runtime._LEVELS)
+    doc_levels = re.search(r"``ASSAY_LOG_LEVEL`` \(([^;]*);", (runtime.__doc__ or "").replace("\n", " "))
+    assert doc_levels is not None
+    assert set(re.findall(r"``([A-Z]+)``", doc_levels.group(1))) == set(runtime._LEVELS)
+
+
+def test_gitignore_covers_what_the_documented_install_leaves_behind():
+    lines = {ln.strip() for ln in (ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()}
+    assert {"*.egg-info/", "build/", "dist/"} <= lines

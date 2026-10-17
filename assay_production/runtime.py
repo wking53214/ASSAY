@@ -3,7 +3,7 @@
 Nothing here touches stdout. The verifier's stdout is a contract (the report
 and, as its last line, ``ASSAY-SUMMARY: ...``), so diagnostics go to stderr
 through the standard ``logging`` module, at a level chosen by the environment
-variable ``ASSAY_LOG_LEVEL`` (``DEBUG``, ``INFO``, ``WARNING``, ``ERROR``;
+variable ``ASSAY_LOG_LEVEL`` (``DEBUG``, ``INFO``, ``WARNING``, ``ERROR``, ``CRITICAL``;
 default ``WARNING``, which prints nothing on a normal run).
 """
 from __future__ import annotations
