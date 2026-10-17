@@ -30,6 +30,13 @@ Cleanup after an independent audit of 0.11.0.
 - CI: the `consumers` job checks SWIZZLE and WARDEN out at the tested set (full SHAs). The comments say what is
   true of each commit: its own version file, and how far it is past that repository's last tag.
 
+### Added
+- README, section 7: how another process reads ASSAY's version (`python3 -c "import assay_production; print(assay_production.__version__)"`),
+  with the reason a reader of `pyproject.toml` gets none (the version is dynamic, by design), and a test that runs
+  the documented commands. Warden's run record showed `versions.assay.version = null` for that reason; Warden is
+  not changed here.
+- CI, `wheel` job: the installed distribution metadata and `assay_production.__version__` must agree.
+
 ### Fixed
 - `ref.agent_factory.runs` only asserted that the specimen ran and exited 0, so an auditor replaced it with
   `raise SystemExit(0)` and re-recording accepted it. The claim now loads the specimen in the sandbox and requires

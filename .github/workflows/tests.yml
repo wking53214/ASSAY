@@ -80,6 +80,8 @@ jobs:
           cd "$RUNNER_TEMP"
           "$RUNNER_TEMP/venv/bin/assay-verify" --version
           "$RUNNER_TEMP/venv/bin/assay-manifest" --version
+          # the version has two sources in an install, the package attribute and the distribution metadata
+          "$RUNNER_TEMP/venv/bin/python" -c "import assay_production, importlib.metadata as m; assert m.version('assay') == assay_production.__version__, (m.version('assay'), assay_production.__version__); print(assay_production.__version__)"
           "$RUNNER_TEMP/venv/bin/assay-verify" --root "$GITHUB_WORKSPACE" --strict
           # a typo must be an error, not a weaker run
           ! "$RUNNER_TEMP/venv/bin/assay-verify" --root "$GITHUB_WORKSPACE" --stirct

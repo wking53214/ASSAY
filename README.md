@@ -102,6 +102,21 @@ registry.json → swizzle assay → ghost_buster scored (also in ghost_tools CI)
 registry.json → Warden AssayAdapter (and `warden tagteam --assay-root` or `--stack FOLDER`: Ghost is graded here before anything is written; see STACK.md)
 ```
 
+**Reading ASSAY's version (for Warden and other relays).** The version is dynamic: `pyproject.toml` has no static `[project] version`, it reads `assay_production/_version.py`. A reader that parses `[project].version` out of `pyproject.toml` therefore finds nothing, by design (a run record that shows `versions.assay.version = null` is that, not a missing version). Read it from the package instead. This is the supported, stable way, and it works from a checkout or from an install:
+
+```bash
+python3 -c "import assay_production; print(assay_production.__version__)"
+```
+
+It prints exactly the version and a newline (for example `0.11.1`) on stdout, nothing on stderr, exits 0, needs no network, and has no other side effect (importing the package does not import CNS and does not run a specimen). From a checkout that is not installed, run it inside the checkout or set `PYTHONPATH` to it. The installed distribution carries the same string, and the commands print it too:
+
+```bash
+python3 -c "import importlib.metadata as m; print(m.version('assay'))"   # the installed distribution
+assay-verify --version        # assay-verify 0.11.1   (also: assay-manifest, verify_manifest.py, python3 -m assay_production)
+```
+
+`tests/test_version_exposure.py` runs the commands above exactly as written here and fails if any of them disagrees with `assay_production/_version.py`.
+
 ## 8. Optional CNS connection
 
 ASSAY does not need CNS. It has no runtime dependency, nothing in the package imports CNS when it loads, and the verifier and the sandbox never import it (`tests/test_cns_independence.py` checks all of this with CNS blocked). `assay_production/cns_connector.py` is the one place that knows CNS exists. Install it with `pip install 'assay[cns]'`; without CNS, building a gate raises `CnsNotInstalled` and nothing else changes.
