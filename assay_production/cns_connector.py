@@ -163,6 +163,22 @@ def _cns_gate() -> ModuleType:
         ) from exc
 
 
+def _assay_row() -> Optional[ModuleType]:
+    """``cns.assay``, the shared row for the summary line, or None where the installed CNS predates it (before 1.9.0).
+
+    Asked for at the moment a summary is read, like ``cns.gate``: nothing here imports CNS when the module loads.
+    """
+    try:
+        return importlib.import_module("cns.assay")
+    except ImportError:
+        return None
+
+
+def assay_row_available() -> bool:
+    """Whether summaries are also checked against CNS's shared row in this environment."""
+    return _assay_row() is not None
+
+
 def cns_available() -> bool:
     """Whether the CNS gate contract can be imported in this environment."""
     try:
@@ -252,7 +268,8 @@ def _read_summary(stdout: str) -> Optional[dict]:
     """The verifier's last line as a checked ``assay-summary/1`` record, None if there is no such line.
 
     Raises ``ValueError`` for a summary that is there but not the record the
-    README documents.
+    README documents. Where the installed CNS has ``cns.assay`` the record is
+    also read through that row, and a record it refuses is refused here too.
     """
     lines = [ln for ln in stdout.splitlines() if ln.strip()]
     if not lines or not lines[-1].startswith(SUMMARY_PREFIX):
@@ -274,6 +291,14 @@ def _read_summary(stdout: str) -> Optional[dict]:
         raise ValueError("the summary does not have the documented fields")
     if claims["failed"] != len(failures) or claims["passed"] + claims["failed"] != claims["total"]:
         raise ValueError("the summary's claim counts do not add up")
+    row = _assay_row()
+    if row is not None:
+        # The record passed this connector's own reading. The shared row is CNS's statement of the same shape, so a
+        # summary that satisfies one and not the other means ASSAY and CNS have drifted apart; say so rather than guess.
+        try:
+            row.AssaySummary.from_dict(record)
+        except ValueError as exc:
+            raise ValueError(f"the summary is not the shared cns.assay row ({exc})") from exc
     return record
 
 
