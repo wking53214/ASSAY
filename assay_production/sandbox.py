@@ -769,11 +769,11 @@ def _diff(label: str, before: Dict[str, Tuple], after: Dict[str, Tuple]) -> List
         a, b = before.get(name), after.get(name)
         if a == b:
             continue
-        if a is None:
+        if a is None and b is not None:
             out.append(f"{label}: new {b[0]} {name}")
-        elif b is None:
+        elif b is None and a is not None:
             out.append(f"{label}: {a[0]} {name} was removed")
-        elif a[0] == "dir" and b[0] == "dir":
+        elif a is not None and b is not None and a[0] == "dir" and b[0] == "dir":
             continue
         else:
             out.append(f"{label}: {name} was changed")
@@ -875,6 +875,7 @@ def _run(run: str, mode: str, target: Path, probe: str, stage: Sequence[Tuple[Pa
                             preexec_fn=_limits(cpu_seconds, nproc), start_new_session=True)
     with _ACTIVE_LOCK:
         _ACTIVE[run] = proc
+    assert proc.stdin is not None  # stdin=PIPE above
     try:
         proc.stdin.write((nonce + "\n").encode("ascii"))
         proc.stdin.close()
@@ -936,7 +937,7 @@ def _run(run: str, mode: str, target: Path, probe: str, stage: Sequence[Tuple[Pa
             if text not in violations:
                 violations.append(text)
     stray: List[str] = []
-    for unit, snap in zip(watched, before):
+    for unit, snap in zip(watched, before, strict=True):
         stray += _diff(unit[0], snap, _take(unit))
     for name in sorted(set(os.listdir(run)) - _RUN_EXPECTED):
         stray.append(f"sandbox run directory: unexpected {name}")
@@ -948,7 +949,8 @@ def _run(run: str, mode: str, target: Path, probe: str, stage: Sequence[Tuple[Pa
         root_name = (err_info.get("module_name") or "").split(".")[0]
         if root_name in OPTIONAL_DEPENDENCIES:
             missing = root_name
-    exit_code = report.get("exit_code", rc if rc is not None else -1)
+    fallback_rc: int = rc if rc is not None else -1
+    exit_code: int = report.get("exit_code", fallback_rc)
     if timed_out:
         load1 = os.getloadavg()[0] if hasattr(os, "getloadavg") else 0.0
         detail = (f"timed out after {limit:g}s of wall-clock time (limit: {limit_source}; machine load "
@@ -970,7 +972,8 @@ def _run(run: str, mode: str, target: Path, probe: str, stage: Sequence[Tuple[Pa
 def _died_text(rc: Optional[int], err: str) -> str:
     how = f"signal {_signal_name(rc)}" if rc is not None and rc < 0 else f"exit {rc}"
     extra = {"SIGXCPU": " (CPU-time limit exceeded)", "SIGXFSZ": " (file-size limit exceeded)",
-             "SIGKILL": " (killed, possibly out of memory)"}.get(_signal_name(rc) if rc is not None and rc < 0 else "", "")
+             "SIGKILL": " (killed, possibly out of memory)"}.get(
+                 _signal_name(rc) if rc is not None and rc < 0 else "", "")
     return f"the child process died before reporting ({how}{extra}): {err.strip()[-300:]}"
 
 

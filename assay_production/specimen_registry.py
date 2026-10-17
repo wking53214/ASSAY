@@ -1,6 +1,7 @@
 """Versioned specimen registry with isolated execution."""
 from __future__ import annotations
-import ast, json
+import ast
+import json
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -49,7 +50,8 @@ class IsolationExecutor:
             return IsolationResult(specimen_id, -1, "", str(e), False, False, False, f"syntax: {e}")
         from .sandbox import run_in_sandbox
         res = run_in_sandbox("script", source_path, timeout=self.timeout_seconds)
-        problems = list(res.violations) + [f"unexpected change outside the scratch directory: {n}" for n in res.stray_files]
+        problems = list(res.violations) + [f"unexpected change outside the scratch directory: {n}"
+                                           for n in res.stray_files]
         if res.timed_out:
             return IsolationResult(specimen_id, -1, res.stdout, res.stderr, True, False, False, "timeout")
         if problems:
@@ -96,7 +98,7 @@ class SpecimenRegistry:
     def __init__(self, root: Path, executor=None):
         self.root = Path(root)
         self.executor = executor or IsolationExecutor()
-        self._records = {}
+        self._records: Dict[str, SpecimenRecord] = {}
     def register(self, record: SpecimenRecord):
         if record.specimen_id in self._records:
             raise DuplicateSpecimenId(

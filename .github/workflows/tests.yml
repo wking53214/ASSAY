@@ -8,7 +8,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -19,7 +19,64 @@ jobs:
       # matplotlib, and the claims that run them are skipped without them, so
       # they are installed here for the runner only (not as a dependency).
       - run: pip install numpy matplotlib
-      # Prove the answer key first (about 5 seconds). --strict makes a claim
-      # that could not be run on this runner a failure instead of a quiet skip.
+      # Static gates first: they take seconds. The specimens are deliberately
+      # damaged files and are excluded in pyproject.toml.
+      - run: ruff check .
+      - run: mypy
+      # Prove the answer key (about 5 seconds). --strict makes a claim that
+      # could not be run on this runner a failure instead of a quiet skip.
       - run: python verify_manifest.py --strict
       - run: pytest -q
+
+  # The consumers of registry.json load the key with their own code. Each is
+  # checked out at a pinned commit so this job fails because of a change here,
+  # not because a sibling moved. To bump a pin: take the new full commit SHA of
+  # that repository, change the ref below, and note the tag it corresponds to.
+  consumers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: wking53214/SWIZZLE
+          ref: 9eb2a10ed1a05f3d15041c68f08b9c1c8c8c036f  # SWIZZLE main at the time of writing
+          path: siblings/SWIZZLE
+      - uses: actions/checkout@v4
+        with:
+          repository: wking53214/WARDEN
+          ref: 2cf0eeccf839f88d624deb133fe1cb4b16a99009  # WARDEN main at the time of writing
+          path: siblings/WARDEN
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev,cns]" numpy matplotlib
+      # -rs lists skips; the check after it makes a skip a failure, because a
+      # skipped consumer test proves nothing about the consumer.
+      - run: |
+          set -o pipefail
+          SWIZZLE_ROOT="$PWD/siblings/SWIZZLE" WARDEN_ROOT="$PWD/siblings/WARDEN" \
+            pytest tests/test_consumers.py -q -rs -p no:cacheprovider | tee consumers.log
+          ! grep -q "skipped" consumers.log
+
+  # What a user gets from `pip install`: the wheel must carry the commands and
+  # registry.json, and the installed command must prove a checkout.
+  wheel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build numpy matplotlib
+      - run: python -m build --wheel --outdir "$RUNNER_TEMP/dist"
+      - run: |
+          python -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install "$RUNNER_TEMP"/dist/assay-*.whl numpy matplotlib
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/venv/bin/assay-verify" --version
+          "$RUNNER_TEMP/venv/bin/assay-manifest" --version
+          "$RUNNER_TEMP/venv/bin/assay-verify" --root "$GITHUB_WORKSPACE" --strict
+          # a typo must be an error, not a weaker run
+          ! "$RUNNER_TEMP/venv/bin/assay-verify" --root "$GITHUB_WORKSPACE" --stirct

@@ -1,7 +1,5 @@
 """The sandbox: what a specimen run can and cannot do."""
 import os
-import socket
-import sys
 from pathlib import Path
 
 import pytest
@@ -19,7 +17,8 @@ def script(tmp_path: Path, body: str) -> Path:
 def test_environment_is_stripped_and_cwd_is_scratch(tmp_path, monkeypatch):
     monkeypatch.setenv("ASSAY_TEST_SECRET", "hunter2")
     monkeypatch.setenv("GITHUB_TOKEN", "ghp_secret")
-    res = run_in_sandbox("script", script(tmp_path, "import os\nprint('ENV', sorted(os.environ))\nprint('CWD', os.getcwd())\n"))
+    res = run_in_sandbox("script", script(
+        tmp_path, "import os\nprint('ENV', sorted(os.environ))\nprint('CWD', os.getcwd())\n"))
     assert res.completed and res.exit_code == 0
     assert "ASSAY_TEST_SECRET" not in res.stdout and "GITHUB_TOKEN" not in res.stdout
     assert "assay-sandbox-" in res.stdout.split("CWD")[1]
@@ -43,7 +42,8 @@ except PermissionError:
 
 
 def test_catching_the_error_does_not_hide_the_violation(tmp_path):
-    res = run_in_sandbox("script", script(tmp_path, "import os\ntry:\n    os.mkdir('/tmp/assay-x-never')\nexcept Exception:\n    pass\n"))
+    res = run_in_sandbox("script", script(
+        tmp_path, "import os\ntry:\n    os.mkdir('/tmp/assay-x-never')\nexcept Exception:\n    pass\n"))
     assert res.violations and not Path("/tmp/assay-x-never").exists()
 
 
@@ -72,7 +72,7 @@ def test_a_bypass_of_the_guard_is_caught_by_the_source_folder_comparison(tmp_pat
     import ctypes
 
     try:
-        ctypes.CDLL(None).creat
+        _ = ctypes.CDLL(None).creat  # probing for the symbol
     except (OSError, AttributeError):
         pytest.skip("no C library handle")
     name = tmp_path / "dropped-by-specimen"
@@ -149,7 +149,8 @@ def test_specimen_cannot_write_the_harness_result_even_if_it_finds_the_path(tmp_
 import json, os
 ctl = os.path.join(os.path.dirname(os.getcwd()), 'ctl')
 try:
-    json.dump({"nonce": "guess", "facts": {"exit_code": 0}, "runner_rc": 0}, open(os.path.join(ctl, 'result.json'), 'w'))
+    forged = {"nonce": "guess", "facts": {"exit_code": 0}, "runner_rc": 0}
+    json.dump(forged, open(os.path.join(ctl, 'result.json'), 'w'))
 except PermissionError:
     pass
 os._exit(0)
@@ -252,4 +253,4 @@ def test_existing_executor_now_uses_the_sandbox(tmp_path):
     assert not bad.success and "sandbox violation" in (bad.error or "")
     assert not Path("/tmp/assay-exec-never").exists()
     broken = IsolationExecutor().execute_module("syn", script(tmp_path, "def (:\n"))
-    assert not broken.success and broken.error.startswith("syntax")
+    assert not broken.success and (broken.error or "").startswith("syntax")

@@ -25,9 +25,11 @@ What it checks, in plain terms:
 
     python3 verify_manifest.py            # exits non-zero on drift
     python3 verify_manifest.py --strict   # also fail if a claim could not be run here
+    python3 verify_manifest.py --help     # --version, exit codes (0 proven, 1 not, 2 bad arguments)
     python3 -m assay_production.manifest_registry --write   # deliberate re-record
 
-Works from any directory and needs no network.
+The installed equivalents are `assay-verify` and `assay-manifest` (they need a
+checkout: `--root PATH`). Works from any directory and needs no network.
 """
 from __future__ import annotations
 
@@ -40,4 +42,4 @@ sys.path.insert(0, str(ROOT))
 from assay_production import verification  # noqa: E402
 
 if __name__ == "__main__":
-    sys.exit(verification.main(ROOT, sys.argv[1:]))
+    sys.exit(verification.main(ROOT, sys.argv[1:], prog="verify_manifest.py"))
