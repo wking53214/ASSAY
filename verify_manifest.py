@@ -23,8 +23,9 @@ What it checks, in plain terms:
 * each registry entry's validation status is what this run really asserted;
 * the numbers in the README status block are the true ones.
 
-    python3 verify_manifest.py            # exits non-zero on drift
-    python3 verify_manifest.py --strict   # also fail if a claim could not be run here
+    python3 verify_manifest.py            # exits non-zero on drift, and when a claim could not be run here
+    python3 verify_manifest.py --strict   # the same as the default (kept so callers that pass it keep working)
+    python3 verify_manifest.py --allow-skips   # the explicit opt-out: unrun claims are listed as SKIPPED, NOT PROVEN
     python3 verify_manifest.py --help     # --version, exit codes (0 proven, 1 not, 2 bad arguments)
     python3 -m assay_production.manifest_registry --write   # deliberate re-record
 

@@ -16,6 +16,15 @@ the owner's decision.
 Cleanup after an independent audit of 0.11.0.
 
 ### Changed
+- BEHAVIOR CHANGE, fail closed: a claim that could not be run (numpy or matplotlib missing) now fails the run by
+  default (exit 1, `NOT PROVEN` on stderr, `SKIP` lines and the skipped claim ids in the report). Before, only
+  `--strict` did that and a bare run exited 0 with one skipped claim (`ref.solvar_cleanup.runs`). The new explicit
+  opt-out is `--allow-skips`: it prints a `WARNING` naming each skipped claim as SKIPPED and NOT PROVEN, reports that
+  the key is not fully proven, exits 0 only if nothing failed, and still prints the `ASSAY-SUMMARY:` last line
+  (`claims.skipped`, `all_claims_hold: false`). `--strict` and `ASSAY_STRICT=1` keep their meaning (now the same as
+  the default); `--allow-skips` with either, or with `--write`, exits 2. Exit codes 0/1/2 and the summary schema
+  are unchanged. Callers that ran the verifier with no flags on a machine without numpy (SWIZZLE; the CNS gate,
+  which maps a skipped claim to `RETRY`) now see exit 1 there.
 - CI: every GitHub Action is pinned by full commit SHA with its tag in a comment (`actions/checkout` v4.2.2,
   `actions/setup-python` v5.6.0), and a test guards it.
 - CI: the `consumers` job checks SWIZZLE and WARDEN out at the tested set (full SHAs). The comments say what is

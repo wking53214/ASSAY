@@ -23,8 +23,8 @@ jobs:
       # damaged files and are excluded in pyproject.toml.
       - run: ruff check .
       - run: mypy
-      # Prove the answer key (about 5 seconds). --strict makes a claim that
-      # could not be run on this runner a failure instead of a quiet skip.
+      # Prove the answer key (about 5 seconds). A claim that could not be run
+      # on this runner is a failure by default; --strict says so explicitly.
       - run: python verify_manifest.py --strict
       - run: pytest -q
 

@@ -1136,7 +1136,8 @@ def render_readme(text: str, root: Path, statuses: Dict[str, dict], claims_total
 
 # ------------------------------------------------------------------ reporting
 
-def render_report(report: Report, root: Path, *, show_pass: bool = True) -> Tuple[str, bool]:
+def render_report(report: Report, root: Path, *, show_pass: bool = True,
+                  allow_skips: bool = False) -> Tuple[str, bool]:
     verdicts = _verdicts()
     lines: List[str] = []
     for c in report.claims:
@@ -1150,10 +1151,19 @@ def render_report(report: Report, root: Path, *, show_pass: bool = True) -> Tupl
     lines.append("")
     lines.append(f"{passed}/{len(total)} manifest claims hold")
     if report.skips:
-        lines.append(f"{len(report.skips)} claim(s) could not be run on this machine (missing library): "
-                     + ", ".join(c.id for c in report.skips)
-                     + ". Their entries keep the status already recorded in registry.json. "
-                       "Install numpy and matplotlib, or run with --strict, to prove them here.")
+        ids = ", ".join(c.id for c in report.skips)
+        if allow_skips:
+            lines.append("")
+            lines.append(f"WARNING: --allow-skips: {len(report.skips)} claim(s) SKIPPED and NOT PROVEN on this "
+                         f"machine (missing library): {ids}.")
+            lines.append("The answer key is not fully proven here. Their entries keep the status already recorded in "
+                         "registry.json. Install numpy and matplotlib, and run without --allow-skips, to prove them.")
+        else:
+            lines.append("")
+            lines.append(f"{len(report.skips)} claim(s) could not be run on this machine (missing library): {ids}.")
+            lines.append("A claim that could not be run is a failure: the key is not proven. Install numpy and "
+                         "matplotlib to prove them here. (--allow-skips accepts the gap knowingly and still "
+                         "reports it; it is never the default.)")
     if failures:
         lines.append("")
         lines.append("MANIFEST DRIFT -- the answer key no longer matches the corpus.")
@@ -1176,6 +1186,12 @@ def render_report(report: Report, root: Path, *, show_pass: bool = True) -> Tupl
                              + ", ".join(names[:12]) + (f", and {len(names) - 12} more" if len(names) > 12 else ""))
             lines.append(f"    What to do: {c.next_step}")
         return "\n".join(lines), False
+    if report.skips:
+        if allow_skips:
+            return "\n".join(lines) + ("\nThe corpus matches its answer key for every claim that could be run; "
+                                       f"{len(report.skips)} claim(s) skipped and not proven."), True
+        # ok means "no claim failed"; _verify turns an unrun claim into exit 1 unless --allow-skips was given.
+        return "\n".join(lines) + "\nThe answer key is NOT PROVEN: a claim could not be run.", True
     return "\n".join(lines) + "\nThe corpus matches its answer key.", True
 
 
@@ -1268,10 +1284,18 @@ def build_parser(prog: str = "verify_manifest.py", *, with_root: bool = False) -
                     "four copies of the key and every recorded hash, and print a report whose last stdout line "
                     "is ASSAY-SUMMARY: <json>.",
         epilog="Exit codes: 0 the key is proven; 1 it is not (or the verifier itself failed); 2 the command line "
-               "was not understood (nothing was checked). The environment variable ASSAY_STRICT=1 is the same as "
-               "--strict. ASSAY_LOG_LEVEL (DEBUG, INFO, WARNING, ERROR) controls diagnostics on stderr.")
+               "was not understood (nothing was checked). A claim that could not be run (numpy or matplotlib "
+               "missing) is a failure by default (exit 1). --strict says so explicitly and is the same as the "
+               "default; ASSAY_STRICT=1 is the same as --strict. --allow-skips is the explicit opt-out. "
+               "ASSAY_LOG_LEVEL (DEBUG, INFO, WARNING, ERROR, CRITICAL) controls diagnostics on stderr.")
     parser.add_argument("--strict", action="store_true",
-                        help="also fail if a claim could not be run on this machine (numpy or matplotlib missing)")
+                        help="a claim that could not be run on this machine (numpy or matplotlib missing) is a "
+                             "failure. This is already the default; the flag keeps its meaning for callers that "
+                             "pass it")
+    parser.add_argument("--allow-skips", action="store_true", dest="allow_skips",
+                        help="opt out of failing on a claim that could not be run (numpy or matplotlib missing): "
+                             "each is listed as SKIPPED and NOT PROVEN, the key is not reported as fully proven, "
+                             "and the ASSAY-SUMMARY line is still printed. Cannot be combined with --strict")
     parser.add_argument("--write", action="store_true",
                         help="deliberately re-record the machine block, hashes, registry.json and the README "
                              "blocks (refuses unless every claim holds)")
@@ -1298,14 +1322,23 @@ def main(root: Optional[Path], argv: Sequence[str], prog: str = "verify_manifest
             print(f"{prog}: error: {exc}", file=sys.stderr)
             return 2
     strict = args.strict or bool(os.environ.get("ASSAY_STRICT"))
-    log.info("%s %s: root=%s strict=%s write=%s", prog, __version__, root, strict, args.write)
+    if args.allow_skips and strict:
+        print(f"{prog}: error: --allow-skips contradicts --strict (or ASSAY_STRICT); nothing was checked.",
+              file=sys.stderr)
+        return 2
+    if args.allow_skips and args.write:
+        print(f"{prog}: error: --write always requires every claim to run; --allow-skips does not apply.",
+              file=sys.stderr)
+        return 2
+    allow_skips = bool(args.allow_skips)
+    log.info("%s %s: root=%s allow_skips=%s write=%s", prog, __version__, root, allow_skips, args.write)
     if args.write:
         return write_all(root)
     reexec_with_minimal_environment(root, argv, prog)
     sandbox_module.protect_current_process()
     sandbox_module.install_signal_cleanup()
     try:
-        return _verify(root, strict)
+        return _verify(root, allow_skips)
     except Exception as exc:  # noqa: BLE001 - say why, then fail closed
         import traceback
         traceback.print_exc()
@@ -1316,11 +1349,11 @@ def main(root: Optional[Path], argv: Sequence[str], prog: str = "verify_manifest
         sandbox_module.cleanup_active()
 
 
-def _verify(root: Path, strict: bool) -> int:
-    report = run_all(root, strict=strict)
+def _verify(root: Path, allow_skips: bool = False) -> int:
+    report = run_all(root, strict=not allow_skips)
     log.info("ran %d claims: %d failed, %d skipped", len(report.claims), len(report.failures), len(report.skips))
     print("sandbox: " + describe_isolation())
-    text, ok = render_report(report, root)
+    text, ok = render_report(report, root, allow_skips=allow_skips)
     print(text)
     verifier = ManifestVerifier(root)
     status = ""
@@ -1338,11 +1371,16 @@ def _verify(root: Path, strict: bool) -> int:
     print(SUMMARY_PREFIX + json.dumps(summary_record(report, status), sort_keys=True, separators=(",", ":")))
     if not ok:
         print(failure_line(report), file=sys.stderr)
-    if strict and report.skips:
-        print("--strict: claims that could not be run count as failures.")
-        print("ASSAY: --strict: " + str(len(report.skips)) + " claim(s) could not be run here (missing_dependency): "
-              + ", ".join(c.id for c in report.skips), file=sys.stderr)
-        return 1
+    if report.skips:
+        ids = ", ".join(c.id for c in report.skips)
+        if allow_skips:
+            print("ASSAY: --allow-skips: " + str(len(report.skips)) + " claim(s) SKIPPED, NOT PROVEN "
+                  "(missing_dependency): " + ids, file=sys.stderr)
+        else:
+            print("ASSAY: answer key NOT PROVEN: " + str(len(report.skips)) + " claim(s) could not be run here "
+                  "(missing_dependency): " + ids + ". Install numpy and matplotlib, or pass --allow-skips to accept "
+                  "the gap knowingly.", file=sys.stderr)
+            return 1
     return 0 if ok else 1
 
 
