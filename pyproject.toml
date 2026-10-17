@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "assay"
+version = "0.10.0"
+description = "The answer key: real code, really damaged, with independently known correct answers, and a sandboxed verifier that proves the key before anyone grades against it."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "William N. King" }]
+keywords = ["answer-key", "specimens", "verification"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+]
+# Standard library only. The specimens under specimens/ are not part of the package; the verifier needs a checkout.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/wking53214/ASSAY"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+# Optional: lets the answer key be asked as a CNS gate (assay_production.cns_connector). Nothing in ASSAY imports CNS otherwise.
+cns = ["cns @ git+https://github.com/wking53214/CNS.git@v1.8.0"]
+
+[tool.setuptools]
+packages = ["assay_production"]
+
+[tool.setuptools.package-data]
+assay_production = ["registry.json"]
