@@ -546,7 +546,7 @@
       "other_claims_checked": [],
       "reason": "",
       "what_was_asserted": [
-        "reference agent-factory-tactical-agents.py runs as a script and exits 0"
+        "reference agent-factory-tactical-agents.py loads and its factory spawns the registered agents, which execute to their documented output"
       ]
     }
   },

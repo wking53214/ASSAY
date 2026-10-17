@@ -347,6 +347,30 @@ try:
                 out["raised"] = None
             except Exception as exc:
                 out["raised"] = type(exc).__name__
+        elif probe == "agent_factory":
+            # What the specimen documents: a registry of tactical agents that a factory spawns, each of which
+            # executes to a fixed line, over a base class that refuses to run. Only observed facts are reported.
+            def _raised(call):
+                try:
+                    call()
+                    return None
+                except Exception as exc:
+                    return type(exc).__name__
+            cfg = module.AgentConfig(name="probe", priority=7, is_critical=False)
+            citadel = module.AgentFactory.spawn("CITADEL", cfg)
+            destroyer = module.AgentFactory.spawn("DESTROYER", cfg)
+            out["agent_factory"] = {
+                "registry": sorted(module.AgentFactory._registry),
+                "citadel_class": type(citadel).__name__,
+                "citadel_is_base": isinstance(citadel, module.BaseTacticalAgent),
+                "citadel_config_kept": citadel.config is cfg,
+                "citadel_says": citadel.execute(None),
+                "destroyer_class": type(destroyer).__name__,
+                "destroyer_is_base": isinstance(destroyer, module.BaseTacticalAgent),
+                "destroyer_says": destroyer.execute(None),
+                "base_execute_raises": _raised(lambda: module.BaseTacticalAgent(cfg).execute(None)),
+                "unknown_spawn_raises": _raised(lambda: module.AgentFactory.spawn("NO_SUCH_AGENT", cfg)),
+            }
         else:
             out["error"] = {"type": "UnknownProbe", "message": probe, "module_name": None}
         out.setdefault("exit_code", 0)

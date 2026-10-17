@@ -31,6 +31,16 @@ Cleanup after an independent audit of 0.11.0.
   true of each commit: its own version file, and how far it is past that repository's last tag.
 
 ### Fixed
+- `ref.agent_factory.runs` only asserted that the specimen ran and exited 0, so an auditor replaced it with
+  `raise SystemExit(0)` and re-recording accepted it. The claim now loads the specimen in the sandbox and requires
+  its documented behaviour: the registry holds exactly `CITADEL` and `DESTROYER`, the factory spawns the matching
+  subclasses with the config it was given, each executes to its exact output line, the base class refuses to
+  execute, and an unregistered name raises `KeyError`. Re-recorded with `manifest_registry --write` (only the
+  recorded description of the assertion changed; no specimen and no hash). Mutation tests show a bare
+  `SystemExit(0)`, an empty file, a print-only file, a changed output line, a removed registration and a base class
+  that no longer refuses all fail the verifier and are refused by `--write`. Not asserted, on purpose:
+  `initialize_full_agent_array()` raises `KeyError: 'AGENT_000'` as written (a defect in the specimen, left
+  untouched because editing a specimen is a change to the answer key).
 - The tag wording in this file and in the README: it said or implied that no tag exists. An older `v0.10.0` tag
   exists and matches no current version; tagging 0.11.x is the owner's decision.
 

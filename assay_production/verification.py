@@ -166,6 +166,18 @@ REFERENCES = {
     "sandbox": ("reference_secure_artifact_2", "reference/secure/artifact_2.py", None),
 }
 
+# What the agent-factory specimen does when it is loaded and used (probe "agent_factory" in the sandbox runner).
+# Every value is something its own source says: two registered agents, the exact line each one returns, a base class
+# that refuses to execute, and a KeyError for a name that was never registered. initialize_full_agent_array() is
+# deliberately not asserted: as written it raises KeyError for AGENT_000 (a defect in the specimen, left as it is).
+AGENT_FACTORY_FACTS: Dict[str, Any] = {
+    "registry": ["CITADEL", "DESTROYER"],
+    "citadel_class": "CitadelAgent", "citadel_is_base": True, "citadel_config_kept": True,
+    "citadel_says": "CITADEL: Layer 7 secured.",
+    "destroyer_class": "DestroyerAgent", "destroyer_is_base": True, "destroyer_says": "DESTROYER: Entropy incinerated.",
+    "base_execute_raises": "NotImplementedError", "unknown_spawn_raises": "KeyError",
+}
+
 RULES: Dict[str, Rule] = {
     "pair_solvar_stability_consolidation": Rule(UNVALIDATED, gap=_PAIR_GAP),
     "uztc_progression": Rule(EXECUTION, ("uztc.v10_not_parse", "uztc.v11_imports", "fm3_2.v12_raises")),
@@ -561,6 +573,14 @@ class Verifier:
             if not path.is_file():
                 self.check(claim, f"reference {Path(rel).name} runs", False, kind="execution", entries=[eid],
                            problem="the reference file is missing")
+                continue
+            if slug == "agent_factory":
+                # This file prints nothing and has no demo of its own, so "it exited 0" says nothing: an empty
+                # file or a bare SystemExit(0) would pass. Its documented behaviour is asserted instead.
+                res = self.run(f"reference {Path(rel).name}", "probe", path, [eid], probe="agent_factory")
+                self.exec_claim(claim, f"reference {Path(rel).name} loads and its factory spawns the registered "
+                                "agents, which execute to their documented output", [eid], res,
+                                lambda r: r.probe.get("agent_factory") == AGENT_FACTORY_FACTS)
                 continue
             res = self.run(f"reference {Path(rel).name}", "script", path, [eid])
             self.exec_claim(claim, f"reference {Path(rel).name} runs as a script and exits 0"
