@@ -83,3 +83,21 @@ def test_no_dash_punctuation_that_the_house_style_forbids():
     for name in ("README.md", "STACK.md", "CHANGELOG.md"):
         text = (ROOT / name).read_text(encoding="utf-8")
         assert chr(0x2014) not in text, f"{name} contains an em dash"
+
+
+def test_every_action_in_the_workflow_is_pinned_by_full_sha_with_its_tag():
+    workflow = (ROOT / ".github" / "workflows" / "tests.yml").read_text(encoding="utf-8")
+    uses = re.findall(r"^\s*-?\s*uses:\s*(\S+)(.*)$", workflow, re.M)
+    assert uses
+    for target, rest in uses:
+        assert re.fullmatch(r"[\w.-]+/[\w.-]+@[0-9a-f]{40}", target), f"{target} is not pinned by full commit SHA"
+        assert re.search(r"#\s*v\d+\.\d+\.\d+", rest), f"{target} has no tag comment"
+
+
+def test_the_tagging_statement_is_true_and_the_same_in_both_documents():
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    for text in (changelog, readme):
+        assert "older `v0.10.0` tag exists" in text.replace("\n", " ")
+        assert "tagging is" in text.replace("\n", " ") and "owner's decision" in text.replace("\n", " ")
+        assert "No release has been tagged" not in text

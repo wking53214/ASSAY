@@ -157,7 +157,7 @@ Arguments are parsed strictly and abbreviations are off, so a typo such as `--st
 
 Diagnostics use the standard `logging` module on **stderr**, at the level named by `ASSAY_LOG_LEVEL` (`DEBUG`, `INFO`, `WARNING`, `ERROR`; default `WARNING`, which prints nothing on a normal run; an unknown value is reported and ignored). They never touch stdout, so the report and the final `ASSAY-SUMMARY:` line are unchanged, and the last stderr line of a failed run is still the line that names the failing claims.
 
-The version lives in one place, `assay_production/_version.py`; `pyproject.toml`, `assay_production.__version__` and every `--version` read it. Changes are listed in [CHANGELOG.md](CHANGELOG.md). Release tags are made by the owner, not by the code.
+The version lives in one place, `assay_production/_version.py`; `pyproject.toml`, `assay_production.__version__` and every `--version` read it. Changes are listed in [CHANGELOG.md](CHANGELOG.md). Release tags are made by the owner, not by the code: an older `v0.10.0` tag exists (from the earlier numbering, before the package had a version file) and does not correspond to this version; releases of 0.11.x are not tagged yet, and tagging is the owner's decision.
 
 ## 10. Security and limits
 

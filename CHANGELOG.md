@@ -5,8 +5,25 @@ All notable changes to ASSAY are recorded here. The format follows
 [Semantic Versioning](https://semver.org/). The version is written once, in
 `assay_production/_version.py`.
 
-Release tags are made by the repository owner. A version listed here without a
-tag has not been tagged yet.
+Release tags are made by the repository owner. An older `v0.10.0` tag exists. It
+dates from the earlier numbering (it points at the end of the work listed under
+0.10.0 below, before the package had a version file) and does not correspond to
+the version of this package. Releases of 0.11.x are not tagged yet; tagging is
+the owner's decision.
+
+## [0.11.1] - 2026-10-17 (not yet tagged)
+
+Cleanup after an independent audit of 0.11.0.
+
+### Changed
+- CI: every GitHub Action is pinned by full commit SHA with its tag in a comment (`actions/checkout` v4.2.2,
+  `actions/setup-python` v5.6.0), and a test guards it.
+- CI: the `consumers` job checks SWIZZLE and WARDEN out at the tested set (full SHAs). The comments say what is
+  true of each commit: its own version file, and how far it is past that repository's last tag.
+
+### Fixed
+- The tag wording in this file and in the README: it said or implied that no tag exists. An older `v0.10.0` tag
+  exists and matches no current version; tagging 0.11.x is the owner's decision.
 
 ## [0.11.0] - 2026-10-17 (not yet tagged)
 
@@ -47,7 +64,7 @@ Covers everything after the `v0.10.0` tag (2026-10-12) plus the hardening pass b
 
 ## [0.10.0] - 2026-10-12
 
-Tagged `v0.10.0`.
+The `v0.10.0` tag points at the end of this work (#18).
 
 ### Added
 - The verifier proves the answer key instead of trusting it: every claim is run, the four copies of the key are

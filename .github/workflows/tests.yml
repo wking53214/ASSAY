@@ -10,8 +10,8 @@ jobs:
       matrix:
         python-version: ["3.11", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install -e ".[dev,cns]"
@@ -29,25 +29,28 @@ jobs:
       - run: pytest -q
 
   # The consumers of registry.json load the key with their own code. Each is
-  # checked out at a pinned commit so this job fails because of a change here,
-  # not because a sibling moved. To bump a pin: take the new full commit SHA of
-  # that repository, change the ref below, and note the tag it corresponds to.
+  # checked out at a pinned full commit SHA so this job fails because of a
+  # change here, not because a sibling moved. The pins are the tested set:
+  # the commits this release was checked against, which may be one or more
+  # commits behind each repository's branch head. To bump a pin: take the new
+  # full commit SHA of that repository, change the ref below, update the
+  # comment (version from that commit's own version file), and re-run this job.
   consumers:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
         with:
           repository: wking53214/SWIZZLE
-          ref: 9eb2a10ed1a05f3d15041c68f08b9c1c8c8c036f  # SWIZZLE main at the time of writing
+          ref: 04b72b197b703e7e64be62039509c1c9e6c3bf20  # tested set: SWIZZLE 0.8.0 per its pyproject, 20 commits after its older v0.10.0 tag
           path: siblings/SWIZZLE
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
         with:
           repository: wking53214/WARDEN
-          ref: 2cf0eeccf839f88d624deb133fe1cb4b16a99009  # WARDEN main at the time of writing
+          ref: ec551d8e10f82b6e3e681593a97011ae517d360b  # tested set: WARDEN 0.13.1 per warden.__version__, 8 commits after tag v0.11.4
           path: siblings/WARDEN
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
         with:
           python-version: "3.12"
       - run: pip install -e ".[dev,cns]" numpy matplotlib
@@ -65,8 +68,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
         with:
           python-version: "3.12"
       - run: pip install build numpy matplotlib
