@@ -99,4 +99,31 @@ registry.json → swizzle assay → ghost_buster scored (also in ghost_tools CI)
 registry.json → Warden AssayAdapter (and `warden tagteam --assay-root` or `--stack FOLDER`: Ghost is graded here before anything is written; see STACK.md)
 ```
 
+## 8. Optional CNS connection
+
+ASSAY does not need CNS. It has no runtime dependency, nothing in the package imports CNS when it loads, and the verifier and the sandbox never import it (`tests/test_cns_independence.py` checks all of this with CNS blocked). `assay_production/cns_connector.py` is the one place that knows CNS exists. Install it with `pip install 'assay[cns]'`; without CNS, building a gate raises `CnsNotInstalled` and nothing else changes.
+
+It offers one gate in CNS's shared gate contract (`cns.gate`), `AssayKeyGate`, which answers only ASSAY's own question: *is the answer key proven, before anyone grades against it?* It sits at the `ALPHA` end, because a key that is not proven means the grading never starts. What a refusal means for a whole run is the Judge's to decide, not this gate's.
+
+```python
+from assay_production.cns_connector import AssayKeyGate
+result = AssayKeyGate().check("/path/to/ASSAY")      # a checkout, not a result
+```
+
+The candidate is the path of an ASSAY checkout. The gate runs that checkout's `verify_manifest.py` as a subprocess (so the verifier's process protections and environment handling are not applied to the caller) and reads the `ASSAY-SUMMARY` line together with the exit code. About 5 seconds on an idle machine (up to the 300 second total limit if it is busy).
+
+| ASSAY says | CNS outcome | Why |
+|---|---|---|
+| every claim holds, none skipped (exit 0) | `PASS` | The key is proven. The reason says how many entries are still `UNVALIDATED`: PASS does not mean those were re-measured. |
+| a claim failed: a changed specimen or hash, the four copies disagreeing, a tripped guard, any reason code not listed below | `TERMINAL_BREACH` | The key is not what was recorded. No retry repairs a changed key. |
+| only claims that timed out | `RETRY` | A slow machine, not a changed specimen (the hash claims held). |
+| a claim could not be run here (numpy or matplotlib missing) | `RETRY` | It was not measured, so nothing is proven. Install them and ask again. |
+| the verifier crashed, was killed, could not be started, or ran out of time; or the key changed while it was being proven | `RETRY` | Nothing was measured. |
+| a summary or exit code the gate does not recognise | `TERMINAL_BREACH` | An unknown answer is never read as permission. |
+| a candidate that is not a path, not an ASSAY checkout, or whose key cannot be read and hashed | `TERMINAL_BREACH`, unbound | Nothing can be proven about it. |
+
+The verdict is bound with `cns.gate.subject_digest` to the key's real content, read with the verifier's own functions: the parsed `registry.json` (with the recorded SHA-256 of every specimen), the SHA-256 the verifier computes now for every file under `specimens/`, the hash of `MANIFEST.md`, and the hash of `verify_manifest.py` and the modules that prove the key. A PASS therefore cannot be moved onto a different key, and the same key at another path digests alike. This is tamper-evidence: a consumer compares the digest with the one it expects (`GateResult.binds`).
+
+The connector tests (`tests/test_cns_connector.py`) skip where CNS is absent and run in CI, which installs the extra.
+
 Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE). Copyright 2026 William N. King.

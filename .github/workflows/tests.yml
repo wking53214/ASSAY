@@ -1,0 +1,25 @@
+name: tests
+on:
+  push:
+  pull_request:
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev,cns]"
+      # ASSAY itself is standard library only. Four specimens import numpy or
+      # matplotlib, and the claims that run them are skipped without them, so
+      # they are installed here for the runner only (not as a dependency).
+      - run: pip install numpy matplotlib
+      # Prove the answer key first (about 5 seconds). --strict makes a claim
+      # that could not be run on this runner a failure instead of a quiet skip.
+      - run: python verify_manifest.py --strict
+      - run: pytest -q
