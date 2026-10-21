@@ -18,9 +18,9 @@ def test_readme_does_not_quote_a_test_count():
 
 def test_readme_names_the_same_cns_pin_as_pyproject():
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
-    found = re.search(r"@([0-9a-f]{40})$", project["optional-dependencies"]["cns"][0])
+    found = re.search(r"@(v\d+\.\d+\.\d+)$", project["optional-dependencies"]["cns"][0])
     assert found is not None
-    assert found.group(1) in README and "v1.9.0" in README
+    assert found.group(1) in README
 
 
 def test_readme_claim_about_the_cns_assay_row_matches_the_installed_cns():

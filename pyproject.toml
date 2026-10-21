@@ -31,8 +31,8 @@ Homepage = "https://github.com/wking53214/ASSAY"
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10"]
 # Optional: lets the answer key be asked as a CNS gate (assay_production.cns_connector). Nothing in ASSAY imports CNS otherwise.
-# Pinned to a full commit SHA, not a tag (a tag can move). The SHA is the commit CNS v1.9.0 points at (the tag's peeled commit); to bump, take the SHA of the new tag.
-cns = ["cns @ git+https://github.com/wking53214/CNS.git@da18e411743d4e3b0e783105394d845fb1c16746"]
+# Pinned to the CNS v1.9.0 tag. The seven circuit repositories carry identical pin text, which CNS's seat_pins check compares; to bump, change the tag in all seven together.
+cns = ["cns @ git+https://github.com/wking53214/CNS.git@v1.9.0"]
 
 [project.scripts]
 # Both need a checkout of the repository for the specimens and MANIFEST.md (pass --root PATH, or run inside it).

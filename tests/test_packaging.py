@@ -12,7 +12,6 @@ from assay_production import _version
 from conftest import ROOT
 
 PYPROJECT = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-FULL_SHA = re.compile(r"@([0-9a-f]{40})(?:\s|$)")
 
 
 def test_version_has_a_single_source():
@@ -54,13 +53,9 @@ def test_the_registry_ships_with_the_package():
     assert "registry.json" in PYPROJECT["tool"]["setuptools"]["package-data"]["assay_production"]
 
 
-def test_the_cns_extra_is_pinned_to_a_full_commit_sha():
+def test_the_cns_extra_is_pinned_to_the_v1_9_0_tag():
     (spec,) = PYPROJECT["project"]["optional-dependencies"]["cns"]
-    assert spec.startswith("cns @ git+https://github.com/wking53214/CNS.git@")
-    assert FULL_SHA.search(spec + "\n"), spec
-    # The pin is explained next to it, with the tag it corresponds to.
-    text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    assert "v1.9.0" in text.split("[project.scripts]")[0]
+    assert spec == "cns @ git+https://github.com/wking53214/CNS.git@v1.9.0"
 
 
 def test_ci_runs_the_static_gates_on_three_pythons():
