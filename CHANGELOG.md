@@ -11,6 +11,20 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [Unreleased]
+
+### Changed
+- CI: the `consumers` job now checks out SWIZZLE 0.8.1 (`123d7aba5d91896b6c9b381c8b0de4c89365ab81`) and WARDEN 0.13.2
+  (`9d9a71d1bc3195f0abd9aee8fe553cc09838b684`). Warden 0.13.2 reads ASSAY's dynamic version statically, so its run
+  record carries the real ASSAY version instead of `null`.
+- `tests/test_packaging.py::test_changelog_leads_with_the_current_version` accepts an `[Unreleased]` heading above the
+  current version, as Keep a Changelog prescribes; the rest of that test is unchanged.
+
+### Added
+- `tests/test_version_exposure.py::test_version_file_stays_a_single_plain_string_literal_assignment`: fails if
+  `assay_production/_version.py` stops being one top-level `__version__ = "literal"` assignment, or pyproject stops
+  pointing at it. That is the contract Warden relies on to read the version without importing ASSAY.
+
 ## [0.11.1] - 2026-10-17 (not yet tagged)
 
 Cleanup after an independent audit of 0.11.0.

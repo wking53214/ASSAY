@@ -34,7 +34,8 @@ def test_installed_metadata_agrees_with_the_source():
 def test_changelog_leads_with_the_current_version():
     text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     headings = re.findall(r"^## \[([^\]]+)\]", text, re.M)
-    assert headings[0] == _version.__version__, headings
+    released = headings[1:] if headings[:1] == ["Unreleased"] else headings
+    assert released[0] == _version.__version__, headings
     assert "Keep a Changelog" in text
     # newest first, and every version is listed once
     assert len(headings) == len(set(headings))

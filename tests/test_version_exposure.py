@@ -4,6 +4,7 @@ pyproject.toml has no static ``[project] version`` (it is dynamic, from assay_pr
 pyproject.toml gets None. The package attribute, the installed distribution metadata and the commands must all
 carry the same string, and the README must show the exact command.
 """
+import ast
 import importlib.metadata
 import re
 import shlex
@@ -44,6 +45,34 @@ def test_the_package_exposes_the_version_and_pyproject_stays_dynamic():
     assert assay_production.__version__ == _version.__version__ == source_version()
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
     assert "version" in project["dynamic"] and "version" not in project
+
+
+def test_version_file_stays_a_single_plain_string_literal_assignment():
+    """Warden (0.13.2 and later) reads the dynamic version statically, without importing ASSAY.
+
+    It parses ``[tool.setuptools.dynamic] version = {attr = "..."}`` out of pyproject.toml, finds that module's
+    source and accepts only a top-level ``__version__ = "literal"`` that is assigned exactly once. If this file
+    ever computes the version (a call, an f-string, a name, an import, a second assignment, an annotated or
+    augmented assignment), Warden's run record goes back to ``versions.assay.version = null``.
+    """
+    config = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    assert "version" in config["project"]["dynamic"]
+    assert config["tool"]["setuptools"]["dynamic"]["version"] == {"attr": "assay_production._version.__version__"}
+    source = (ROOT / "assay_production" / "_version.py").read_text(encoding="utf-8")
+    assert len(source) < 256 * 1024
+    tree = ast.parse(source)
+    touching = [
+        node for node in tree.body
+        if any(isinstance(n, ast.Name) and n.id == "__version__" and isinstance(n.ctx, ast.Store)
+               for n in ast.walk(node) if not isinstance(node, ast.Expr))
+    ]
+    assert len(touching) == 1, "__version__ must be bound exactly once, at the top level of _version.py"
+    node = touching[0]
+    assert isinstance(node, ast.Assign), "__version__ must be a plain assignment, not annotated, augmented or imported"
+    assert len(node.targets) == 1 and isinstance(node.targets[0], ast.Name) and node.targets[0].id == "__version__"
+    assert isinstance(node.value, ast.Constant) and isinstance(node.value.value, str) and node.value.value, (
+        "__version__ must be a non-empty string literal, not computed")
+    assert node.value.value == _version.__version__
 
 
 def test_the_installed_distribution_exposes_the_same_version():
