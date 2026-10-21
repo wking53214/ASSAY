@@ -74,6 +74,8 @@ from __future__ import annotations
 
 import atexit
 import json
+import logging
+import math
 import os
 import secrets
 import shutil
@@ -90,6 +92,8 @@ from typing import Dict, List, Optional, Sequence, Tuple
 DEFAULT_TIMEOUT = 120.0
 DEFAULT_TOTAL_TIMEOUT = 300.0
 DEFAULT_OUTPUT_CAP = 1024 * 1024
+
+log = logging.getLogger("assay.sandbox")
 
 ENV_CLAIM_TIMEOUT = "ASSAY_CLAIM_TIMEOUT"
 ENV_TOTAL_TIMEOUT = "ASSAY_TOTAL_TIMEOUT"
@@ -347,6 +351,35 @@ try:
                 out["raised"] = None
             except Exception as exc:
                 out["raised"] = type(exc).__name__
+        elif probe == "agent_factory":
+            # What the specimen documents: a registry of tactical agents that a factory spawns, each of which
+            # executes to a fixed line, over a base class that refuses to run. Only observed facts are reported.
+            def _raised(call):
+                try:
+                    call()
+                    return None
+                except Exception as exc:
+                    return type(exc).__name__
+            cfg = module.AgentConfig(name="probe", priority=7, is_critical=False)
+            # A second, different priority: a line that is the same for both was not built from the config.
+            cfg_other = module.AgentConfig(name="probe_other", priority=3, is_critical=False)
+            citadel = module.AgentFactory.spawn("CITADEL", cfg)
+            citadel_other = module.AgentFactory.spawn("CITADEL", cfg_other)
+            destroyer = module.AgentFactory.spawn("DESTROYER", cfg)
+            out["agent_factory"] = {
+                "registry": sorted(module.AgentFactory._registry),
+                "citadel_class": type(citadel).__name__,
+                "citadel_is_base": isinstance(citadel, module.BaseTacticalAgent),
+                "citadel_config_kept": citadel.config is cfg,
+                "citadel_says": citadel.execute(None),
+                "citadel_other_config_kept": citadel_other.config is cfg_other,
+                "citadel_other_says": citadel_other.execute(None),
+                "destroyer_class": type(destroyer).__name__,
+                "destroyer_is_base": isinstance(destroyer, module.BaseTacticalAgent),
+                "destroyer_says": destroyer.execute(None),
+                "base_execute_raises": _raised(lambda: module.BaseTacticalAgent(cfg).execute(None)),
+                "unknown_spawn_raises": _raised(lambda: module.AgentFactory.spawn("NO_SUCH_AGENT", cfg)),
+            }
         else:
             out["error"] = {"type": "UnknownProbe", "message": probe, "module_name": None}
         out.setdefault("exit_code", 0)
@@ -417,15 +450,29 @@ class SandboxResult:
 
 # ----------------------------------------------------------- configuration
 
-def _env_float(name: str) -> Optional[float]:
+_WARNED_ENV: set = set()
+
+
+def _env_float(name: str, default: str = "") -> Optional[float]:
+    """A positive finite number from the environment, else None (the caller's default applies).
+
+    An unset or empty variable is just unset. A value that is not a positive finite number is ignored, and said
+    so once per process on stderr through the ``assay.sandbox`` logger, naming the variable and the default that
+    is used instead (``default`` describes it). Nothing is printed on stdout.
+    """
     raw = os.environ.get(name, "").strip()
     if not raw:
         return None
     try:
         value = float(raw)
     except ValueError:
-        return None
-    return value if value > 0 else None
+        value = float("nan")
+    if math.isfinite(value) and value > 0:
+        return value
+    if name not in _WARNED_ENV:
+        _WARNED_ENV.add(name)
+        log.warning("%s=%r is not a positive number; ignoring it and using the default (%s)", name, raw, default)
+    return None
 
 
 def load_factor() -> float:
@@ -440,7 +487,7 @@ def load_factor() -> float:
 
 def effective_timeout(requested: Optional[float] = None) -> Tuple[float, str]:
     """(seconds, where it came from). ASSAY_CLAIM_TIMEOUT wins and is used exactly as given."""
-    env = _env_float(ENV_CLAIM_TIMEOUT)
+    env = _env_float(ENV_CLAIM_TIMEOUT, f"{DEFAULT_TIMEOUT:g}s per claim, stretched for machine load")
     if env is not None:
         return env, f"{ENV_CLAIM_TIMEOUT}={env:g}"
     base = float(requested) if requested else DEFAULT_TIMEOUT
@@ -451,11 +498,11 @@ def effective_timeout(requested: Optional[float] = None) -> Tuple[float, str]:
 
 
 def total_budget() -> float:
-    return _env_float(ENV_TOTAL_TIMEOUT) or DEFAULT_TOTAL_TIMEOUT
+    return _env_float(ENV_TOTAL_TIMEOUT, f"{DEFAULT_TOTAL_TIMEOUT:g}s") or DEFAULT_TOTAL_TIMEOUT
 
 
 def output_cap() -> int:
-    env = _env_float(ENV_OUTPUT_CAP)
+    env = _env_float(ENV_OUTPUT_CAP, f"{DEFAULT_OUTPUT_CAP} bytes")
     return int(env) if env else DEFAULT_OUTPUT_CAP
 
 
@@ -769,11 +816,11 @@ def _diff(label: str, before: Dict[str, Tuple], after: Dict[str, Tuple]) -> List
         a, b = before.get(name), after.get(name)
         if a == b:
             continue
-        if a is None:
+        if a is None and b is not None:
             out.append(f"{label}: new {b[0]} {name}")
-        elif b is None:
+        elif b is None and a is not None:
             out.append(f"{label}: {a[0]} {name} was removed")
-        elif a[0] == "dir" and b[0] == "dir":
+        elif a is not None and b is not None and a[0] == "dir" and b[0] == "dir":
             continue
         else:
             out.append(f"{label}: {name} was changed")
@@ -875,6 +922,7 @@ def _run(run: str, mode: str, target: Path, probe: str, stage: Sequence[Tuple[Pa
                             preexec_fn=_limits(cpu_seconds, nproc), start_new_session=True)
     with _ACTIVE_LOCK:
         _ACTIVE[run] = proc
+    assert proc.stdin is not None  # stdin=PIPE above
     try:
         proc.stdin.write((nonce + "\n").encode("ascii"))
         proc.stdin.close()
@@ -936,7 +984,7 @@ def _run(run: str, mode: str, target: Path, probe: str, stage: Sequence[Tuple[Pa
             if text not in violations:
                 violations.append(text)
     stray: List[str] = []
-    for unit, snap in zip(watched, before):
+    for unit, snap in zip(watched, before, strict=True):
         stray += _diff(unit[0], snap, _take(unit))
     for name in sorted(set(os.listdir(run)) - _RUN_EXPECTED):
         stray.append(f"sandbox run directory: unexpected {name}")
@@ -948,7 +996,8 @@ def _run(run: str, mode: str, target: Path, probe: str, stage: Sequence[Tuple[Pa
         root_name = (err_info.get("module_name") or "").split(".")[0]
         if root_name in OPTIONAL_DEPENDENCIES:
             missing = root_name
-    exit_code = report.get("exit_code", rc if rc is not None else -1)
+    fallback_rc: int = rc if rc is not None else -1
+    exit_code: int = report.get("exit_code", fallback_rc)
     if timed_out:
         load1 = os.getloadavg()[0] if hasattr(os, "getloadavg") else 0.0
         detail = (f"timed out after {limit:g}s of wall-clock time (limit: {limit_source}; machine load "
@@ -970,7 +1019,8 @@ def _run(run: str, mode: str, target: Path, probe: str, stage: Sequence[Tuple[Pa
 def _died_text(rc: Optional[int], err: str) -> str:
     how = f"signal {_signal_name(rc)}" if rc is not None and rc < 0 else f"exit {rc}"
     extra = {"SIGXCPU": " (CPU-time limit exceeded)", "SIGXFSZ": " (file-size limit exceeded)",
-             "SIGKILL": " (killed, possibly out of memory)"}.get(_signal_name(rc) if rc is not None and rc < 0 else "", "")
+             "SIGKILL": " (killed, possibly out of memory)"}.get(
+                 _signal_name(rc) if rc is not None and rc < 0 else "", "")
     return f"the child process died before reporting ({how}{extra}): {err.strip()[-300:]}"
 
 
