@@ -11,6 +11,14 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [Unreleased]
+
+### Changed
+- CI: the `consumers` job now checks out WARDEN 0.13.4 (`36e98433f4928b7d12905f02b56e55ee1943b56e`, 18 commits after
+  tag `v0.11.4`) instead of 0.13.3 (`580f659336818b4a5a2c0ca235d2344012536426`). SWIZZLE stays at 0.8.1
+  (`8166c47f321ecfb66b8efa72c1deac5d954e8e48`). Warden 0.13.4 reads ASSAY's version statically and requires
+  instrument roots to be git checkouts. No version bump: this is a CI and documentation change only.
+
 ## [0.11.2] - 2026-10-21 (not yet tagged)
 
 Small findings from the third audit round, and the tested sibling set moved.
