@@ -11,12 +11,24 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
-## [Unreleased]
+## [0.11.2] - 2026-10-21 (not yet tagged)
+
+Small findings from the third audit round, and the tested sibling set moved.
 
 ### Changed
-- CI: the `consumers` job now checks out SWIZZLE 0.8.1 (`123d7aba5d91896b6c9b381c8b0de4c89365ab81`) and WARDEN 0.13.2
-  (`9d9a71d1bc3195f0abd9aee8fe553cc09838b684`). Warden 0.13.2 reads ASSAY's dynamic version statically, so its run
-  record carries the real ASSAY version instead of `null`.
+- CI: the `consumers` job now checks out SWIZZLE 0.8.1 (`8166c47f321ecfb66b8efa72c1deac5d954e8e48`, 22 commits after
+  its older `v0.10.0` tag) and WARDEN 0.13.3 (`580f659336818b4a5a2c0ca235d2344012536426`, 16 commits after tag
+  `v0.11.4`). `tests/test_consumers.py` passes (9 passed, 0 skipped) against clean clones of exactly those commits,
+  and against the previous SWIZZLE commit `123d7aba5d91896b6c9b381c8b0de4c89365ab81` too. Warden 0.13.2 and later
+  reads ASSAY's dynamic version statically, so its run record carries the real ASSAY version instead of `null`.
+- BEHAVIOR CHANGE: `ASSAY_STRICT` is parsed. `1`, `true`, `yes`, `on` (any case) mean strict; `0`, `false`, `no`,
+  `off` and empty mean not strict; any other value is a usage error (exit 2, nothing is checked, a message names the
+  variable). Before, any non-empty value, `0` included, counted as strict, so `ASSAY_STRICT=0 --allow-skips` exited 2.
+  `--strict` and `ASSAY_STRICT=1` keep their meaning.
+- An invalid `ASSAY_CLAIM_TIMEOUT`, `ASSAY_TOTAL_TIMEOUT` or `ASSAY_OUTPUT_CAP` (not a number, zero, negative, `nan`
+  or `inf`) is still ignored in favour of the default, but no longer silently: one warning per variable and run on
+  stderr, through the `logging` module, names the variable, the value and the default used. stdout is untouched.
+  (`inf` used to be accepted as a timeout and broke `ASSAY_OUTPUT_CAP`; it now counts as invalid.)
 - `tests/test_packaging.py::test_changelog_leads_with_the_current_version` accepts an `[Unreleased]` heading above the
   current version, as Keep a Changelog prescribes; the rest of that test is unchanged.
 
@@ -24,6 +36,18 @@ the owner's decision.
 - `tests/test_version_exposure.py::test_version_file_stays_a_single_plain_string_literal_assignment`: fails if
   `assay_production/_version.py` stops being one top-level `__version__ = "literal"` assignment, or pyproject stops
   pointing at it. That is the contract Warden relies on to read the version without importing ASSAY.
+
+### Fixed
+- `ref.agent_factory.runs` checked the Citadel line for one config value only (priority 7), so a specimen that
+  returned the fixed string `CITADEL: Layer 7 secured.` passed, and `--write` re-recorded it. The probe now spawns a
+  second Citadel with priority 3 and the claim requires `CITADEL: Layer 3 secured.` and that agent's config kept. The
+  claim's assertions are defined in code (`AGENT_FACTORY_FACTS` in `verification.py`, probe in `sandbox.py`), not in
+  the answer key; the key records only the claim's description. Re-recorded with `manifest_registry --write`: only
+  that description text changed in `registry.json`; no specimen and no hash. A new mutant in
+  `tests/test_agent_factory_claim.py` (the hard-coded string) fails the verifier and is refused by `--write`.
+- A bad `ASSAY_LOG_LEVEL` printed its warning twice, once in the verifier and once in the copy it restarts with a
+  minimal environment. It is printed once now (the restarted copy is told by `ASSAY_RELAUNCHED=1`, which it removes
+  from its environment at once).
 
 ## [0.11.1] - 2026-10-17 (not yet tagged)
 

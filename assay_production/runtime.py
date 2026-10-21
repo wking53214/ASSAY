@@ -31,11 +31,12 @@ def get_logger(name: str = "") -> logging.Logger:
     return logging.getLogger(f"{LOGGER_NAME}.{name}" if name else LOGGER_NAME)
 
 
-def configure_logging(env: Optional[dict] = None) -> int:
+def configure_logging(env: Optional[dict] = None, *, warn: bool = True) -> int:
     """Send ``assay.*`` log records to stderr at the level ``ASSAY_LOG_LEVEL`` names. Safe to call twice.
 
     An unknown level is reported once and ignored (WARNING is used): a
-    diagnostics knob must never decide whether the key is proven.
+    diagnostics knob must never decide whether the key is proven. ``warn=False``
+    is for a process that was restarted by one that already reported it.
     """
     environ = os.environ if env is None else env
     raw = (environ.get(LOG_LEVEL_ENV) or "").strip()
@@ -49,7 +50,7 @@ def configure_logging(env: Optional[dict] = None) -> int:
     logger.addHandler(handler)
     logger.setLevel(level)
     logger.propagate = False
-    if raw and raw.upper() not in _LEVELS:
+    if warn and raw and raw.upper() not in _LEVELS:
         logger.warning("%s=%r is not one of %s; using WARNING", LOG_LEVEL_ENV, raw, ", ".join(_LEVELS))
     return level
 

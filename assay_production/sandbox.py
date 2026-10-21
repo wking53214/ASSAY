@@ -74,6 +74,8 @@ from __future__ import annotations
 
 import atexit
 import json
+import logging
+import math
 import os
 import secrets
 import shutil
@@ -90,6 +92,8 @@ from typing import Dict, List, Optional, Sequence, Tuple
 DEFAULT_TIMEOUT = 120.0
 DEFAULT_TOTAL_TIMEOUT = 300.0
 DEFAULT_OUTPUT_CAP = 1024 * 1024
+
+log = logging.getLogger("assay.sandbox")
 
 ENV_CLAIM_TIMEOUT = "ASSAY_CLAIM_TIMEOUT"
 ENV_TOTAL_TIMEOUT = "ASSAY_TOTAL_TIMEOUT"
@@ -357,7 +361,10 @@ try:
                 except Exception as exc:
                     return type(exc).__name__
             cfg = module.AgentConfig(name="probe", priority=7, is_critical=False)
+            # A second, different priority: a line that is the same for both was not built from the config.
+            cfg_other = module.AgentConfig(name="probe_other", priority=3, is_critical=False)
             citadel = module.AgentFactory.spawn("CITADEL", cfg)
+            citadel_other = module.AgentFactory.spawn("CITADEL", cfg_other)
             destroyer = module.AgentFactory.spawn("DESTROYER", cfg)
             out["agent_factory"] = {
                 "registry": sorted(module.AgentFactory._registry),
@@ -365,6 +372,8 @@ try:
                 "citadel_is_base": isinstance(citadel, module.BaseTacticalAgent),
                 "citadel_config_kept": citadel.config is cfg,
                 "citadel_says": citadel.execute(None),
+                "citadel_other_config_kept": citadel_other.config is cfg_other,
+                "citadel_other_says": citadel_other.execute(None),
                 "destroyer_class": type(destroyer).__name__,
                 "destroyer_is_base": isinstance(destroyer, module.BaseTacticalAgent),
                 "destroyer_says": destroyer.execute(None),
@@ -441,15 +450,29 @@ class SandboxResult:
 
 # ----------------------------------------------------------- configuration
 
-def _env_float(name: str) -> Optional[float]:
+_WARNED_ENV: set = set()
+
+
+def _env_float(name: str, default: str = "") -> Optional[float]:
+    """A positive finite number from the environment, else None (the caller's default applies).
+
+    An unset or empty variable is just unset. A value that is not a positive finite number is ignored, and said
+    so once per process on stderr through the ``assay.sandbox`` logger, naming the variable and the default that
+    is used instead (``default`` describes it). Nothing is printed on stdout.
+    """
     raw = os.environ.get(name, "").strip()
     if not raw:
         return None
     try:
         value = float(raw)
     except ValueError:
-        return None
-    return value if value > 0 else None
+        value = float("nan")
+    if math.isfinite(value) and value > 0:
+        return value
+    if name not in _WARNED_ENV:
+        _WARNED_ENV.add(name)
+        log.warning("%s=%r is not a positive number; ignoring it and using the default (%s)", name, raw, default)
+    return None
 
 
 def load_factor() -> float:
@@ -464,7 +487,7 @@ def load_factor() -> float:
 
 def effective_timeout(requested: Optional[float] = None) -> Tuple[float, str]:
     """(seconds, where it came from). ASSAY_CLAIM_TIMEOUT wins and is used exactly as given."""
-    env = _env_float(ENV_CLAIM_TIMEOUT)
+    env = _env_float(ENV_CLAIM_TIMEOUT, f"{DEFAULT_TIMEOUT:g}s per claim, stretched for machine load")
     if env is not None:
         return env, f"{ENV_CLAIM_TIMEOUT}={env:g}"
     base = float(requested) if requested else DEFAULT_TIMEOUT
@@ -475,11 +498,11 @@ def effective_timeout(requested: Optional[float] = None) -> Tuple[float, str]:
 
 
 def total_budget() -> float:
-    return _env_float(ENV_TOTAL_TIMEOUT) or DEFAULT_TOTAL_TIMEOUT
+    return _env_float(ENV_TOTAL_TIMEOUT, f"{DEFAULT_TOTAL_TIMEOUT:g}s") or DEFAULT_TOTAL_TIMEOUT
 
 
 def output_cap() -> int:
-    env = _env_float(ENV_OUTPUT_CAP)
+    env = _env_float(ENV_OUTPUT_CAP, f"{DEFAULT_OUTPUT_CAP} bytes")
     return int(env) if env else DEFAULT_OUTPUT_CAP
 
 

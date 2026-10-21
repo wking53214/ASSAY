@@ -226,6 +226,60 @@ def test_load_stretches_the_default_timeout(monkeypatch):
     assert sb.effective_timeout(10)[0] == 7.0        # an explicit setting is exact
 
 
+@pytest.mark.parametrize("name, value, default_word", [
+    ("ASSAY_CLAIM_TIMEOUT", "soon", "120s"),
+    ("ASSAY_CLAIM_TIMEOUT", "-3", "120s"),
+    ("ASSAY_TOTAL_TIMEOUT", "0", "300s"),
+    ("ASSAY_TOTAL_TIMEOUT", "nan", "300s"),
+    ("ASSAY_OUTPUT_CAP", "lots", "1048576 bytes"),
+    ("ASSAY_OUTPUT_CAP", "inf", "1048576 bytes"),
+])
+def test_an_invalid_number_in_the_environment_warns_once_and_names_the_default(monkeypatch, name, value, default_word):
+    import logging
+
+    import assay_production.sandbox as sb
+
+    seen = []
+
+    class Catch(logging.Handler):
+        def emit(self, record):
+            seen.append(record.getMessage())
+
+    catch = Catch(level=logging.WARNING)
+    logger = logging.getLogger("assay.sandbox")
+    logger.addHandler(catch)
+    monkeypatch.setattr(sb, "_WARNED_ENV", set())
+    monkeypatch.delenv("ASSAY_CLAIM_TIMEOUT", raising=False)
+    monkeypatch.delenv("ASSAY_TOTAL_TIMEOUT", raising=False)
+    monkeypatch.delenv("ASSAY_OUTPUT_CAP", raising=False)
+    monkeypatch.setenv(name, value)
+    try:
+        for _ in range(3):
+            assert sb.effective_timeout(10)[0] > 0 and sb.total_budget() > 0 and sb.output_cap() > 0
+    finally:
+        logger.removeHandler(catch)
+    mine = [m for m in seen if name in m]
+    assert len(mine) == 1 and repr(value) in mine[0] and default_word in mine[0], seen
+    assert [m for m in seen if name not in m] == []
+    # the default really is what is used
+    assert sb.total_budget() == sb.DEFAULT_TOTAL_TIMEOUT or name != "ASSAY_TOTAL_TIMEOUT"
+    assert sb.output_cap() == sb.DEFAULT_OUTPUT_CAP or name != "ASSAY_OUTPUT_CAP"
+
+
+def test_a_valid_or_empty_number_in_the_environment_is_silent(monkeypatch, capsys, caplog):
+    import assay_production.sandbox as sb
+
+    monkeypatch.setattr(sb, "_WARNED_ENV", set())
+    monkeypatch.setenv("ASSAY_CLAIM_TIMEOUT", "7.5")
+    monkeypatch.setenv("ASSAY_TOTAL_TIMEOUT", "")
+    monkeypatch.setenv("ASSAY_OUTPUT_CAP", "2048")
+    with caplog.at_level("DEBUG"):
+        assert sb.effective_timeout(10)[0] == 7.5 and sb.total_budget() == sb.DEFAULT_TOTAL_TIMEOUT
+        assert sb.output_cap() == 2048
+    assert caplog.records == [] and sb._WARNED_ENV == set()
+    assert capsys.readouterr() == ("", "")
+
+
 def test_overall_budget_cuts_a_run_short_and_says_so(tmp_path):
     import time
 

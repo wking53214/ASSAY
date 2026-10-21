@@ -36,7 +36,7 @@ import sys
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
+from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Tuple
 
 from . import manifest_registry as mr
 from . import runtime
@@ -174,6 +174,8 @@ AGENT_FACTORY_FACTS: Dict[str, Any] = {
     "registry": ["CITADEL", "DESTROYER"],
     "citadel_class": "CitadelAgent", "citadel_is_base": True, "citadel_config_kept": True,
     "citadel_says": "CITADEL: Layer 7 secured.",
+    # Spawned again with priority 3: the line must follow the config it was given, not be a fixed string.
+    "citadel_other_config_kept": True, "citadel_other_says": "CITADEL: Layer 3 secured.",
     "destroyer_class": "DestroyerAgent", "destroyer_is_base": True, "destroyer_says": "DESTROYER: Entropy incinerated.",
     "base_execute_raises": "NotImplementedError", "unknown_spawn_raises": "KeyError",
 }
@@ -579,7 +581,8 @@ class Verifier:
                 # file or a bare SystemExit(0) would pass. Its documented behaviour is asserted instead.
                 res = self.run(f"reference {Path(rel).name}", "probe", path, [eid], probe="agent_factory")
                 self.exec_claim(claim, f"reference {Path(rel).name} loads and its factory spawns the registered "
-                                "agents, which execute to their documented output", [eid], res,
+                                "agents, which execute to their documented output (the Citadel line follows "
+                                "the priority it was configured with)", [eid], res,
                                 lambda r: r.probe.get("agent_factory") == AGENT_FACTORY_FACTS)
                 continue
             res = self.run(f"reference {Path(rel).name}", "script", path, [eid])
@@ -1256,6 +1259,8 @@ def failure_line(report: Report) -> str:
     return head + " " + " | ".join(parts) + more
 
 
+RELAUNCHED_ENV = "ASSAY_RELAUNCHED"
+
 _RELAUNCH_BOOT = ("import sys; sys.path.insert(0, {pkg!r}); from assay_production.verification import main; "
                   "raise SystemExit(main(None, sys.argv[2:], prog=sys.argv[1]))")
 
@@ -1271,6 +1276,7 @@ def reexec_with_minimal_environment(root: Path, argv: Sequence[str], prog: str =
     if os.environ.get("ASSAY_MINIMAL_ENV") == "1":
         return
     env = sandbox_module.minimal_parent_environment()
+    env[RELAUNCHED_ENV] = "1"  # tells the restarted process that this one already reported any bad setting
     script = Path(sys.argv[0]).resolve() if sys.argv and sys.argv[0] else None
     command: Optional[List[str]] = None
     if script is not None and script == (Path(root) / "verify_manifest.py").resolve():
@@ -1293,6 +1299,26 @@ def reexec_with_minimal_environment(root: Path, argv: Sequence[str], prog: str =
     os.environ.update(env)
 
 
+_STRICT_ON = ("1", "true", "yes", "on")
+_STRICT_OFF = ("0", "false", "no", "off", "")
+
+
+def strict_from_environment(environ: Optional[Mapping[str, str]] = None) -> bool:
+    """Whether ``ASSAY_STRICT`` asks for strict mode: 1/true/yes/on yes; 0/false/no/off, empty or unset no.
+
+    Case and surrounding spaces do not matter. Any other value raises ValueError: a setting that is not
+    understood must not silently become either answer.
+    """
+    raw = (os.environ if environ is None else environ).get("ASSAY_STRICT", "")
+    value = raw.strip().lower()
+    if value in _STRICT_ON:
+        return True
+    if value in _STRICT_OFF:
+        return False
+    raise ValueError(f"ASSAY_STRICT={raw!r} is not understood (use 1, true, yes or on for strict; "
+                     "0, false, no, off or empty for not strict)")
+
+
 class _Parser(argparse.ArgumentParser):
     """An argument parser that exits 2 on anything it does not know, with the message on stderr."""
 
@@ -1306,7 +1332,8 @@ def build_parser(prog: str = "verify_manifest.py", *, with_root: bool = False) -
         epilog="Exit codes: 0 the key is proven; 1 it is not (or the verifier itself failed); 2 the command line "
                "was not understood (nothing was checked). A claim that could not be run (numpy or matplotlib "
                "missing) is a failure by default (exit 1). --strict says so explicitly and is the same as the "
-               "default; ASSAY_STRICT=1 is the same as --strict. --allow-skips is the explicit opt-out. "
+               "default; ASSAY_STRICT=1 (or true, yes, on) is the same as --strict, 0 (or false, no, off, empty) "
+               "is not, and any other value is an error (exit 2). --allow-skips is the explicit opt-out. "
                "ASSAY_LOG_LEVEL (DEBUG, INFO, WARNING, ERROR, CRITICAL) controls diagnostics on stderr.")
     parser.add_argument("--strict", action="store_true",
                         help="a claim that could not be run on this machine (numpy or matplotlib missing) is a "
@@ -1334,14 +1361,20 @@ def main(root: Optional[Path], argv: Sequence[str], prog: str = "verify_manifest
     falls back to a weaker check: ``--stirct`` is an error, not a quiet non-strict run.
     """
     args = build_parser(prog, with_root=root is None).parse_args(list(argv))
-    runtime.configure_logging()
+    # The restarted process (reexec_with_minimal_environment) must not repeat a warning its parent printed.
+    runtime.configure_logging(warn=os.environ.pop(RELAUNCHED_ENV, "") != "1")
+    try:
+        env_strict = strict_from_environment()
+    except ValueError as exc:
+        print(f"{prog}: error: {exc}; nothing was checked.", file=sys.stderr)
+        return 2
     if root is None:
         try:
             root = runtime.resolve_root(args.root)
         except runtime.CheckoutNotFound as exc:
             print(f"{prog}: error: {exc}", file=sys.stderr)
             return 2
-    strict = args.strict or bool(os.environ.get("ASSAY_STRICT"))
+    strict = args.strict or env_strict
     if args.allow_skips and strict:
         print(f"{prog}: error: --allow-skips contradicts --strict (or ASSAY_STRICT); nothing was checked.",
               file=sys.stderr)

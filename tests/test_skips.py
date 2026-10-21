@@ -121,6 +121,47 @@ def test_contradictory_options_exit_2_and_check_nothing(bare_python, bare_corpus
     assert proc.stdout == "" and "--allow-skips" in proc.stderr
 
 
+@pytest.mark.parametrize("value", ["0", "false", "No", " off ", ""])
+def test_assay_strict_set_to_a_false_value_is_not_strict_so_allow_skips_works(bare_python, bare_corpus, value):
+    proc = run_bare(bare_python, bare_corpus, "--allow-skips", extra_env={"ASSAY_STRICT": value})
+    assert proc.returncode == 0, (value, proc.stdout[-300:], proc.stderr[-300:])
+    assert "--allow-skips" in proc.stderr and "SKIPPED, NOT PROVEN" in proc.stderr
+    assert summary_of(proc)["claims"]["skipped"] >= 1
+
+
+@pytest.mark.parametrize("value", ["true", "YES", "On", " 1 "])
+def test_assay_strict_set_to_a_true_value_is_strict(bare_python, bare_corpus, value):
+    assert run_bare(bare_python, bare_corpus, "--allow-skips", extra_env={"ASSAY_STRICT": value}).returncode == 2
+    proc = run_bare(bare_python, bare_corpus, extra_env={"ASSAY_STRICT": value})
+    assert proc.returncode == 1 and summary_of(proc)["claims"]["skipped"] >= 1
+
+
+@pytest.mark.parametrize("value", ["maybe", "2", "enabled", "tru", "-1"])
+@pytest.mark.parametrize("args", [[], ["--allow-skips"], ["--strict"], ["--write"]])
+def test_assay_strict_with_an_unknown_value_is_a_usage_error_and_checks_nothing(bare_python, bare_corpus, value, args):
+    proc = run_bare(bare_python, bare_corpus, *args, extra_env={"ASSAY_STRICT": value})
+    assert proc.returncode == 2, (value, args, proc.stdout[-300:], proc.stderr[-300:])
+    assert proc.stdout == "" and "ASSAY_STRICT" in proc.stderr and repr(value) in proc.stderr
+    assert "nothing was checked" in proc.stderr
+
+
+def test_strict_from_environment_parses_every_documented_spelling():
+    for value in ("1", "true", "TRUE", "yes", "On", "  on  "):
+        assert vf.strict_from_environment({"ASSAY_STRICT": value}) is True
+    for value in ("0", "false", "No", "OFF", "", "   "):
+        assert vf.strict_from_environment({"ASSAY_STRICT": value}) is False
+    assert vf.strict_from_environment({}) is False
+    with pytest.raises(ValueError, match="ASSAY_STRICT='perhaps'"):
+        vf.strict_from_environment({"ASSAY_STRICT": "perhaps"})
+
+
+def test_the_readme_documents_assay_strict_values():
+    readme = (Path(vf.__file__).resolve().parent.parent / "README.md").read_text(encoding="utf-8")
+    flat = " ".join(readme.split())
+    assert "`ASSAY_STRICT=0` (also `false`, `no`, `off`, or empty)" in flat
+    assert "any other value is a usage error (exit 2" in flat
+
+
 @pytest.mark.parametrize("flag", ["--allow-skip", "--allow_skips", "--allowskips", "--allow-skips=yes"])
 def test_a_mistyped_opt_out_is_an_error_not_a_weaker_run(bare_python, bare_corpus, flag):
     proc = run_bare(bare_python, bare_corpus, flag)

@@ -47,8 +47,13 @@ def mutate_base_class(path):
     edit(path, 'raise NotImplementedError("Agent vector must implement tactical logic.")', "return None")
 
 
+def mutate_hardcode_priority(path):
+    """The output the probe's first config expects, written as a fixed string: it ignores the config it was given."""
+    edit(path, 'return f"CITADEL: Layer {self.config.priority} secured."', 'return "CITADEL: Layer 7 secured."')
+
+
 MUTANTS = [mutate_to_trivial, mutate_to_empty, mutate_to_print_only, mutate_output, mutate_unregister,
-           mutate_base_class]
+           mutate_base_class, mutate_hardcode_priority]
 
 
 def test_the_untouched_specimen_satisfies_the_claim(corpus):
@@ -92,5 +97,7 @@ def test_the_asserted_facts_are_what_the_specimen_source_says():
     source = (ROOT / REL).read_text(encoding="utf-8")
     assert AGENT_FACTORY_FACTS["destroyer_says"] in source
     assert AGENT_FACTORY_FACTS["citadel_says"].replace("7", "{self.config.priority}") in source
+    assert AGENT_FACTORY_FACTS["citadel_other_says"].replace("3", "{self.config.priority}") in source
+    assert AGENT_FACTORY_FACTS["citadel_says"] != AGENT_FACTORY_FACTS["citadel_other_says"]
     for name in AGENT_FACTORY_FACTS["registry"]:
         assert f'@AgentFactory.register("{name}")' in source

@@ -161,3 +161,37 @@ def test_a_bad_log_level_is_reported_and_does_not_change_the_verdict(corpus):
                           capture_output=True, text=True, timeout=600)
     assert proc.returncode == 0
     assert "ASSAY_LOG_LEVEL='LOUD'" in proc.stderr and "using WARNING" in proc.stderr
+
+
+def test_a_bad_log_level_is_reported_once_not_once_per_process(corpus):
+    """The verifier restarts itself with a minimal environment; the restarted process must not repeat the warning."""
+    env = _env()
+    env["ASSAY_LOG_LEVEL"] = "LOUD"
+    proc = subprocess.run([sys.executable, str(corpus / "verify_manifest.py")], cwd=corpus.parent, env=env,
+                          capture_output=True, text=True, timeout=600)
+    assert proc.returncode == 0, proc.stdout[-300:] + proc.stderr[-300:]
+    assert proc.stderr.count("ASSAY_LOG_LEVEL='LOUD'") == 1, proc.stderr
+    assert "ASSAY_RELAUNCHED" not in proc.stderr
+
+
+def test_a_bad_log_level_is_reported_once_by_the_installed_command_path_too(corpus):
+    proc = run_module("assay_production", "--root", str(corpus), cwd=corpus.parent,
+                      extra_env={"ASSAY_LOG_LEVEL": "LOUD"})
+    assert proc.returncode == 0, proc.stdout[-300:] + proc.stderr[-300:]
+    assert proc.stderr.count("ASSAY_LOG_LEVEL='LOUD'") == 1, proc.stderr
+
+
+def test_an_invalid_time_or_output_setting_warns_once_on_stderr_and_leaves_stdout_alone(corpus):
+    quiet = run_verify(corpus)
+    assert quiet.returncode == 0 and quiet.stderr == ""
+    env = _env()
+    env.update({"ASSAY_CLAIM_TIMEOUT": "soon", "ASSAY_TOTAL_TIMEOUT": "-1", "ASSAY_OUTPUT_CAP": "lots"})
+    proc = subprocess.run([sys.executable, str(corpus / "verify_manifest.py")], cwd=corpus.parent, env=env,
+                          capture_output=True, text=True, timeout=600)
+    assert proc.returncode == 0, proc.stdout[-300:] + proc.stderr[-300:]
+    for name, value, default in (("ASSAY_CLAIM_TIMEOUT", "soon", "120s"), ("ASSAY_TOTAL_TIMEOUT", "-1", "300s"),
+                                 ("ASSAY_OUTPUT_CAP", "lots", "1048576 bytes")):
+        lines = [ln for ln in proc.stderr.splitlines() if f"{name}=" in ln]
+        assert len(lines) == 1 and repr(value) in lines[0] and default in lines[0], proc.stderr
+    # stdout is the same contract: the verdict does not change, and the summary is still the last line
+    assert proc.stdout.rstrip("\n").splitlines()[-1] == quiet.stdout.rstrip("\n").splitlines()[-1]
