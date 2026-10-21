@@ -11,9 +11,23 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
-## [Unreleased]
+## [0.11.3] - 2026-10-21 (not yet tagged)
+
+The tested sibling set moved again, and the README names a dependency trap.
 
 ### Changed
+- Step 1. CI: the `consumers` job now checks out SWIZZLE 0.8.4 (`6bd88f3a6e9de1f83e64f401e13cbcb5233499fc`) instead of
+  0.8.1 (`8166c47f321ecfb66b8efa72c1deac5d954e8e48`), and WARDEN 0.13.7 (`1636e1a21f124eedbf6e158db95dc75344f4308d`,
+  22 commits after tag `v0.12.0`) instead of 0.13.4 (`36e98433f4928b7d12905f02b56e55ee1943b56e`). The CNS pin stays at
+  the tag `@v1.9.0`. The job still fails on any skip. `tests/test_consumers.py` passes (9 passed, 0 skipped) against
+  clean clones of exactly those commits. No test needed an edit.
+- Step 2. README: where it says to install numpy and matplotlib, it now says to install them normally, with their
+  dependencies. Installing them with `--no-deps` leaves 56 of 60 claims proven, because matplotlib needs packages of
+  its own such as `packaging`. The failing claim already names the missing module in its message
+  (`ModuleNotFoundError: No module named 'packaging'`), so no code changed, and no claim semantics changed.
+- Step 3. Version 0.11.3, and this entry.
+
+### Already on main since 0.11.2
 - The optional `cns` extra moves from CNS v1.8.0 (`5252ceebe98185f7be81212d988055ccf9884568`) to CNS v1.9.0, pinned
   to the tag `@v1.9.0`, as the seven circuit repositories move to CNS 1.9.0 together. The pin is the tag, spelled
   as in the other six, so CNS's `seat_pins` check sees identical text. CNS 1.9.0 ships the shared `cns.assay` row that 1.8.0 lacked, so
@@ -26,7 +40,7 @@ the owner's decision.
 - CI: the `consumers` job now checks out WARDEN 0.13.4 (`36e98433f4928b7d12905f02b56e55ee1943b56e`, 18 commits after
   tag `v0.11.4`) instead of 0.13.3 (`580f659336818b4a5a2c0ca235d2344012536426`). SWIZZLE stays at 0.8.1
   (`8166c47f321ecfb66b8efa72c1deac5d954e8e48`). Warden 0.13.4 reads ASSAY's version statically and requires
-  instrument roots to be git checkouts. No version bump: this is a CI and documentation change only.
+  instrument roots to be git checkouts. Superseded by step 1 below.
 
 ## [0.11.2] - 2026-10-21 (not yet tagged)
 
