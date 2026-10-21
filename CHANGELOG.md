@@ -15,9 +15,8 @@ the owner's decision.
 
 ### Changed
 - The optional `cns` extra moves from CNS v1.8.0 (`5252ceebe98185f7be81212d988055ccf9884568`) to CNS v1.9.0, pinned
-  to the commit the tag points at, `da18e411743d4e3b0e783105394d845fb1c16746` (the tag object
-  `e9271b7657c54a87c6dcefd0e05413d6cab377cb` peels to it), as the seven circuit repositories move to CNS 1.9.0
-  together. The pin stays a full commit SHA, not a tag. CNS 1.9.0 ships the shared `cns.assay` row that 1.8.0 lacked, so
+  to the tag `@v1.9.0`, as the seven circuit repositories move to CNS 1.9.0 together. The pin is the tag, spelled
+  as in the other six, so CNS's `seat_pins` check sees identical text. CNS 1.9.0 ships the shared `cns.assay` row that 1.8.0 lacked, so
   with the extra installed the gate now passes every summary through `cns.assay.AssaySummary`; the README, `STACK.md`,
   the `pyproject.toml` comments and the `cns_connector` docstring no longer say the pinned CNS has no such row. A CNS
   without the row is still supported. The verifier's real summary is accepted by the row. Two shapes the connector's
