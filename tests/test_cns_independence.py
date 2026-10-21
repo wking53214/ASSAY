@@ -34,7 +34,7 @@ def _ok(done: subprocess.CompletedProcess) -> None:
 
 
 def _imported_modules(path: Path) -> set:
-    names = set()
+    names: set = set()
     for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
         if isinstance(node, ast.Import):
             names.update(a.name for a in node.names)

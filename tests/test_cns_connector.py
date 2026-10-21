@@ -7,6 +7,7 @@ Nothing here edits the real specimens: tampering is done on a throw-away copy
 from __future__ import annotations
 
 import json
+import logging
 from pathlib import Path
 
 import pytest
@@ -83,7 +84,8 @@ def test_the_real_key_passes_and_is_bound_to_its_content(real):
     assert result.subject == DEFAULT_SUBJECT and result.bound() and not result.blocking()
     assert result.subject_digest == gate.subject_digest(key_content(ROOT)) == key_digest(ROOT)
     assert "60/60" in result.reason or "claims hold" in result.reason
-    assert "do not" in result.reason or "does not" in result.reason  # it says the unvalidated entries are not re-measured
+    # it says the unvalidated entries are not re-measured
+    assert "do not" in result.reason or "does not" in result.reason
 
 
 def test_proving_the_real_key_changed_nothing(real):
@@ -159,7 +161,8 @@ def test_a_verifier_that_does_not_finish_is_a_retry(corpus):
     (said(proven_record()), gate.GateOutcome.PASS, "is proven"),
     (said(proven_record(status="ANSWER_KEY_VALIDATED")), gate.GateOutcome.PASS, "is proven"),
     (said(failing_record("hash_mismatch"), 1), gate.GateOutcome.TERMINAL_BREACH, "hash_mismatch"),
-    (said(failing_record("answer_key_drift", "specimen_changed"), 1), gate.GateOutcome.TERMINAL_BREACH, "specimen_changed"),
+    (said(failing_record("answer_key_drift", "specimen_changed"), 1), gate.GateOutcome.TERMINAL_BREACH,
+     "specimen_changed"),
     (said(failing_record("behaviour_changed"), 1), gate.GateOutcome.TERMINAL_BREACH, "behaviour_changed"),
     (said(failing_record("stray_write"), 1), gate.GateOutcome.TERMINAL_BREACH, "stray_write"),
     (said(failing_record("forged_result"), 1), gate.GateOutcome.TERMINAL_BREACH, "forged_result"),
@@ -366,3 +369,23 @@ def test_building_a_gate_without_cns_names_the_extra(monkeypatch):
     with pytest.raises(CnsNotInstalled) as caught:
         AssayKeyGate()
     assert "pip install 'assay[cns]'" in str(caught.value) and isinstance(caught.value, ImportError)
+
+
+# ----------------------------------------------------------------- diagnostics
+
+def test_the_gate_logs_its_outcome_to_the_assay_logger_without_changing_it(caplog, monkeypatch):
+    monkeypatch.setattr(logging.getLogger("assay"), "propagate", True)  # a CLI run in this process turns it off
+    caplog.set_level("INFO", logger="assay")
+    result = AssayKeyGate(runner=runner_returning(said(proven_record()))).check(ROOT)
+    assert result.outcome is gate.GateOutcome.PASS
+    messages = [r.getMessage() for r in caplog.records if r.name == "assay.gate"]
+    assert any(m.startswith("gate assay.key_proven: PASS") for m in messages), messages
+
+
+def test_the_gate_says_it_runs_the_candidate_unsandboxed(corpus, caplog, monkeypatch):
+    from assay_production import cns_connector
+
+    monkeypatch.setattr(logging.getLogger("assay"), "propagate", True)
+    caplog.set_level("INFO", logger="assay")
+    cns_connector.run_verifier(corpus, 120)
+    assert any("unsandboxed" in r.getMessage() for r in caplog.records), [r.getMessage() for r in caplog.records]

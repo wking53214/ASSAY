@@ -111,8 +111,11 @@ from types import ModuleType
 from typing import Any, Callable, Optional
 
 from . import manifest_registry as mr
+from . import runtime
 from . import sandbox as sandbox_module
 from .verification import SUMMARY_PREFIX, SUMMARY_SCHEMA
+
+log = runtime.get_logger("gate")
 
 __all__ = [
     "AssayKeyGate",
@@ -164,7 +167,7 @@ def _cns_gate() -> ModuleType:
 
 
 def _assay_row() -> Optional[ModuleType]:
-    """``cns.assay``, the shared row for the summary line, or None where the installed CNS predates it (before 1.9.0).
+    """``cns.assay``, the shared row for the summary line, or None where the installed CNS has none (v1.8.0 has none).
 
     Asked for at the moment a summary is read, like ``cns.gate``: nothing here imports CNS when the module loads.
     """
@@ -244,6 +247,8 @@ def run_verifier(root: Path, timeout: float) -> VerifierRun:
     """Run the checkout's own ``verify_manifest.py`` as a subprocess, with ASSAY's minimal environment."""
     env = sandbox_module.minimal_parent_environment()
     env.pop("ASSAY_MINIMAL_ENV", None)  # let the verifier restart itself exactly as it does when run by hand
+    log.info("running %s in a subprocess, unsandboxed (the candidate's own code; see README, Security and limits); "
+             "timeout %gs", root / "verify_manifest.py", timeout)
     proc = subprocess.Popen(
         [sys.executable, str(root / "verify_manifest.py")], cwd=str(root), env=env,
         stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
@@ -256,7 +261,10 @@ def run_verifier(root: Path, timeout: float) -> VerifierRun:
         except OSError:
             proc.kill()
         out, err = proc.communicate()
+        log.info("the verifier did not finish within %gs and its process group was killed", timeout)
         return VerifierRun(None, out or "", err or "", timed_out=True)
+    log.info("the verifier exited %s", proc.returncode)
+    log.debug("verifier stderr (tail): %s", err[-400:] if err else "")
     return VerifierRun(proc.returncode, out, err)
 
 
@@ -355,6 +363,13 @@ class AssayKeyGate:
         return root
 
     def check(self, candidate: object) -> Any:
+        if os.environ.get(runtime.LOG_LEVEL_ENV):
+            runtime.configure_logging()  # opt in by environment; a library does not touch logging otherwise
+        result = self._check(candidate)
+        log.info("gate %s: %s: %s", self.name, getattr(result.outcome, "name", result.outcome), result.reason)
+        return result
+
+    def _check(self, candidate: object) -> Any:
         try:
             root = self._checkout(candidate)
             digest = self._cns.subject_digest(key_content(root))

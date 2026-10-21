@@ -1,7 +1,5 @@
 """The sandbox: what a specimen run can and cannot do."""
 import os
-import socket
-import sys
 from pathlib import Path
 
 import pytest
@@ -19,7 +17,8 @@ def script(tmp_path: Path, body: str) -> Path:
 def test_environment_is_stripped_and_cwd_is_scratch(tmp_path, monkeypatch):
     monkeypatch.setenv("ASSAY_TEST_SECRET", "hunter2")
     monkeypatch.setenv("GITHUB_TOKEN", "ghp_secret")
-    res = run_in_sandbox("script", script(tmp_path, "import os\nprint('ENV', sorted(os.environ))\nprint('CWD', os.getcwd())\n"))
+    res = run_in_sandbox("script", script(
+        tmp_path, "import os\nprint('ENV', sorted(os.environ))\nprint('CWD', os.getcwd())\n"))
     assert res.completed and res.exit_code == 0
     assert "ASSAY_TEST_SECRET" not in res.stdout and "GITHUB_TOKEN" not in res.stdout
     assert "assay-sandbox-" in res.stdout.split("CWD")[1]
@@ -43,7 +42,8 @@ except PermissionError:
 
 
 def test_catching_the_error_does_not_hide_the_violation(tmp_path):
-    res = run_in_sandbox("script", script(tmp_path, "import os\ntry:\n    os.mkdir('/tmp/assay-x-never')\nexcept Exception:\n    pass\n"))
+    res = run_in_sandbox("script", script(
+        tmp_path, "import os\ntry:\n    os.mkdir('/tmp/assay-x-never')\nexcept Exception:\n    pass\n"))
     assert res.violations and not Path("/tmp/assay-x-never").exists()
 
 
@@ -72,7 +72,7 @@ def test_a_bypass_of_the_guard_is_caught_by_the_source_folder_comparison(tmp_pat
     import ctypes
 
     try:
-        ctypes.CDLL(None).creat
+        _ = ctypes.CDLL(None).creat  # probing for the symbol
     except (OSError, AttributeError):
         pytest.skip("no C library handle")
     name = tmp_path / "dropped-by-specimen"
@@ -149,7 +149,8 @@ def test_specimen_cannot_write_the_harness_result_even_if_it_finds_the_path(tmp_
 import json, os
 ctl = os.path.join(os.path.dirname(os.getcwd()), 'ctl')
 try:
-    json.dump({"nonce": "guess", "facts": {"exit_code": 0}, "runner_rc": 0}, open(os.path.join(ctl, 'result.json'), 'w'))
+    forged = {"nonce": "guess", "facts": {"exit_code": 0}, "runner_rc": 0}
+    json.dump(forged, open(os.path.join(ctl, 'result.json'), 'w'))
 except PermissionError:
     pass
 os._exit(0)
@@ -225,6 +226,60 @@ def test_load_stretches_the_default_timeout(monkeypatch):
     assert sb.effective_timeout(10)[0] == 7.0        # an explicit setting is exact
 
 
+@pytest.mark.parametrize("name, value, default_word", [
+    ("ASSAY_CLAIM_TIMEOUT", "soon", "120s"),
+    ("ASSAY_CLAIM_TIMEOUT", "-3", "120s"),
+    ("ASSAY_TOTAL_TIMEOUT", "0", "300s"),
+    ("ASSAY_TOTAL_TIMEOUT", "nan", "300s"),
+    ("ASSAY_OUTPUT_CAP", "lots", "1048576 bytes"),
+    ("ASSAY_OUTPUT_CAP", "inf", "1048576 bytes"),
+])
+def test_an_invalid_number_in_the_environment_warns_once_and_names_the_default(monkeypatch, name, value, default_word):
+    import logging
+
+    import assay_production.sandbox as sb
+
+    seen = []
+
+    class Catch(logging.Handler):
+        def emit(self, record):
+            seen.append(record.getMessage())
+
+    catch = Catch(level=logging.WARNING)
+    logger = logging.getLogger("assay.sandbox")
+    logger.addHandler(catch)
+    monkeypatch.setattr(sb, "_WARNED_ENV", set())
+    monkeypatch.delenv("ASSAY_CLAIM_TIMEOUT", raising=False)
+    monkeypatch.delenv("ASSAY_TOTAL_TIMEOUT", raising=False)
+    monkeypatch.delenv("ASSAY_OUTPUT_CAP", raising=False)
+    monkeypatch.setenv(name, value)
+    try:
+        for _ in range(3):
+            assert sb.effective_timeout(10)[0] > 0 and sb.total_budget() > 0 and sb.output_cap() > 0
+    finally:
+        logger.removeHandler(catch)
+    mine = [m for m in seen if name in m]
+    assert len(mine) == 1 and repr(value) in mine[0] and default_word in mine[0], seen
+    assert [m for m in seen if name not in m] == []
+    # the default really is what is used
+    assert sb.total_budget() == sb.DEFAULT_TOTAL_TIMEOUT or name != "ASSAY_TOTAL_TIMEOUT"
+    assert sb.output_cap() == sb.DEFAULT_OUTPUT_CAP or name != "ASSAY_OUTPUT_CAP"
+
+
+def test_a_valid_or_empty_number_in_the_environment_is_silent(monkeypatch, capsys, caplog):
+    import assay_production.sandbox as sb
+
+    monkeypatch.setattr(sb, "_WARNED_ENV", set())
+    monkeypatch.setenv("ASSAY_CLAIM_TIMEOUT", "7.5")
+    monkeypatch.setenv("ASSAY_TOTAL_TIMEOUT", "")
+    monkeypatch.setenv("ASSAY_OUTPUT_CAP", "2048")
+    with caplog.at_level("DEBUG"):
+        assert sb.effective_timeout(10)[0] == 7.5 and sb.total_budget() == sb.DEFAULT_TOTAL_TIMEOUT
+        assert sb.output_cap() == 2048
+    assert caplog.records == [] and sb._WARNED_ENV == set()
+    assert capsys.readouterr() == ("", "")
+
+
 def test_overall_budget_cuts_a_run_short_and_says_so(tmp_path):
     import time
 
@@ -252,4 +307,4 @@ def test_existing_executor_now_uses_the_sandbox(tmp_path):
     assert not bad.success and "sandbox violation" in (bad.error or "")
     assert not Path("/tmp/assay-exec-never").exists()
     broken = IsolationExecutor().execute_module("syn", script(tmp_path, "def (:\n"))
-    assert not broken.success and broken.error.startswith("syntax")
+    assert not broken.success and (broken.error or "").startswith("syntax")

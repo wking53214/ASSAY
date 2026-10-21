@@ -1,6 +1,6 @@
 """The connector reads the verifier's summary through CNS's shared ``cns.assay`` row where there is one.
 
-CNS 1.9.0 introduced the row. Older CNS has none, and the connector then relies on its own reading alone. The
+The pinned CNS (v1.8.0) has no such row; the connector then relies on its own reading alone. The
 first group uses a stand-in row so it runs against any installed CNS; the second uses the real row when the
 installed CNS has it.
 """
@@ -36,8 +36,8 @@ def stand_in_row(refuse: str = "") -> types.ModuleType:
                 raise ValueError(refuse)
             return data
 
-    row.AssaySummary = AssaySummary
-    row.seen = seen
+    setattr(row, "AssaySummary", AssaySummary)  # noqa: B010 - building a module look-alike
+    setattr(row, "seen", seen)  # noqa: B010
     return row
 
 
@@ -107,4 +107,5 @@ def test_the_installed_row_refuses_what_the_connector_alone_would_let_through():
         with pytest.raises(ValueError, match="shared cns.assay row"):
             cc._read_summary(summary_line(blank))
     else:
-        assert cc._read_summary(summary_line(blank))["status"] == "  "
+        read = cc._read_summary(summary_line(blank))
+        assert read is not None and read["status"] == "  "

@@ -2,6 +2,11 @@
 import itertools
 import json
 import re
+import signal
+import subprocess
+import sys
+import threading
+import time
 from pathlib import Path
 
 import pytest
@@ -10,7 +15,7 @@ from assay_production import manifest_registry as mr
 from assay_production import verification as vf
 from assay_production.specimen_registry import DuplicateSpecimenId, SpecimenRecord, SpecimenRegistry
 
-from conftest import ROOT, edit, run_verify, run_write
+from conftest import ROOT, _env, edit, run_verify, run_write
 
 CLAIMS = re.compile(r"(\d+)/(\d+) manifest claims hold")
 
@@ -62,7 +67,7 @@ def _rewrite_block(corpus, change):
     path = corpus / "MANIFEST.md"
     text = path.read_text(encoding="utf-8")
     block_text, problem = mr.extract_block(text)
-    assert problem is None
+    assert problem is None and block_text is not None
     block = json.loads(block_text)
     change(block)
     path.write_text(mr.replace_block(text, mr.block_to_text(block)), encoding="utf-8")
@@ -130,13 +135,20 @@ def test_hand_edited_registry_fails(corpus):
 # ---------------------------------------------------------------- finding 2
 
 TAMPERS = {
-    "reference_replaced": ("specimens/reference/sovereign_kernel.py", lambda b: b"x=1\n", "reference_sovereign_kernel", "ACCEPT"),
-    "faithful_emptied": ("specimens/pairs/governance_os_security_adapter.py", lambda b: b"", "pair_governance_os_security", "FAITHFUL"),
-    "unreachable_emptied": ("specimens/pairs/sre_system_resilience_evaluator_adapter.py", lambda b: b"", "fm_3_4_unreachable_branch", "UNREACHABLE"),
-    "quorum_one_liner": ("specimens/pairs/quorum_state_governance_source.py", lambda b: b"x=1", "pair_quorum_state_governance", "CONSOLIDATED_LOSSY"),
-    "latin1_byte": ("specimens/pairs/quorum_state_governance_adapter.py", lambda b: b + b"\n# caf\xe9\n", "pair_quorum_state_governance", "CONSOLIDATED_LOSSY"),
-    "cr_only": ("specimens/pairs/vanguard-behavioral-simulation-flattened.py", lambda b: b.replace(b". ", b".\r"), "pair_vanguard_behavioral_simulation", "FAITHFUL"),
-    "one_char": ("specimens/progressions/uztc/uztc-construct-v1.1-purged.py", lambda b: b + b" ", "uztc_progression", "NOT_MONOTONIC_IMPROVEMENT"),
+    "reference_replaced": ("specimens/reference/sovereign_kernel.py", lambda b: b"x=1\n",
+                           "reference_sovereign_kernel", "ACCEPT"),
+    "faithful_emptied": ("specimens/pairs/governance_os_security_adapter.py", lambda b: b"",
+                         "pair_governance_os_security", "FAITHFUL"),
+    "unreachable_emptied": ("specimens/pairs/sre_system_resilience_evaluator_adapter.py", lambda b: b"",
+                            "fm_3_4_unreachable_branch", "UNREACHABLE"),
+    "quorum_one_liner": ("specimens/pairs/quorum_state_governance_source.py", lambda b: b"x=1",
+                         "pair_quorum_state_governance", "CONSOLIDATED_LOSSY"),
+    "latin1_byte": ("specimens/pairs/quorum_state_governance_adapter.py", lambda b: b + b"\n# caf\xe9\n",
+                    "pair_quorum_state_governance", "CONSOLIDATED_LOSSY"),
+    "cr_only": ("specimens/pairs/vanguard-behavioral-simulation-flattened.py",
+                lambda b: b.replace(b". ", b".\r"), "pair_vanguard_behavioral_simulation", "FAITHFUL"),
+    "one_char": ("specimens/progressions/uztc/uztc-construct-v1.1-purged.py", lambda b: b + b" ",
+                 "uztc_progression", "NOT_MONOTONIC_IMPROVEMENT"),
 }
 
 
@@ -239,7 +251,7 @@ def test_write_prints_true_counts(corpus):
 
 def test_statuses_are_honest_and_derived():
     data = json.loads((ROOT / "assay_production" / "registry.json").read_text())
-    levels = {}
+    levels: dict = {}
     for sid, d in data.items():
         v = d["validation"]
         levels.setdefault(v["level"], []).append(sid)
@@ -361,15 +373,6 @@ def test_failure_messages_are_plain(corpus):
 
 # ------------------------------------------------- sandbox hardening round
 
-import os
-import signal
-import subprocess
-import sys
-import threading
-import time
-
-from conftest import _env
-
 SUMMARY = re.compile(r"^ASSAY-SUMMARY: (\{.*\})$", re.M)
 
 
@@ -404,12 +407,14 @@ def test_failure_says_which_claim_and_why_on_stderr_and_in_the_card(corpus):
     target = corpus / "specimens" / "reference" / "citadel_v1.2.py"
     target.write_bytes(target.read_bytes() + b"# edited\n")
     proc = run_verify(corpus)
-    out = failed(proc)
+    failed(proc)
     last = proc.stderr.strip().splitlines()[-1]
     assert "NOT PROVEN" in last and "hash.registered" in last and "hash_mismatch" in last
     assert "citadel_v1.2.py" in last
     assert "Reason: hash_mismatch" in proc.stdout
-    data = json.loads(SUMMARY.search(proc.stdout).group(1))
+    found = SUMMARY.search(proc.stdout)
+    assert found is not None
+    data = json.loads(found.group(1))
     assert data["all_claims_hold"] is False
     assert any(f["claim"] == "hash.registered" and f["reason"] == "hash_mismatch" for f in data["failures"])
 

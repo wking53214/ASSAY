@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "assay"
-version = "0.10.0"
+dynamic = ["version"]
 description = "The answer key: real code, really damaged, with independently known correct answers, and a sandboxed verifier that proves the key before anyone grades against it."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -19,6 +19,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Quality Assurance",
 ]
 # Standard library only. The specimens under specimens/ are not part of the package; the verifier needs a checkout.
@@ -28,12 +29,49 @@ dependencies = []
 Homepage = "https://github.com/wking53214/ASSAY"
 
 [project.optional-dependencies]
-dev = ["pytest>=8"]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10"]
 # Optional: lets the answer key be asked as a CNS gate (assay_production.cns_connector). Nothing in ASSAY imports CNS otherwise.
-cns = ["cns @ git+https://github.com/wking53214/CNS.git@v1.8.0"]
+# Pinned to a full commit SHA, not a tag (a tag can move). The SHA is CNS v1.8.0; to bump, take the SHA of the new tag.
+cns = ["cns @ git+https://github.com/wking53214/CNS.git@5252ceebe98185f7be81212d988055ccf9884568"]
+
+[project.scripts]
+# Both need a checkout of the repository for the specimens and MANIFEST.md (pass --root PATH, or run inside it).
+assay-verify = "assay_production.cli:verify"
+assay-manifest = "assay_production.cli:manifest"
 
 [tool.setuptools]
 packages = ["assay_production"]
 
+[tool.setuptools.dynamic]
+# Single source of truth for the version; also assay_production.__version__ and both --version outputs.
+version = { attr = "assay_production._version.__version__" }
+
 [tool.setuptools.package-data]
 assay_production = ["registry.json"]
+
+[tool.ruff]
+# The code is written to 120 columns (the longest line of the package and tests is under 170, and all but a few
+# are within 120), so 120 is the limit that matches it; 88 would mean reflowing 686 lines of long diagnostic
+# strings for no gain. The specimens are deliberately damaged files (the product, not code to lint) and are
+# never linted or reformatted.
+line-length = 120
+target-version = "py311"
+extend-exclude = ["specimens"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["assay_production", "verify_manifest.py", "tests"]
+warn_unused_ignores = true
+warn_redundant_casts = true
+check_untyped_defs = true
+no_implicit_optional = true
+exclude = ["^specimens/"]
+
+[[tool.mypy.overrides]]
+# Sibling checkouts that tests import only when present (tests/test_consumers.py skips cleanly without them) and a
+# CNS row that the pinned CNS v1.8.0 does not have. None of them is a dependency of ASSAY, so they have no stubs to find.
+module = ["swizzle", "swizzle.*", "warden", "warden.*", "cns.assay"]
+ignore_missing_imports = true
