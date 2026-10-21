@@ -14,6 +14,16 @@ the owner's decision.
 ## [Unreleased]
 
 ### Changed
+- The optional `cns` extra moves from CNS v1.8.0 (`5252ceebe98185f7be81212d988055ccf9884568`) to CNS v1.9.0, pinned
+  to the commit the tag points at, `da18e411743d4e3b0e783105394d845fb1c16746` (the tag object
+  `e9271b7657c54a87c6dcefd0e05413d6cab377cb` peels to it), as the seven circuit repositories move to CNS 1.9.0
+  together. The pin stays a full commit SHA, not a tag. CNS 1.9.0 ships the shared `cns.assay` row that 1.8.0 lacked, so
+  with the extra installed the gate now passes every summary through `cns.assay.AssaySummary`; the README, `STACK.md`,
+  the `pyproject.toml` comments and the `cns_connector` docstring no longer say the pinned CNS has no such row. A CNS
+  without the row is still supported. The verifier's real summary is accepted by the row. Two shapes the connector's
+  own checks let through, and the real row refuses, are now a `TERMINAL_BREACH` where the row is installed: a blank or
+  empty `status`, and an `entries` that is present but not an object. Before, a timeout-only summary with a blank
+  `status` was a `RETRY`; now it is a `TERMINAL_BREACH`. The verifier never writes either shape.
 - CI: the `consumers` job now checks out WARDEN 0.13.4 (`36e98433f4928b7d12905f02b56e55ee1943b56e`, 18 commits after
   tag `v0.11.4`) instead of 0.13.3 (`580f659336818b4a5a2c0ca235d2344012536426`). SWIZZLE stays at 0.8.1
   (`8166c47f321ecfb66b8efa72c1deac5d954e8e48`). Warden 0.13.4 reads ASSAY's version statically and requires

@@ -167,7 +167,9 @@ def _cns_gate() -> ModuleType:
 
 
 def _assay_row() -> Optional[ModuleType]:
-    """``cns.assay``, the shared row for the summary line, or None where the installed CNS has none (v1.8.0 has none).
+    """``cns.assay``, the shared row for the summary line, or None where the installed CNS has none.
+
+    CNS v1.8.0 has none; v1.9.0 has it.
 
     Asked for at the moment a summary is read, like ``cns.gate``: nothing here imports CNS when the module loads.
     """

@@ -20,19 +20,19 @@ def test_readme_names_the_same_cns_pin_as_pyproject():
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
     found = re.search(r"@([0-9a-f]{40})$", project["optional-dependencies"]["cns"][0])
     assert found is not None
-    assert found.group(1) in README and "v1.8.0" in README
+    assert found.group(1) in README and "v1.9.0" in README
 
 
 def test_readme_claim_about_the_cns_assay_row_matches_the_installed_cns():
-    """The README says the pinned CNS (v1.8.0) has no cns.assay row. Where that CNS is installed, check it."""
+    """The README says the pinned CNS (v1.9.0) has a cns.assay row. Where that CNS is installed, check it."""
     try:
         version = importlib.metadata.version("cns")
     except importlib.metadata.PackageNotFoundError:
         pytest.skip("CNS is not installed")
-    if version != "1.8.0":
-        pytest.skip(f"CNS {version} is installed, not the pinned 1.8.0")
-    assert importlib.util.find_spec("cns.assay") is None
-    assert "find_spec(\"cns.assay\")` is `None`" in README
+    if version != "1.9.0":
+        pytest.skip(f"CNS {version} is installed, not the pinned 1.9.0")
+    assert importlib.util.find_spec("cns.assay") is not None
+    assert "find_spec(\"cns.assay\")` is not `None`" in README
 
 
 def test_stack_doc_does_not_call_the_public_cns_repository_private():

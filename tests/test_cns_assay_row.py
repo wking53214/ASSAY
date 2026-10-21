@@ -1,8 +1,8 @@
 """The connector reads the verifier's summary through CNS's shared ``cns.assay`` row where there is one.
 
-The pinned CNS (v1.8.0) has no such row; the connector then relies on its own reading alone. The
-first group uses a stand-in row so it runs against any installed CNS; the second uses the real row when the
-installed CNS has it.
+The pinned CNS (v1.9.0) has such a row; a CNS without one (v1.8.0 and earlier) makes the connector rely on its own
+reading alone. The first group uses a stand-in row so it runs against any installed CNS; the second uses the real
+row when the installed CNS has it.
 """
 from __future__ import annotations
 
