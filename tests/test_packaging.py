@@ -60,7 +60,7 @@ def test_the_cns_extra_is_pinned_to_a_full_commit_sha():
     assert FULL_SHA.search(spec + "\n"), spec
     # The pin is explained next to it, with the tag it corresponds to.
     text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    assert "v1.8.0" in text.split("[project.scripts]")[0]
+    assert "v1.9.0" in text.split("[project.scripts]")[0]
 
 
 def test_ci_runs_the_static_gates_on_three_pythons():
