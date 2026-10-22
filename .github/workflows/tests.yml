@@ -17,8 +17,9 @@ jobs:
       - run: pip install -e ".[dev,cns]"
       # ASSAY itself is standard library only. Four specimens import numpy or
       # matplotlib, and the claims that run them are skipped without them, so
-      # they are installed here for the runner only (not as a dependency).
-      - run: pip install numpy matplotlib
+      # they are installed here for the runner only (not as a dependency), at the
+      # versions in ci-constraints.txt so the claim count cannot drift with a release.
+      - run: pip install -c ci-constraints.txt numpy matplotlib
       # Static gates first: they take seconds. The specimens are deliberately
       # damaged files and are excluded in pyproject.toml.
       - run: ruff check .
@@ -53,7 +54,7 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
         with:
           python-version: "3.12"
-      - run: pip install -e ".[dev,cns]" numpy matplotlib
+      - run: pip install -c ci-constraints.txt -e ".[dev,cns]" numpy matplotlib
       # -rs lists skips; the check after it makes a skip a failure, because a
       # skipped consumer test proves nothing about the consumer.
       - run: |
@@ -72,11 +73,11 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
         with:
           python-version: "3.12"
-      - run: pip install build numpy matplotlib
+      - run: pip install -c ci-constraints.txt build numpy matplotlib
       - run: python -m build --wheel --outdir "$RUNNER_TEMP/dist"
       - run: |
           python -m venv "$RUNNER_TEMP/venv"
-          "$RUNNER_TEMP/venv/bin/pip" install "$RUNNER_TEMP"/dist/assay-*.whl numpy matplotlib
+          "$RUNNER_TEMP/venv/bin/pip" install -c "$GITHUB_WORKSPACE/ci-constraints.txt" "$RUNNER_TEMP"/dist/assay-*.whl numpy matplotlib
           cd "$RUNNER_TEMP"
           "$RUNNER_TEMP/venv/bin/assay-verify" --version
           "$RUNNER_TEMP/venv/bin/assay-manifest" --version
