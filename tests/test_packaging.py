@@ -99,6 +99,11 @@ def test_the_tagging_statement_is_true_and_the_same_in_both_documents():
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     for text in (changelog, readme):
-        assert "older `v0.10.0` tag exists" in text.replace("\n", " ")
-        assert "tagging is" in text.replace("\n", " ") and "owner's decision" in text.replace("\n", " ")
         assert "No release has been tagged" not in text
+    flat = changelog.replace("\n", " ")
+    assert "older `v0.10.0` tag exists" in flat
+    assert "tagging is" in flat and "owner's decision" in flat
+    # The README makes no claim that a tag does or does not exist: that claim goes stale. It says who tags.
+    readme_flat = readme.replace("\n", " ")
+    assert "Release tags are made by the owner" in readme_flat and "tags and releases on GitHub" in readme_flat
+    assert "tag exists" not in readme_flat and "not tagged" not in readme_flat
