@@ -1,0 +1,10 @@
+# Versions CI installs numpy and matplotlib at, so that the verifier's claim count (every claim run, none skipped)
+# cannot change because an upstream release did. Used as `pip install -c ci-constraints.txt numpy matplotlib` by every
+# CI job that installs them. The README states the same versions; tests/test_ci_constraints.py holds this file, the
+# README and the workflow to each other. ASSAY itself does not depend on either library (they are for the four
+# specimens that import them), so these are CI pins, not package requirements.
+# To bump: change the versions here and in the README sentence about ci-constraints.txt, then run the full suite on
+# 3.11, 3.12 and 3.13 with the new versions installed with their dependencies.
+numpy==2.4.6; python_version < "3.12"
+numpy==2.5.4; python_version >= "3.12"
+matplotlib==3.11.2
