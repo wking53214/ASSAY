@@ -11,6 +11,34 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [0.11.5] - 2026-10-22
+
+The CNS pin moves to the v2.0.0 tag, and the README is rewritten to say plainly what works, what does not and what broke.
+
+### Changed
+- Step 1. The `cns` extra is pinned to `cns @ git+https://github.com/wking53214/CNS.git@v2.0.0`, with the comment
+  `# v2.0.0 = b13e5d2f9e0e4291725f82794b89117c3d840ac1` (the commit the annotated tag peels to), spelled as in the
+  other circuit repositories. The README, `STACK.md`, the `pyproject.toml` comments, the connector docstring and
+  `INSTALL_HINT` name the new tag. Entries below about earlier releases are left as written. Against the installed
+  cns 2.0.0 the verifier's real summary line is accepted by `cns.assay.AssaySummary`, and the connector, row,
+  independence, docs, install-hint, packaging and consumer tests pass with no skips (SWIZZLE
+  `522658415b026ac3211d3fc130ba7da7c77cc400` and WARDEN `380894f0304ef40587dd29efd41b4ceccf94a5d3`, the refs the
+  `consumers` job already uses and still uses). Tests edited because they assert the pin spelling:
+  `tests/test_packaging.py` (the pinned spec, and the test is renamed `test_the_cns_extra_is_pinned_to_the_v2_0_0_tag`),
+  `tests/test_install_hints.py` (the spec), `tests/test_docs_claims.py` (the CNS version the row test runs against, so
+  it does not skip) and the docstring of `tests/test_cns_assay_row.py`. Added
+  `test_the_cns_pin_comment_names_the_commit_the_tag_peels_to`.
+- Step 2. README: a short "What This Is"; a list of what works with the test, CI job or command that shows it; what
+  does not work or is not proven; open known defects; install commands run in a fresh virtual environment; and new
+  sections "What Broke and How It Was Fixed" (checked against this file, `git log` and the recorded CI run of the failing
+  main commit), "Self-Hosting" and "Ceilings Code Cannot Fix". The README no longer says whether a release tag
+  exists. No code changed. New `tests/test_readme_ledger.py` holds the README to the repository: the tests and CI jobs it
+  names exist, the versions in the ledger are headings in this file, the required sections are present, and no
+  marketing words. One test edited because it asserted the sentence this step removes:
+  `tests/test_packaging.py::test_the_tagging_statement_is_true_and_the_same_in_both_documents` no longer requires the
+  README to say a `v0.10.0` tag exists; the half that checks this file is unchanged.
+- Step 3. Version 0.11.5, and this entry.
+
 ## [0.11.4] - 2026-10-22 (not yet tagged)
 
 Newer tested siblings, install hints that work, pinned CI libraries, and the meaning of `claims.total` written down.
