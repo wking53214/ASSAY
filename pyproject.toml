@@ -53,10 +53,11 @@ assay_production = ["registry.json"]
 # The code is written to 120 columns (the longest line of the package and tests is under 170, and all but a few
 # are within 120), so 120 is the limit that matches it; 88 would mean reflowing 686 lines of long diagnostic
 # strings for no gain. The specimens are deliberately damaged files (the product, not code to lint) and are
-# never linted or reformatted.
+# never linted or reformatted. recovered-originals/ holds three modules copied unchanged from an archived
+# repository (README.md there); they are kept byte for byte, so they are not linted either.
 line-length = 120
 target-version = "py311"
-extend-exclude = ["specimens"]
+extend-exclude = ["specimens", "recovered-originals"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "B"]
