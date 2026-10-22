@@ -95,7 +95,7 @@ was not proven, and is a RETRY. This is tamper-evidence, not tamper-proofing:
 a consumer compares the digest with the one it expects (``GateResult.binds``).
 
 Install with the extra from a checkout: ``pip install -e '.[cns]'``. ASSAY is not published on PyPI, so it cannot
-be installed by name; for just CNS, ``pip install "cns @ git+https://github.com/wking53214/CNS.git@v1.9.0"``.
+be installed by name; for just CNS, ``pip install "cns @ git+https://github.com/wking53214/CNS.git@v2.0.0"``.
 """
 
 from __future__ import annotations
@@ -133,7 +133,7 @@ __all__ = [
 # them equal.
 INSTALL_HINT = (
     "pip install -e '.[cns]' (from an ASSAY checkout), or, for just CNS: "
-    "pip install \"cns @ git+https://github.com/wking53214/CNS.git@v1.9.0\""
+    "pip install \"cns @ git+https://github.com/wking53214/CNS.git@v2.0.0\""
 )
 
 #: What ``subject`` is set to when the caller does not name the judged key.
@@ -176,7 +176,7 @@ def _cns_gate() -> ModuleType:
 def _assay_row() -> Optional[ModuleType]:
     """``cns.assay``, the shared row for the summary line, or None where the installed CNS has none.
 
-    CNS v1.8.0 has none; v1.9.0 has it.
+    CNS v1.8.0 has none; v1.9.0 and later have it.
 
     Asked for at the moment a summary is read, like ``cns.gate``: nothing here imports CNS when the module loads.
     """
