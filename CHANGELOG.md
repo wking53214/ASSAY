@@ -11,6 +11,45 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [0.11.4] - 2026-10-22 (not yet tagged)
+
+Newer tested siblings, install hints that work, pinned CI libraries, and the meaning of `claims.total` written down.
+
+### Changed
+- Step 1. CI: the `consumers` job now checks out SWIZZLE 0.8.5 (`522658415b026ac3211d3fc130ba7da7c77cc400`, current
+  SWIZZLE main) instead of 0.8.4 (`6bd88f3a6e9de1f83e64f401e13cbcb5233499fc`), and WARDEN 0.13.8
+  (`380894f0304ef40587dd29efd41b4ceccf94a5d3`, not tagged, 29 commits after tag `v0.12.0`) instead of 0.13.7
+  (`1636e1a21f124eedbf6e158db95dc75344f4308d`). The CNS pin stays at the tag `@v1.9.0`. The job still fails on any
+  skip. `tests/test_consumers.py` passes (9 passed, 0 skipped) against clean clones of exactly those commits. No test
+  needed an edit.
+- Step 2. Install hints: `assay_production/cns_connector.py` (its docstring and `INSTALL_HINT`, which
+  `CnsNotInstalled` prints) and the README told users to install the bare `assay[cns]` name. ASSAY is not published on
+  PyPI, so that fails, or installs a different package of the same name. They now say `pip install -e '.[cns]'` from a
+  checkout, or, for just CNS, `pip install "cns @ git+https://github.com/wking53214/CNS.git@v1.9.0"` (the spec of the
+  `cns` extra). Two tests asserted the old hint text and now assert the new one, nothing else about them changed:
+  `test_the_connector_says_what_is_missing_when_cns_is_blocked` in `tests/test_cns_independence.py` and
+  `test_building_a_gate_without_cns_names_the_extra` in `tests/test_cns_connector.py`. New
+  `tests/test_install_hints.py` fails if a user-facing document, the workflow or the package tells users to
+  `pip install` a bare name from this stack, and holds the hint to the pyproject spec.
+- Step 3. CI: numpy and matplotlib were installed unpinned, so the number of claims that run could change with an
+  upstream release. `ci-constraints.txt` (numpy 2.4.6 below Python 3.12, numpy 2.5.4 from 3.12, matplotlib 3.11.2) is
+  now passed with `-c` by every CI install of them (the pytest job, the consumers job and both installs in the wheel
+  job), and the README states the same versions. `tests/test_ci_constraints.py` holds the file to the README, requires
+  `-c` on every such install in the workflow, and in GitHub Actions checks the installed versions. With the constraints
+  installed together with their dependencies, the verifier proves 60 of 60 claims, none skipped, on Python 3.11, 3.12
+  and 3.13.
+- Step 4. README: the summary-line section now says what `claims.total` counts. It is the number of claims run to a
+  verdict (held or failed), so `passed` + `failed` = `total`; a skipped claim is counted in `skipped` only, so the claims
+  made are `total` + `skipped`, and with numpy missing the line reads total 59, passed 59, skipped 1 (60 made). No code
+  and no row shape changed (`assay-summary/1`; the CNS gate and its `cns.assay` row read the same fields).
+  `tests/test_summary_semantics.py` holds the text to real runs.
+- Step 5. Version 0.11.4, and this entry.
+
+### Merged from main
+- `recovered-originals/` (three modules preserved from an archived repository, copied unchanged) came in with main.
+  `ruff check .` reported errors in those files, so `pyproject.toml` excludes the directory from ruff, as it does
+  `specimens/`. The files are not edited, and the verifier does not check them.
+
 ## [0.11.3] - 2026-10-21 (not yet tagged)
 
 The tested sibling set moved again, and the README names a dependency trap.

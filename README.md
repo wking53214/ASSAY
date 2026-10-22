@@ -110,11 +110,11 @@ registry.json → Warden AssayAdapter (and `warden tagteam --assay-root` or `--s
 python3 -c "import assay_production; print(assay_production.__version__)"
 ```
 
-It prints exactly the version and a newline (for example `0.11.3`) on stdout, nothing on stderr, exits 0, needs no network, and has no other side effect (importing the package does not import CNS and does not run a specimen). From a checkout that is not installed, run it inside the checkout or set `PYTHONPATH` to it. The installed distribution carries the same string, and the commands print it too:
+It prints exactly the version and a newline (for example `0.11.4`) on stdout, nothing on stderr, exits 0, needs no network, and has no other side effect (importing the package does not import CNS and does not run a specimen). From a checkout that is not installed, run it inside the checkout or set `PYTHONPATH` to it. The installed distribution carries the same string, and the commands print it too:
 
 ```bash
 python3 -c "import importlib.metadata as m; print(m.version('assay'))"   # the installed distribution
-assay-verify --version        # assay-verify 0.11.3   (also: assay-manifest, verify_manifest.py, python3 -m assay_production)
+assay-verify --version        # assay-verify 0.11.4   (also: assay-manifest, verify_manifest.py, python3 -m assay_production)
 ```
 
 `tests/test_version_exposure.py` runs the commands above exactly as written here and fails if any of them disagrees with `assay_production/_version.py`.
