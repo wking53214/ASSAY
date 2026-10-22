@@ -64,6 +64,6 @@ Live path: Admission → OBSERVE/Keys → Locks → PERCEIVE → Decision → Co
 Assurance: ASSAY · ghost_tools · SWIZZLE · Warden · Drafter · Judge · Burnish  (this circuit, off the live path)
 ```
 
-CNS (public: https://github.com/wking53214/CNS) holds the interoperability contracts. No repository in the circuit modifies it. ASSAY's optional `cns` extra is pinned to the CNS v1.9.0 tag.
+CNS (public: https://github.com/wking53214/CNS) holds the interoperability contracts. No repository in the circuit modifies it. ASSAY's optional `cns` extra is pinned to the CNS v2.0.0 tag.
 
 See [README.md](README.md).

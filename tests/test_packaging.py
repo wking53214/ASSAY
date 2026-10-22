@@ -53,9 +53,14 @@ def test_the_registry_ships_with_the_package():
     assert "registry.json" in PYPROJECT["tool"]["setuptools"]["package-data"]["assay_production"]
 
 
-def test_the_cns_extra_is_pinned_to_the_v1_9_0_tag():
+def test_the_cns_extra_is_pinned_to_the_v2_0_0_tag():
     (spec,) = PYPROJECT["project"]["optional-dependencies"]["cns"]
-    assert spec == "cns @ git+https://github.com/wking53214/CNS.git@v1.9.0"
+    assert spec == "cns @ git+https://github.com/wking53214/CNS.git@v2.0.0"
+
+
+def test_the_cns_pin_comment_names_the_commit_the_tag_peels_to():
+    text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    assert '@v2.0.0"]  # v2.0.0 = b13e5d2f9e0e4291725f82794b89117c3d840ac1\n' in text
 
 
 def test_ci_runs_the_static_gates_on_three_pythons():
