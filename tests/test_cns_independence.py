@@ -72,7 +72,7 @@ def test_the_connector_says_what_is_missing_when_cns_is_blocked():
             try:
                 build()
             except CnsNotInstalled as exc:
-                assert "pip install 'assay[cns]'" in str(exc)
+                assert "pip install -e '.[cns]'" in str(exc)
                 assert isinstance(exc, ImportError)
             else:
                 raise SystemExit("no error")
