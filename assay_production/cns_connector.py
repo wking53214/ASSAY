@@ -94,7 +94,8 @@ read before the verifier runs and again after; a key that changed in between
 was not proven, and is a RETRY. This is tamper-evidence, not tamper-proofing:
 a consumer compares the digest with the one it expects (``GateResult.binds``).
 
-Install with the extra: ``pip install 'assay[cns]'``.
+Install with the extra from a checkout: ``pip install -e '.[cns]'``. ASSAY is not published on PyPI, so it cannot
+be installed by name; for just CNS, ``pip install "cns @ git+https://github.com/wking53214/CNS.git@v1.9.0"``.
 """
 
 from __future__ import annotations
@@ -127,7 +128,13 @@ __all__ = [
     "key_digest",
 ]
 
-INSTALL_HINT = "pip install 'assay[cns]'"
+# ASSAY is not on PyPI (installing it by its bare name fails or fetches someone else's package), so the hint names
+# the two commands that work. The CNS spec is the cns extra of pyproject.toml; tests/test_install_hints.py holds
+# them equal.
+INSTALL_HINT = (
+    "pip install -e '.[cns]' (from an ASSAY checkout), or, for just CNS: "
+    "pip install \"cns @ git+https://github.com/wking53214/CNS.git@v1.9.0\""
+)
 
 #: What ``subject`` is set to when the caller does not name the judged key.
 DEFAULT_SUBJECT = "assay-answer-key"

@@ -119,7 +119,7 @@ assay-verify --version        # assay-verify 0.11.3   (also: assay-manifest, ver
 
 ## 8. Optional CNS connection
 
-ASSAY does not need CNS. It has no runtime dependency, nothing in the package imports CNS when it loads, and the verifier and the sandbox never import it (`tests/test_cns_independence.py` checks all of this with CNS blocked). `assay_production/cns_connector.py` is the one place that knows CNS exists. Install it with `pip install 'assay[cns]'`; without CNS, building a gate raises `CnsNotInstalled` and nothing else changes.
+ASSAY does not need CNS. It has no runtime dependency, nothing in the package imports CNS when it loads, and the verifier and the sandbox never import it (`tests/test_cns_independence.py` checks all of this with CNS blocked). `assay_production/cns_connector.py` is the one place that knows CNS exists. ASSAY is not published on PyPI, so it cannot be installed by name (a package called assay there is not this project). From a checkout, install the extra with `pip install -e '.[cns]'`, or install just CNS with `pip install "cns @ git+https://github.com/wking53214/CNS.git@v1.9.0"`; without CNS, building a gate raises `CnsNotInstalled` and nothing else changes.
 
 It offers one gate in CNS's shared gate contract (`cns.gate`), `AssayKeyGate`, which answers only ASSAY's own question: *is the answer key proven, before anyone grades against it?* It sits at the `ALPHA` end, because a key that is not proven means the grading never starts. What a refusal means for a whole run is the Judge's to decide, not this gate's.
 

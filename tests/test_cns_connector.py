@@ -368,7 +368,7 @@ def test_building_a_gate_without_cns_names_the_extra(monkeypatch):
     monkeypatch.setattr(importlib, "import_module", refuse)
     with pytest.raises(CnsNotInstalled) as caught:
         AssayKeyGate()
-    assert "pip install 'assay[cns]'" in str(caught.value) and isinstance(caught.value, ImportError)
+    assert "pip install -e '.[cns]'" in str(caught.value) and isinstance(caught.value, ImportError)
 
 
 # ----------------------------------------------------------------- diagnostics
