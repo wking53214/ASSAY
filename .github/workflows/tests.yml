@@ -63,6 +63,27 @@ jobs:
             pytest tests/test_consumers.py -q -rs -p no:cacheprovider | tee consumers.log
           ! grep -q "skipped" consumers.log
 
+  # The committed Ghost baseline lists the findings this repository has agreed to stop seeing. It went stale once and
+  # nothing said so until the circuit rejected the repository, so this job installs ghost_tools at a pinned full commit
+  # and compares the baseline with a fresh scan. Like `consumers`, a skipped test is a failure. To bump the pin: take
+  # the new full commit SHA of ghost_tools, change it here and in tests/test_ghost_baseline.py, and rebuild the
+  # baseline if the test says it is out of date.
+  baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]" "ghost-tools @ git+https://github.com/wking53214/ghost_tools.git@5a9154d3c76670f5bf1f46d845acadfed46d7bc8"  # ghost_tools 1.10.8
+      - env:
+          ASSAY_REQUIRE_GHOST_BASELINE: "1"
+        run: |
+          set -o pipefail
+          pytest tests/test_ghost_baseline.py -q -rs -p no:cacheprovider | tee baseline.log
+          ! grep -q "skipped" baseline.log
+
   # What a user gets from `pip install`: the wheel must carry the commands and
   # registry.json, and the installed command must prove a checkout.
   wheel:
