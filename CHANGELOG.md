@@ -11,6 +11,35 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [0.11.6] - 2026-10-24
+
+The committed Ghost baseline is rebuilt and guarded, and the README says what the self-hosting record holds.
+
+### Changed
+- Step 1. `.ghost_baseline.json` was stale. With ghost_tools 5a9154d (1.10.8), `ghost-buster . --no-tests --no-branches
+  --single-repo --no-ledger --baseline .ghost_baseline.json` reported 34 of 104 entries matching nothing, 61 new findings,
+  70 suppressed, exit 1, and the circuit rejected ASSAY for it. Every finding was read. 44 of the new findings are the
+  same findings as 44 stale entries under new ids (code moved lines); 27 are in or about `recovered-originals/`, kept
+  byte for byte; 2 are new in product code and accepted knowingly (`cns_connector.py` name_disagreement, `registry_checks`
+  long_function); 4 stale entries have no replacement because the code changed. The file was rebuilt from scratch with
+  the options Warden uses (plus no branches). The entries whose id carries Ghost's place suffix were left out, because
+  that suffix includes the absolute checkout path (15 of 17 differ between two folders), so such an entry is stale in
+  every other folder; those findings stay reported. Result with Warden's options, at two folders: 0 stale. With the
+  command above: 0 stale and 2 new structure findings (undeclared numpy and matplotlib), exit 1; they are not baselined
+  because they would be stale under Warden's options. No test needed an edit.
+- Step 2. New CI job `baseline` installs ghost_tools at `5a9154d3c76670f5bf1f46d845acadfed46d7bc8` and runs the new
+  `tests/test_ghost_baseline.py`, failing on any skip. The test compares a fresh Ghost scan with the baseline in both
+  directions and requires the baseline to hold no folder-dependent id. It skips only where ghost_tools is absent, and
+  `ASSAY_REQUIRE_GHOST_BASELINE=1` makes that a failure. Shown to fail on a removed entry, an added suffixed entry and a
+  new finding.
+- Step 3. README: the stale-baseline item in the ledger; four open defects (folder-dependent ids, the two structure
+  findings, accepted findings in kept files, a stray `specimens/__pycache__` failing the run); the `consumers` pins
+  described as the last set this repository's CI tested, not the heads of SWIZZLE and WARDEN (same in the workflow
+  comments, where the "commits after tag" notes are gone); and the self-hosting section now states what the CNS record
+  holds for ASSAY (REJECT at 0.11.5 for the stale baseline) and what it does not mean. `tests/test_readme_ledger.py` holds
+  those numbers and now knows the `baseline` job. No existing test needed an edit.
+- Step 4. Version 0.11.6, and this entry.
+
 ## [0.11.5] - 2026-10-22
 
 The CNS pin moves to the v2.0.0 tag, and the README is rewritten to say plainly what works, what does not and what broke.
