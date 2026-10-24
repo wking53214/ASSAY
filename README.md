@@ -28,7 +28,7 @@ If `verify_manifest.py` and the archive disagree, the corpus is lying: treat tha
 
 ### What works, and what shows it
 
-Each line names the test, the CI job (`.github/workflows/tests.yml`: `pytest` on Python 3.11, 3.12 and 3.13, `consumers`, `wheel`) or the command that shows it. A line with no such pointer would be cut.
+Each line names the test, the CI job (`.github/workflows/tests.yml`: `pytest` on Python 3.11, 3.12 and 3.13, `consumers`, `baseline`, `wheel`) or the command that shows it. A line with no such pointer would be cut.
 
 - **The verifier proves the key from the files.** `python3 verify_manifest.py --strict` exits 0 on a clean checkout and prints the summary line. CI runs it in every `pytest` job. `tests/test_verifier.py::test_clean_corpus_passes` runs it on a copy.
 - **Tampering is caught.** `tests/test_verifier.py` copies the corpus and changes the prose, the machine block, the table, `registry.json`, a specimen, a README number, adds a file, adds a link or bytecode, and checks that each makes the run fail with a message naming the cause.
@@ -38,7 +38,8 @@ Each line names the test, the CI job (`.github/workflows/tests.yml`: `pytest` on
 - **One version, read the same everywhere.** `tests/test_version_exposure.py` runs every documented version command. The `wheel` CI job builds the wheel, installs it in a fresh environment and checks the installed command.
 - **ASSAY works without CNS.** `tests/test_cns_independence.py` runs the package and the verifier with CNS blocked.
 - **The CNS gate.** `tests/test_cns_connector.py` and `tests/test_cns_assay_row.py` cover each outcome in the table in section 8. `tests/test_cns_assay_row.py::test_the_installed_cns_row_and_the_connector_agree_on_a_real_summary` feeds the verifier's real summary line to the installed CNS row. The `pytest` CI job installs the `cns` extra, so they run there.
-- **Other tools can load the key.** The `consumers` CI job runs `tests/test_consumers.py` against SWIZZLE and WARDEN checked out at fixed commits and fails if any test is skipped.
+- **Other tools can load the key.** The `consumers` CI job runs `tests/test_consumers.py` against SWIZZLE and WARDEN checked out at fixed commits and fails if any test is skipped. Those commits are the last set this repository's CI tested on its own. They are not the current heads of SWIZZLE or WARDEN. Whether the set that lands together works together is checked by the `stack` job in the CNS repository, not here.
+- **The Ghost baseline is checked.** `.ghost_baseline.json` lists the Ghost findings this repository has agreed to stop seeing. The `baseline` CI job installs ghost_tools at a pinned commit and `tests/test_ghost_baseline.py` fails if an entry matches nothing or a finding is not in the baseline (apart from the folder-dependent ids named under "Known defects (open)").
 - **The CI libraries are pinned.** `tests/test_ci_constraints.py` holds `ci-constraints.txt`, the README sentence about it and the workflow to each other.
 - **Install hints name commands that work.** `tests/test_install_hints.py` fails if a document or hint in this repository tells a reader to install a bare name from this group of repositories.
 
@@ -80,6 +81,10 @@ The numbers below are generated. If they ever disagree with what the verifier fi
 - `specimens/reference/agent-factory-tactical-agents.py` raises `KeyError: 'AGENT_000'` in `initialize_full_agent_array()` as written. That is a defect in the specimen. It is left as it is, because editing a specimen is a change to the answer key, and the claim for that specimen does not assert that function (CHANGELOG, 0.11.1).
 - The full test suite is slow. It runs the verifier and the sandbox many times, and on the maintainer's machine a complete run takes a long time (run it in the background). The verifier alone takes seconds. CI runs the suite on three Pythons, so a push is not checked quickly.
 - The name `cns` on PyPI belongs to an unrelated project. This repository only reaches CNS through the git URL in `pyproject.toml`, so the problem appears if someone installs CNS by that bare name.
+- **The Ghost baseline cannot hold every finding.** Ghost 1.10.8 gives findings that share an id a short suffix, and the suffix includes the absolute path of the checkout, so the same finding has a different id in a different folder. A baseline entry with it would be stale everywhere except the folder it was built in, and Warden refuses a stale baseline. So `.ghost_baseline.json` holds none of those entries, and those findings (the repeated `except` handlers in `sandbox.py` and a few other repeated shapes) are reported in every Ghost run. This is a ghost_tools defect that ASSAY can only work around.
+- **Ghost's structure scan reports two findings that are not baselined.** With the structure scan on (Warden's options turn it off) Ghost says numpy and matplotlib are imported but declared nowhere. They are imported only by specimens, and ASSAY declares no dependency on purpose (see `pyproject.toml`). They are not baselined, because an entry for them would be stale under Warden's options.
+- **The baseline accepts findings in files kept as they are.** Ghost's findings in `specimens/` and `recovered-originals/` (duplicates, dead code, unparsable files) are listed as accepted, because those files are damaged or copied on purpose and are not edited. Ghost's silence about them says nothing about their content.
+- **A stray bytecode cache fails the run.** A `specimens/__pycache__` folder with a `.pyc` in it makes `verify_manifest.py` fail with reason `bytecode` (the `specimens.layout` claim, and the hash set). This is the documented design (section 4, "Integrity"), not an accident, but it means that importing a specimen with bytecode writing on, or letting a tool do it, breaks the run until the folder is deleted. Set `PYTHONDONTWRITEBYTECODE=1` when experimenting with specimens.
 
 **How the verifier runs specimens, and what it cannot stop**
 
@@ -240,6 +245,10 @@ This section says exactly what is and is not isolated. Nothing here is a sandbox
 
 Newest first. Each entry says what was wrong, how it was found when that is known, the version that fixed it, and what now stops it coming back: a named test, or "no test yet". The sources are `CHANGELOG.md`, `git log` and, for the 0.11.4 CI failure, the recorded GitHub Actions run. Where a fix was incomplete or wrong, the entry says so. Open problems are in section 4, under "Known defects (open)".
 
+**0.11.6**
+- *The Ghost baseline went stale again.* `.ghost_baseline.json` had been rebuilt in 0.11.0, when 80 of its entries matched nothing. By 0.11.5 code had moved (lines in `sandbox.py`, `verification.py` and `manifest_registry.py`) and `recovered-originals/` had arrived, so 34 of its 104 entries matched nothing and many findings were not in it. Warden refuses a run with a stale baseline, and the circuit's self-hosting run on 0.11.5 ended REJECT for that reason alone (section 12). Found by the round-6 independent audit on 2026-10-23 and 2026-10-24, and reproduced with ghost_tools 1.10.8. Fixed in 0.11.6: the baseline was rebuilt after reading every finding (the commit message of Step 1 lists the categories), and a CI job, `baseline`, now fails if it goes stale. Guard: `tests/test_ghost_baseline.py` and the `baseline` CI job.
+- *The 0.11.0 fix did not last, and did not say how to keep it.* Nothing compared the baseline with a fresh scan, so the next edit that moved lines made entries stale without any test failing. Guard: the same test.
+
 **0.11.4**
 - *CI libraries floated.* numpy and matplotlib were installed unpinned, so the number of claims that ran could change with an upstream release. Fixed with `ci-constraints.txt`, passed with `-c` by every CI install. Guard: `tests/test_ci_constraints.py`.
 - *Install hints named a package that does not exist.* The connector's message and the README told users to install the bare name `assay[cns]`. ASSAY is not on PyPI, so that fails or installs someone else's package. Now they name a checkout install or the git URL. Guard: `tests/test_install_hints.py`.
@@ -276,7 +285,11 @@ Newest first. Each entry says what was wrong, how it was found when that is know
 
 ## 12. Self-Hosting
 
-Whether this tool governs its own repository has not been established by a recent run. Warden's `docs/REGISTRY.json` records two earlier runs (rows 5 and 6, made with Warden 0.11.1 and 0.11.2) in which the circuit's own repositories were governed as fresh clones. ASSAY was held (`ACCEPT_UNVERIFIED`), not accepted, both times: in the first, a formatting step changed specimen files and ASSAY's recorded hashes caught it before it was accepted. In the second, the reasons given are specimens that cannot be parsed on purpose, a baseline that hides findings, and a test that skips without a C library. Those runs used Warden 0.11.1 and 0.11.2, and Warden has changed since. A fresh run on the current commits belongs on the STATUS page of the CNS repository, https://github.com/wking53214/CNS. This README states no result for that run.
+The circuit (Warden with the Drafter, Judge and Burnish seats) was run over a fresh clone of each of its eight repositories. The record is `docs/evidence/SELFHOSTING_2026-10-23.md` in the CNS repository (https://github.com/wking53214/CNS), on the branch `claude/horsemen-production-status-5wsndb` until that branch is merged.
+
+For ASSAY (commit `184679c06e0a636a9a08a8403efa410b375c9429`, version 0.11.5) the record holds one run, and its decision is REJECT. The reason it gives: Ghost reported that 34 of the 104 entries in the committed `.ghost_baseline.json` matched nothing in the scan, and Warden refuses a run whose baseline is stale. Because of that refusal the target's suite, the Drafter and the finisher never ran, so the record says nothing about ASSAY's own suite under Warden. It lists 7 declined checks (mutate, kernel, structure, tests, project, secrets, correlate), 12 gaps in all, and 89 Ghost findings still reported. The cause is in this repository: the baseline was out of date with the code. It is fixed in 0.11.6 (section 11).
+
+What the record does not mean. It does not cover 0.11.6: no circuit run has been made on the fixed commit, and this README states no result for one. For the repositories where the circuit said ACCEPT, the ACCEPT came with the same 7 declined checks counted as gaps; it does not mean there are no secrets or weak tests, and it does not mean Ghost found nothing. A REJECT for a stale baseline says nothing about whether the specimens or the verifier are sound.
 
 ## 13. Ceilings Code Cannot Fix
 
