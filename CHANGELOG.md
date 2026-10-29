@@ -11,6 +11,26 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [0.11.7] - 2026-10-29
+
+Not tagged. The CNS pin moves to the `v2.1.0` tag. One commit per step.
+
+### Changed
+- Pin21 step 1. The `cns` extra is pinned to `cns @ git+https://github.com/wking53214/CNS.git@v2.1.0`, with the comment
+  `# v2.1.0 = fde931ffa89aebec95647742256ad53033bd3d02` (the commit the annotated tag peels to; the tag object is
+  `0cc90472f7edc46c3bf40079e69fb03a06718e29`), from the `v2.0.0` tag. The README pin paragraph and the sentence about
+  the `cns.assay` row, `STACK.md`, the connector docstring and the install hint in `assay_production/cns_connector.py`
+  carry the same spelling. The `consumers` pins (SWIZZLE, WARDEN) and the ghost_tools pin are unchanged. ruff, mypy and
+  `verify_manifest.py --strict` are clean against the installed CNS 2.1.0, and the suite passed with no skip other
+  than the one that needs ghost_tools, which the CI `baseline` job installs. Pre-existing tests edited under the
+  exact-behaviour rule, each asserting the old pin text and nothing else changed: `tests/test_packaging.py` (the pinned
+  spec, the comment line, and `test_the_cns_extra_is_pinned_to_the_v2_0_0_tag`, renamed `..._v2_1_0_tag`),
+  `tests/test_install_hints.py` (`CNS_SPEC` and one install string), `tests/test_docs_claims.py`
+  (`test_readme_claim_about_the_cns_assay_row_matches_the_installed_cns` now runs against 2.1.0 instead of skipping)
+  and the docstring of `tests/test_cns_assay_row.py`.
+- Pin21 step 2. Version 0.11.7 in `assay_production/_version.py` and the two README examples that show the version,
+  and this entry.
+
 ## [0.11.6] - 2026-10-24
 
 The committed Ghost baseline is rebuilt and guarded, and the README says what the self-hosting record holds.
