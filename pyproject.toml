@@ -31,7 +31,7 @@ Homepage = "https://github.com/wking53214/ASSAY"
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10"]
 # Optional: lets the answer key be asked as a CNS gate (assay_production.cns_connector). Nothing in ASSAY imports CNS otherwise.
-# Pinned to the CNS v2.2.0 tag. The seven circuit repositories carry identical pin text, which CNS's seat_pins check compares; to bump, change the tag in all seven together.
+# Pinned to the CNS v2.2.0 tag. All eight repositories that pin CNS (the five circuit repositories and the three released from the circuit) carry identical pin text, which CNS's seat_pins check compares; to bump, change the tag in all eight together.
 cns = ["cns @ git+https://github.com/wking53214/CNS.git@v2.2.0"]  # v2.2.0 = ce6bd05578a7a3e3cafa0cfa1e9a2cca8a5f171f
 
 [project.scripts]
