@@ -18,7 +18,7 @@ What a run gets
   The whole tree is deleted afterwards, also on timeout, on an exception,
   on SIGTERM / SIGHUP / Ctrl-C and at interpreter exit. A run killed with
   SIGKILL cannot clean up after itself; its children die with it (parent
-  death signal) and the next run removes the abandoned tree.
+  death signal) and a later run removes the abandoned tree once it is 15 minutes old.
 - Two Python processes (both started with ``-I -B``). The *harness* is
   trusted: it holds the supervisor's nonce, never runs specimen code, and is
   the only writer of the result. The *runner* is a child of the harness; it

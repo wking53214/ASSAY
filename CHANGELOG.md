@@ -11,6 +11,16 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [0.11.10] - 2026-10-30
+
+Not tagged. Documentation and one docstring; no code change.
+
+### Changed
+- README (known defects) and the docstring of `tests/test_ghost_baseline.py` no longer call the suffix-includes-absolute-path problem an open ghost_tools defect: it was fixed in ghost_tools 1.10.9 (folder-independent ids) and the circuit's ghost_tools no longer has it. The baseline still omits suffixed entries because the `baseline` CI job tests Ghost 1.10.8.
+- README and the `sandbox.py` docstring said "the next run removes the abandoned folder"; the sweep has a minimum age of 900 seconds (`min_age=900`), so they now say a later run removes it once it is 15 minutes old.
+- README says an editable install finds the checkout the package sits in (the installed commands exit 2 without a checkout only for a wheel install with no `--root`, `ASSAY_ROOT` or current checkout), and the 0.11.0 entry "No test yet" now points at the 0.11.6 baseline test that guards it.
+- Version 0.11.10 (`assay_production/_version.py` and the two README examples) and this entry.
+
 ## [0.11.9] - 2026-10-30
 
 Not tagged. Documentation only: the circuit is five repositories since the owner ruling of 2026-10-29. No code change.
