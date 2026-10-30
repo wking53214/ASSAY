@@ -11,6 +11,28 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [0.11.8] - 2026-10-30
+
+Not tagged. The CNS pin moves to the `v2.2.0` tag. One commit per step.
+
+### Changed
+- Pin22 step 1. The `cns` extra is pinned to `cns @ git+https://github.com/wking53214/CNS.git@v2.2.0`, with the comment
+  `# v2.2.0 = ce6bd05578a7a3e3cafa0cfa1e9a2cca8a5f171f` (a lightweight tag, so the tag is the commit), from the `v2.1.0`
+  tag. The `cns` package at v2.2.0 equals v2.1.0 except its version string. The README pin paragraph and the sentence
+  about the `cns.assay` row, `STACK.md`, the connector docstring and the install hint in
+  `assay_production/cns_connector.py` carry the same spelling. The `consumers` pins (SWIZZLE, WARDEN) and the
+  ghost_tools pin are unchanged. Pre-existing tests edited under the exact-behaviour rule, each asserting the old pin
+  text and nothing else changed: `tests/test_packaging.py` (the pinned spec, the comment line, and
+  `test_the_cns_extra_is_pinned_to_the_v2_1_0_tag`, renamed `..._v2_2_0_tag`), `tests/test_install_hints.py`
+  (`CNS_SPEC` and one install string), `tests/test_docs_claims.py`
+  (`test_readme_claim_about_the_cns_assay_row_matches_the_installed_cns`: the installed version it runs against is 2.2.0)
+  and the docstring of `tests/test_cns_assay_row.py`.
+- Pin22 step 2. Version 0.11.8 in `assay_production/_version.py` and the two README examples that show the version,
+  and this entry.
+- A Warden run that governs a tree carries eight declined checks (mutate, kernel, structure, tests, project, secrets,
+  correlate, ledger), not seven, because ghost_tools 1.10.11 lists the ledger as declined under `--no-ledger`. The
+  README section 12 quotes the 2026-10-23 self-hosting record, which had seven; that record is unchanged.
+
 ## [0.11.7] - 2026-10-29
 
 Not tagged. The CNS pin moves to the `v2.1.0` tag. One commit per step.
