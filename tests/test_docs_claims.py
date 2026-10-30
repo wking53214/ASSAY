@@ -98,3 +98,12 @@ def test_log_levels_in_help_and_module_docs_match_the_accepted_set():
 def test_gitignore_covers_what_the_documented_install_leaves_behind():
     lines = {ln.strip() for ln in (ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()}
     assert {"*.egg-info/", "build/", "dist/"} <= lines
+
+
+def test_stack_doc_names_the_five_circuit_repositories_and_not_the_old_seven():
+    """The circuit is five repositories since the owner ruling of 2026-10-29; STACK.md must not say seven."""
+    stack = (ROOT / "STACK.md").read_text(encoding="utf-8")
+    assert "Seven repositories" not in stack and "all seven" not in stack
+    assert "Five repositories" in stack
+    for name in ("ghost_tools", "SWIZZLE", "ASSAY", "Judge", "Warden"):
+        assert "/" + name + ")" in stack, name
