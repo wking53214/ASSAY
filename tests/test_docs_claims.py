@@ -24,13 +24,13 @@ def test_readme_names_the_same_cns_pin_as_pyproject():
 
 
 def test_readme_claim_about_the_cns_assay_row_matches_the_installed_cns():
-    """The README says the pinned CNS (v2.1.0) has a cns.assay row. Where that CNS is installed, check it."""
+    """The README says the pinned CNS (v2.2.0) has a cns.assay row. Where that CNS is installed, check it."""
     try:
         version = importlib.metadata.version("cns")
     except importlib.metadata.PackageNotFoundError:
         pytest.skip("CNS is not installed")
-    if version != "2.1.0":
-        pytest.skip(f"CNS {version} is installed, not the pinned 2.1.0")
+    if version != "2.2.0":
+        pytest.skip(f"CNS {version} is installed, not the pinned 2.2.0")
     assert importlib.util.find_spec("cns.assay") is not None
     assert "find_spec(\"cns.assay\")` is not `None`" in README
 
