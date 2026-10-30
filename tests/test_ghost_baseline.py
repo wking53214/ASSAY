@@ -8,10 +8,10 @@ the baseline's, in both directions: a baseline entry that matches nothing, and a
 It runs where ghost_tools is installed. The `baseline` job in the workflow installs ghost_tools at the commit pinned
 there and sets ASSAY_REQUIRE_GHOST_BASELINE=1, which turns "ghost_tools is not installed" from a skip into a failure.
 
-Findings that share an id take a six-character place suffix in Ghost 1.10.8, and that suffix is a hash that includes
-the absolute path of the checkout: the same finding has a different suffixed id in a different folder (reproduced: 15
-of the 17 suffixed ids). A baseline entry with it is stale everywhere but the folder it was built in, and a stale entry
-makes Warden refuse the repository. So the baseline holds no suffixed id, and the findings that carry one stay
+Findings that share an id take a six-character place suffix. In Ghost 1.10.8, the version the `baseline` job tests,
+that suffix hashed the absolute path of the checkout, so one finding had a different id in each folder (15 of the
+17 suffixed ids). That was a ghost_tools defect, fixed in ghost_tools 1.10.9 (folder-independent ids): the circuit's
+ghost_tools no longer has it. The baseline holds no suffixed id (the job tests 1.10.8); those findings stay
 reported. This test compares the findings WITHOUT a suffix with the baseline in both directions, and requires the
 baseline to hold no suffixed id. To rebuild the baseline, after reading the findings it will accept:
 
