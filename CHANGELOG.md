@@ -11,6 +11,23 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [0.11.9] - 2026-10-30
+
+Not tagged. Documentation only: the circuit is five repositories since the owner ruling of 2026-10-29. No code change.
+
+### Changed
+- `STACK.md` says five repositories (ASSAY, ghost_tools, SWIZZLE, Warden, Judge), that any actor's real change enters
+  through Warden's claim seat, that DRAFTER, BURNISH and WATCHER_MCU are released from the circuit, that a bare `--stack`
+  still requires all six checkouts, and that every run declines eight Ghost checks (eight because ghost_tools 1.10.11
+  lists the ledger as declined under `--no-ledger`, not because Warden declined a new check). New test:
+  `tests/test_docs_claims.py::test_stack_doc_names_the_five_circuit_repositories_and_not_the_old_seven`. No existing
+  test needed an edit.
+- The README CNS-pin paragraph and the `pyproject.toml` comment now count the eight repositories that pin CNS (the five
+  circuit repositories and the three released) instead of "seven", and say the circuit is five repositories; section 12 opens with a
+  roster note that it is the dated record of the old eight-repository circuit, that DRAFTER, BURNISH and WATCHER_MCU are
+  released from the circuit, and that ASSAY is not released. The dated record itself is unchanged.
+- Version 0.11.9 (`assay_production/_version.py` and the two README examples) and this entry.
+
 ## [0.11.8] - 2026-10-30
 
 Not tagged. The CNS pin moves to the `v2.2.0` tag. One commit per step.
