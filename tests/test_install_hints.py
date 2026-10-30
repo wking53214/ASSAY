@@ -18,7 +18,7 @@ PYPROJECT = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
 STACK_DISTRIBUTIONS = {
     "assay", "swizzle", "warden", "cns", "judge", "drafter", "burnish", "ghost-tools", "watcher-mcu", "watcher",
 }
-CNS_SPEC = "cns @ git+https://github.com/wking53214/CNS.git@v2.1.0"
+CNS_SPEC = "cns @ git+https://github.com/wking53214/CNS.git@v2.2.0"
 # The user-facing text: the package, its docs, the CI file. Not tests (they quote bad hints on purpose) and not the
 # specimens (deliberately damaged files, the product).
 SCANNED = ("README.md", "STACK.md", "CHANGELOG.md", "MANIFEST.md", "pyproject.toml", "verify_manifest.py",
@@ -74,7 +74,7 @@ def test_the_scanner_catches_a_bare_name_from_this_stack(bad):
     "pip install numpy matplotlib",
     f'pip install "{CNS_SPEC}"',
     f"pip install '{CNS_SPEC}'",
-    "pip install \\\"cns @ git+https://github.com/wking53214/CNS.git@v2.1.0\\\"",
+    "pip install \\\"cns @ git+https://github.com/wking53214/CNS.git@v2.2.0\\\"",
     "pip install build numpy matplotlib",
     "pip install \"$RUNNER_TEMP\"/dist/assay-*.whl numpy matplotlib",
     "pip install /path/to/assay",
