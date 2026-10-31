@@ -95,7 +95,7 @@ was not proven, and is a RETRY. This is tamper-evidence, not tamper-proofing:
 a consumer compares the digest with the one it expects (``GateResult.binds``).
 
 Install with the extra from a checkout: ``pip install -e '.[cns]'``. ASSAY is not published on PyPI, so it cannot
-be installed by name; for just CNS, ``pip install "cns @ git+https://github.com/wking53214/CNS.git@v2.2.0"``.
+be installed by name; for just CNS, ``pip install "cns @ git+https://github.com/wking53214/CNS.git@v2.3.0"``.
 """
 
 from __future__ import annotations
@@ -133,7 +133,7 @@ __all__ = [
 # them equal.
 INSTALL_HINT = (
     "pip install -e '.[cns]' (from an ASSAY checkout), or, for just CNS: "
-    "pip install \"cns @ git+https://github.com/wking53214/CNS.git@v2.2.0\""
+    "pip install \"cns @ git+https://github.com/wking53214/CNS.git@v2.3.0\""
 )
 
 #: What ``subject`` is set to when the caller does not name the judged key.
