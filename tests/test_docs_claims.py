@@ -24,7 +24,7 @@ def test_readme_names_the_same_cns_pin_as_pyproject():
 
 
 def test_readme_claim_about_the_cns_assay_row_matches_the_installed_cns():
-    """The README says the pinned CNS (v2.2.0) has a cns.assay row. Where that CNS is installed, check it."""
+    """The README says the pinned CNS (v2.3.0) has a cns.assay row. Where that CNS is installed, check it."""
     try:
         version = importlib.metadata.version("cns")
     except importlib.metadata.PackageNotFoundError:
