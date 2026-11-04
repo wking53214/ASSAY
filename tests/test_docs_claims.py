@@ -24,13 +24,13 @@ def test_readme_names_the_same_cns_pin_as_pyproject():
 
 
 def test_readme_claim_about_the_cns_assay_row_matches_the_installed_cns():
-    """The README says the pinned CNS (v1.9.0) has a cns.assay row. Where that CNS is installed, check it."""
+    """The README says the pinned CNS (v2.3.0) has a cns.assay row. Where that CNS is installed, check it."""
     try:
         version = importlib.metadata.version("cns")
     except importlib.metadata.PackageNotFoundError:
         pytest.skip("CNS is not installed")
-    if version != "1.9.0":
-        pytest.skip(f"CNS {version} is installed, not the pinned 1.9.0")
+    if version != "2.2.0":
+        pytest.skip(f"CNS {version} is installed, not the pinned 2.2.0")
     assert importlib.util.find_spec("cns.assay") is not None
     assert "find_spec(\"cns.assay\")` is not `None`" in README
 
@@ -98,3 +98,12 @@ def test_log_levels_in_help_and_module_docs_match_the_accepted_set():
 def test_gitignore_covers_what_the_documented_install_leaves_behind():
     lines = {ln.strip() for ln in (ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()}
     assert {"*.egg-info/", "build/", "dist/"} <= lines
+
+
+def test_stack_doc_names_the_five_circuit_repositories_and_not_the_old_seven():
+    """The circuit is five repositories since the owner ruling of 2026-10-29; STACK.md must not say seven."""
+    stack = (ROOT / "STACK.md").read_text(encoding="utf-8")
+    assert "Seven repositories" not in stack and "all seven" not in stack
+    assert "Five repositories" in stack
+    for name in ("ghost_tools", "SWIZZLE", "ASSAY", "Judge", "Warden"):
+        assert "/" + name + ")" in stack, name

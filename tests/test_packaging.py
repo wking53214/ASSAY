@@ -53,9 +53,14 @@ def test_the_registry_ships_with_the_package():
     assert "registry.json" in PYPROJECT["tool"]["setuptools"]["package-data"]["assay_production"]
 
 
-def test_the_cns_extra_is_pinned_to_the_v1_9_0_tag():
+def test_the_cns_extra_is_pinned_to_the_v2_3_0_tag():
     (spec,) = PYPROJECT["project"]["optional-dependencies"]["cns"]
-    assert spec == "cns @ git+https://github.com/wking53214/CNS.git@v1.9.0"
+    assert spec == "cns @ git+https://github.com/wking53214/CNS.git@v2.3.0"
+
+
+def test_the_cns_pin_comment_names_the_commit_the_tag_peels_to():
+    text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    assert '@v2.3.0"]  # v2.3.0 = 41592fb7b6735abe140f745353c09ba3eed8e7a2\n' in text
 
 
 def test_ci_runs_the_static_gates_on_three_pythons():
@@ -94,6 +99,11 @@ def test_the_tagging_statement_is_true_and_the_same_in_both_documents():
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     for text in (changelog, readme):
-        assert "older `v0.10.0` tag exists" in text.replace("\n", " ")
-        assert "tagging is" in text.replace("\n", " ") and "owner's decision" in text.replace("\n", " ")
         assert "No release has been tagged" not in text
+    flat = changelog.replace("\n", " ")
+    assert "older `v0.10.0` tag exists" in flat
+    assert "tagging is" in flat and "owner's decision" in flat
+    # The README makes no claim that a tag does or does not exist: that claim goes stale. It says who tags.
+    readme_flat = readme.replace("\n", " ")
+    assert "Release tags are made by the owner" in readme_flat and "tags and releases on GitHub" in readme_flat
+    assert "tag exists" not in readme_flat and "not tagged" not in readme_flat
