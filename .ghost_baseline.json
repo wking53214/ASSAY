@@ -17,7 +17,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:50.862992+00:00",
+    "first_seen": "2026-10-24T15:58:12.325439+00:00",
     "id": "ghost-a64142279a98",
     "layer": "mechanical",
     "severity": "major",
@@ -42,7 +42,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:50.863312+00:00",
+    "first_seen": "2026-10-24T15:58:12.325772+00:00",
     "id": "ghost-0ca3edc8a558",
     "layer": "mechanical",
     "severity": "major",
@@ -67,7 +67,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:50.863482+00:00",
+    "first_seen": "2026-10-24T15:58:12.326029+00:00",
     "id": "ghost-c02fe50db7bb",
     "layer": "mechanical",
     "severity": "major",
@@ -92,7 +92,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:50.863642+00:00",
+    "first_seen": "2026-10-24T15:58:12.326286+00:00",
     "id": "ghost-932bc27ab765",
     "layer": "mechanical",
     "severity": "major",
@@ -117,7 +117,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:50.863853+00:00",
+    "first_seen": "2026-10-24T15:58:12.326494+00:00",
     "id": "ghost-ec3ef8519c89",
     "layer": "mechanical",
     "severity": "major",
@@ -142,7 +142,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:50.864099+00:00",
+    "first_seen": "2026-10-24T15:58:12.326840+00:00",
     "id": "ghost-b7345901fc25",
     "layer": "mechanical",
     "severity": "major",
@@ -167,7 +167,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:50.864293+00:00",
+    "first_seen": "2026-10-24T15:58:12.327081+00:00",
     "id": "ghost-89415225ce45",
     "layer": "mechanical",
     "severity": "major",
@@ -192,7 +192,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:50.864523+00:00",
+    "first_seen": "2026-10-24T15:58:12.327347+00:00",
     "id": "ghost-6f7e6137cf44",
     "layer": "mechanical",
     "severity": "major",
@@ -217,7 +217,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:50.864707+00:00",
+    "first_seen": "2026-10-24T15:58:12.327555+00:00",
     "id": "ghost-9e21d77411ff",
     "layer": "mechanical",
     "severity": "major",
@@ -242,7 +242,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:50.864961+00:00",
+    "first_seen": "2026-10-24T15:58:12.327780+00:00",
     "id": "ghost-b1938ef7a19a",
     "layer": "mechanical",
     "severity": "major",
@@ -251,12 +251,12 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "function",
-      "line_end": "1008",
-      "line_start": "1005",
+      "line_end": "1058",
+      "line_start": "1055",
       "name": "_text"
     },
     "category": "dead_code",
@@ -268,12 +268,12 @@
     "evidence": {
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
-      "line_end": 1008,
-      "line_start": 1005,
+      "line_end": 1058,
+      "line_start": 1055,
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.453680+00:00",
+    "first_seen": "2026-10-24T15:58:13.251804+00:00",
     "id": "ghost-fd11296145f7",
     "layer": "mechanical",
     "severity": "minor",
@@ -282,7 +282,100 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
+      "dynamic_lookup_possible": "yes",
+      "framework_hook": "no",
+      "kind": "function",
+      "line_end": "38",
+      "line_start": "35",
+      "name": "execute"
+    },
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/eddp-pipeline-core-simple.recovered.py",
+      "file": "recovered-originals/eddp-pipeline-core-simple.recovered.py",
+      "line_end": 38,
+      "line_start": 35,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.252594+00:00",
+    "id": "ghost-f1321cfbf764",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'execute' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "attributes": {
+      "dynamic_lookup_count": "12",
+      "dynamic_lookup_possible": "yes",
+      "framework_hook": "no",
+      "kind": "function",
+      "line_end": "375",
+      "line_start": "362",
+      "name": "execute_simulation"
+    },
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/quorum_state_governance_source.recovered.py",
+      "file": "recovered-originals/quorum_state_governance_source.recovered.py",
+      "line_end": 375,
+      "line_start": 362,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.252909+00:00",
+    "id": "ghost-8157e77bf977",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'execute_simulation' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "attributes": {
+      "dynamic_lookup_count": "12",
+      "dynamic_lookup_possible": "yes",
+      "framework_hook": "no",
+      "kind": "class",
+      "line_end": "373",
+      "line_start": "350",
+      "name": "LedgerRebuildBuilder"
+    },
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 373,
+      "line_start": 350,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.253074+00:00",
+    "id": "ghost-1e465e0aba4f",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'LedgerRebuildBuilder' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "attributes": {
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -304,7 +397,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.453951+00:00",
+    "first_seen": "2026-10-24T15:58:13.253274+00:00",
     "id": "ghost-4f999a7a2b9d",
     "layer": "mechanical",
     "severity": "minor",
@@ -313,7 +406,38 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
+      "dynamic_lookup_possible": "yes",
+      "framework_hook": "no",
+      "kind": "class",
+      "line_end": "514",
+      "line_start": "430",
+      "name": "BasePredictiveBehaviorModel"
+    },
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 514,
+      "line_start": 430,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.253447+00:00",
+    "id": "ghost-dd7a96189dda",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'BasePredictiveBehaviorModel' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "attributes": {
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -335,7 +459,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.454103+00:00",
+    "first_seen": "2026-10-24T15:58:13.253590+00:00",
     "id": "ghost-1d9b8241130d",
     "layer": "mechanical",
     "severity": "minor",
@@ -344,7 +468,38 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
+      "dynamic_lookup_possible": "yes",
+      "framework_hook": "no",
+      "kind": "class",
+      "line_end": "765",
+      "line_start": "649",
+      "name": "SOLVARSystemKernel"
+    },
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 765,
+      "line_start": 649,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.253740+00:00",
+    "id": "ghost-640c26c6e75e",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'SOLVARSystemKernel' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "attributes": {
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -366,7 +521,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.454291+00:00",
+    "first_seen": "2026-10-24T15:58:13.253869+00:00",
     "id": "ghost-9465acd6ca6d",
     "layer": "mechanical",
     "severity": "minor",
@@ -375,7 +530,38 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
+      "dynamic_lookup_possible": "yes",
+      "framework_hook": "no",
+      "kind": "class",
+      "line_end": "798",
+      "line_start": "772",
+      "name": "TelemetryDashboardVisualizer"
+    },
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 798,
+      "line_start": 772,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.254014+00:00",
+    "id": "ghost-4e5d221f625d",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'TelemetryDashboardVisualizer' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "attributes": {
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -397,7 +583,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.454441+00:00",
+    "first_seen": "2026-10-24T15:58:13.254153+00:00",
     "id": "ghost-eaa22f58c5cd",
     "layer": "mechanical",
     "severity": "minor",
@@ -406,7 +592,38 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
+      "dynamic_lookup_possible": "yes",
+      "framework_hook": "no",
+      "kind": "class",
+      "line_end": "836",
+      "line_start": "805",
+      "name": "HorizonForecastingEngine"
+    },
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 836,
+      "line_start": 805,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.254377+00:00",
+    "id": "ghost-c5d9a3ac5e36",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'HorizonForecastingEngine' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "attributes": {
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -428,7 +645,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.454567+00:00",
+    "first_seen": "2026-10-24T15:58:13.254537+00:00",
     "id": "ghost-d99da5a8c4dc",
     "layer": "mechanical",
     "severity": "minor",
@@ -437,7 +654,38 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
+      "dynamic_lookup_possible": "yes",
+      "framework_hook": "no",
+      "kind": "class",
+      "line_end": "856",
+      "line_start": "843",
+      "name": "SystemPerformanceBenchmark"
+    },
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 856,
+      "line_start": 843,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.254691+00:00",
+    "id": "ghost-187b0a18b4d7",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'SystemPerformanceBenchmark' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "attributes": {
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -459,7 +707,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.454692+00:00",
+    "first_seen": "2026-10-24T15:58:13.254823+00:00",
     "id": "ghost-43b59d666bc9",
     "layer": "mechanical",
     "severity": "minor",
@@ -468,7 +716,7 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -490,7 +738,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.454863+00:00",
+    "first_seen": "2026-10-24T15:58:13.254972+00:00",
     "id": "ghost-81412911aaa7",
     "layer": "mechanical",
     "severity": "minor",
@@ -499,7 +747,7 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -521,7 +769,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.455054+00:00",
+    "first_seen": "2026-10-24T15:58:13.255131+00:00",
     "id": "ghost-079f6b561e10",
     "layer": "mechanical",
     "severity": "minor",
@@ -530,7 +778,7 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -552,7 +800,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.455223+00:00",
+    "first_seen": "2026-10-24T15:58:13.255365+00:00",
     "id": "ghost-8c67084a85cf",
     "layer": "mechanical",
     "severity": "minor",
@@ -561,7 +809,7 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "function",
@@ -583,7 +831,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.455368+00:00",
+    "first_seen": "2026-10-24T15:58:13.255533+00:00",
     "id": "ghost-2c5703392923",
     "layer": "mechanical",
     "severity": "minor",
@@ -592,7 +840,7 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -614,7 +862,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.455506+00:00",
+    "first_seen": "2026-10-24T15:58:13.255687+00:00",
     "id": "ghost-d151b75b815f",
     "layer": "mechanical",
     "severity": "minor",
@@ -623,7 +871,7 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -645,7 +893,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.455632+00:00",
+    "first_seen": "2026-10-24T15:58:13.255830+00:00",
     "id": "ghost-bb8818eea29d",
     "layer": "mechanical",
     "severity": "minor",
@@ -654,7 +902,7 @@
   },
   {
     "attributes": {
-      "dynamic_lookup_count": "6",
+      "dynamic_lookup_count": "12",
       "dynamic_lookup_possible": "yes",
       "framework_hook": "no",
       "kind": "class",
@@ -676,7 +924,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.455755+00:00",
+    "first_seen": "2026-10-24T15:58:13.255968+00:00",
     "id": "ghost-2c3717dec8ea",
     "layer": "mechanical",
     "severity": "minor",
@@ -694,17 +942,17 @@
     "evidence": {
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
-      "line_end": 967,
-      "line_start": 833,
+      "line_end": 1016,
+      "line_start": 880,
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.460328+00:00",
-    "id": "ghost-6b01180f9341",
+    "first_seen": "2026-10-24T15:58:13.262397+00:00",
+    "id": "ghost-c4489a06f4ba",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "'_run' spans 134 lines (threshold 80)"
+    "summary": "'_run' spans 136 lines (threshold 80)"
   },
   {
     "attributes": {},
@@ -717,17 +965,315 @@
     "evidence": {
       "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
       "file": "assay_production/verification.py",
-      "line_end": 522,
-      "line_start": 408,
+      "line_end": 556,
+      "line_start": 442,
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.467324+00:00",
-    "id": "ghost-36f552f5e113",
+    "first_seen": "2026-10-24T15:58:13.270125+00:00",
+    "id": "ghost-e836412ebfe5",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
     "summary": "'failure_modes_phase' spans 114 lines (threshold 80)"
+  },
+  {
+    "attributes": {},
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
+      "file": "assay_production/verification.py",
+      "line_end": 946,
+      "line_start": 862,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.270484+00:00",
+    "id": "ghost-646bbc0746aa",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'registry_checks' spans 84 lines (threshold 80)"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 200,
+      "line_start": 183,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.471012+00:00",
+    "id": "ghost-7edd13b15000",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:183:project_trajectory, solvar_stability_governance_cleanup.py:185:project_trajectory"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 294,
+      "line_start": 258,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.471313+00:00",
+    "id": "ghost-cb330a2383f1",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:258:summarize_population, solvar_stability_governance_cleanup.py:263:summarize_population"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 413,
+      "line_start": 382,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.471496+00:00",
+    "id": "ghost-53e9c855acff",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:382:apply_modifications, solvar_stability_governance_cleanup.py:392:apply_modifications"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 471,
+      "line_start": 432,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.471668+00:00",
+    "id": "ghost-736b97a9169c",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:432:project_metrics_degradation, solvar_stability_governance_cleanup.py:451:project_metrics_degradation"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 558,
+      "line_start": 532,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.471821+00:00",
+    "id": "ghost-e9a125ed4b09",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:532:calculate_system_energy, solvar_stability_governance_cleanup.py:594:calculate_system_energy"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 625,
+      "line_start": 609,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.471976+00:00",
+    "id": "ghost-67169c78c475",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:609:evaluate_policy_constraints, solvar_stability_governance_cleanup.py:690:evaluate_policy_constraints"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 692,
+      "line_start": 681,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.472132+00:00",
+    "id": "ghost-068b7fdf8ec7",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:681:execute_simulation, solvar_stability_governance_cleanup.py:769:execute_simulation"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 752,
+      "line_start": 715,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.472317+00:00",
+    "id": "ghost-d4523deadc3f",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:715:evaluate_operational_state, solvar_stability_governance_cleanup.py:817:evaluate_operational_state"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 765,
+      "line_start": 754,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.472613+00:00",
+    "id": "ghost-b5441feb0a7c",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:754:generate_system_advisory, solvar_stability_governance_cleanup.py:868:generate_system_advisory"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 798,
+      "line_start": 786,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.472792+00:00",
+    "id": "ghost-5adfdc48ec42",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:786:output_classification_plot, solvar_stability_governance_cleanup.py:903:output_classification_plot"
+  },
+  {
+    "attributes": {},
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": 836,
+      "line_start": 810,
+      "related_files": [
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.472941+00:00",
+    "id": "ghost-cb4db853846f",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): solvar_stability_governance_source.recovered.py:810:generate_horizon_forecast, solvar_stability_governance_cleanup.py:932:generate_horizon_forecast"
   },
   {
     "attributes": {},
@@ -748,8 +1294,8 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.633578+00:00",
-    "id": "ghost-9db1ed9a8996",
+    "first_seen": "2026-10-24T15:58:13.473091+00:00",
+    "id": "ghost-6b83221c6b7e",
     "layer": "mechanical",
     "severity": "major",
     "status": "suppressed",
@@ -773,8 +1319,8 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.634006+00:00",
-    "id": "ghost-005f11310061",
+    "first_seen": "2026-10-24T15:58:13.473316+00:00",
+    "id": "ghost-e1f6322f28b4",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -798,8 +1344,8 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.634182+00:00",
-    "id": "ghost-d37b191bc691",
+    "first_seen": "2026-10-24T15:58:13.473496+00:00",
+    "id": "ghost-aeefd178744a",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -823,8 +1369,8 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.634432+00:00",
-    "id": "ghost-2d90e2ecc2d6",
+    "first_seen": "2026-10-24T15:58:13.473698+00:00",
+    "id": "ghost-b0c3169d7dbc",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -848,8 +1394,8 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.634598+00:00",
-    "id": "ghost-94dce332ed89",
+    "first_seen": "2026-10-24T15:58:13.473880+00:00",
+    "id": "ghost-604f9980d43d",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -873,8 +1419,8 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.634790+00:00",
-    "id": "ghost-e14e3d879c3d",
+    "first_seen": "2026-10-24T15:58:13.474056+00:00",
+    "id": "ghost-b0bfdd64170b",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -891,19 +1437,19 @@
     "evidence": {
       "absolute_file": "/home/user/ASSAY/assay_production/manifest_registry.py",
       "file": "assay_production/manifest_registry.py",
-      "line_end": 504,
-      "line_start": 501,
+      "line_end": 541,
+      "line_start": 538,
       "related_files": [
-        "assay_production/manifest_registry.py:507-510"
+        "assay_production/manifest_registry.py:544-547"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.645801+00:00",
-    "id": "ghost-9fc4f1bdcaa5",
+    "first_seen": "2026-10-24T15:58:13.492672+00:00",
+    "id": "ghost-d249087ef807",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "'main' repeats the same 3-statement block 2 times (lines 501-504, 507-510): same shape, names/literals differ"
+    "summary": "'main' repeats the same 3-statement block 2 times (lines 538-541, 544-547): same shape, names/literals differ"
   },
   {
     "attributes": {},
@@ -916,19 +1462,19 @@
     "evidence": {
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
-      "line_end": 397,
-      "line_start": 397,
+      "line_end": 430,
+      "line_start": 430,
       "related_files": [
-        "assay_production/sandbox.py:399-399"
+        "assay_production/sandbox.py:432-432"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.686414+00:00",
-    "id": "ghost-f46060e4f32d",
+    "first_seen": "2026-10-24T15:58:13.520116+00:00",
+    "id": "ghost-68a063cd41a7",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "'problems' repeats the same single statement 2 times (lines 397-397, 399-399): same shape, names/literals differ"
+    "summary": "'problems' repeats the same single statement 2 times (lines 430-430, 432-432): same shape, names/literals differ"
   },
   {
     "attributes": {},
@@ -941,19 +1487,19 @@
     "evidence": {
       "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
       "file": "assay_production/verification.py",
-      "line_end": 659,
-      "line_start": 659,
+      "line_end": 706,
+      "line_start": 706,
       "related_files": [
-        "assay_production/verification.py:663-663"
+        "assay_production/verification.py:710-710"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.737690+00:00",
-    "id": "ghost-4b0321135e54",
+    "first_seen": "2026-10-24T15:58:13.564771+00:00",
+    "id": "ghost-7c94bab2756f",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "'compare_block_to_table' repeats the same single statement 2 times (lines 659-659, 663-663): same shape, names/literals differ"
+    "summary": "'compare_block_to_table' repeats the same single statement 2 times (lines 706-706, 710-710): same shape, names/literals differ"
   },
   {
     "attributes": {},
@@ -966,69 +1512,19 @@
     "evidence": {
       "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
       "file": "assay_production/verification.py",
-      "line_end": 757,
-      "line_start": 757,
+      "line_end": 810,
+      "line_start": 808,
       "related_files": [
-        "assay_production/verification.py:766-766"
+        "assay_production/verification.py:817-819"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.745348+00:00",
-    "id": "ghost-ecf6257302b8",
+    "first_seen": "2026-10-24T15:58:13.571872+00:00",
+    "id": "ghost-b3d43e36381b",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "'prose_checks' repeats the same single statement 2 times (lines 757-757, 766-766): same shape, names/literals differ"
-  },
-  {
-    "attributes": {},
-    "category": "duplication",
-    "confidence": null,
-    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
-    "detector": "intra_function_duplicate_block",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
-      "file": "assay_production/verification.py",
-      "line_end": 760,
-      "line_start": 758,
-      "related_files": [
-        "assay_production/verification.py:767-769"
-      ],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:51.745632+00:00",
-    "id": "ghost-e15ac0e7f2ac",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "'prose_checks' repeats the same 3-statement block 2 times (lines 758-760, 767-769): same shape, names/literals differ"
-  },
-  {
-    "attributes": {},
-    "category": "duplication",
-    "confidence": null,
-    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
-    "detector": "intra_function_duplicate_block",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
-      "file": "assay_production/verification.py",
-      "line_end": 758,
-      "line_start": 758,
-      "related_files": [
-        "assay_production/verification.py:767-767"
-      ],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:51.745812+00:00",
-    "id": "ghost-11ef6865a5f3",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "'prose_checks' repeats the same single statement 2 times (lines 758-758, 767-767): same shape, names/literals differ"
+    "summary": "'prose_checks' repeats the same 3-statement block 2 times (lines 808-810, 817-819): same shape, names/literals differ"
   },
   {
     "attributes": {},
@@ -1050,8 +1546,8 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.807721+00:00",
-    "id": "ghost-2f5e7a77719f",
+    "first_seen": "2026-10-24T15:58:13.649236+00:00",
+    "id": "ghost-42b08840bc14",
     "layer": "mechanical",
     "severity": "major",
     "status": "suppressed",
@@ -1068,19 +1564,19 @@
     "evidence": {
       "absolute_file": "/home/user/ASSAY/tests/test_verifier.py",
       "file": "tests/test_verifier.py",
-      "line_end": 290,
-      "line_start": 290,
+      "line_end": 302,
+      "line_start": 302,
       "related_files": [
-        "tests/test_verifier.py:292-292"
+        "tests/test_verifier.py:304-304"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.859220+00:00",
-    "id": "ghost-df8ade6406dd",
+    "first_seen": "2026-10-24T15:58:13.739595+00:00",
+    "id": "ghost-6a90edfabfc5",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "'test_todo_count_matches_an_independent_count' repeats the same single statement 2 times (lines 290-290, 292-292): same shape, names/literals differ"
+    "summary": "'test_todo_count_matches_an_independent_count' repeats the same single statement 2 times (lines 302-302, 304-304): same shape, names/literals differ"
   },
   {
     "attributes": {},
@@ -1098,12 +1594,58 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:51.964998+00:00",
+    "first_seen": "2026-10-24T15:58:13.864961+00:00",
     "id": "ghost-e88f283d76be",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
     "summary": "sandbox.py holds 1 placeholder or versioned name(s)"
+  },
+  {
+    "attributes": {},
+    "category": "naming",
+    "confidence": null,
+    "detail": "state_copy.\nAn `_old` beside a `_new` is two implementations sharing a scope, and a `_v2` is a decision nobody came back to. Neither is wrong on its own, which is why this is MINOR: it names where the code remembers being written rather than what it does.",
+    "detector": "placeholder_name",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/quorum_state_governance_source.recovered.py",
+      "file": "recovered-originals/quorum_state_governance_source.recovered.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.887423+00:00",
+    "id": "ghost-5f911dc5b8ab",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "quorum_state_governance_source.recovered.py holds 1 placeholder or versioned name(s)"
+  },
+  {
+    "attributes": {},
+    "category": "naming",
+    "confidence": null,
+    "detail": "state_copy.\nAn `_old` beside a `_new` is two implementations sharing a scope, and a `_v2` is a decision nobody came back to. Neither is wrong on its own, which is why this is MINOR: it names where the code remembers being written rather than what it does.",
+    "detector": "placeholder_name",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:13.892337+00:00",
+    "id": "ghost-4e6ee66f1dda",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "solvar_stability_governance_source.recovered.py holds 1 placeholder or versioned name(s)"
   },
   {
     "attributes": {},
@@ -1121,7 +1663,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.020369+00:00",
+    "first_seen": "2026-10-24T15:58:13.906471+00:00",
     "id": "ghost-2ce8fe9b1844",
     "layer": "mechanical",
     "severity": "minor",
@@ -1140,13 +1682,13 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 766,
+      "line_start": 813,
       "related_files": [
         "assay_production/sandbox.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.238595+00:00",
+    "first_seen": "2026-10-24T15:58:14.062969+00:00",
     "id": "ghost-719498fd97cd",
     "layer": "mechanical",
     "severity": "minor",
@@ -1172,7 +1714,7 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.239055+00:00",
+    "first_seen": "2026-10-24T15:58:14.063417+00:00",
     "id": "ghost-f22b199786f1",
     "layer": "mechanical",
     "severity": "minor",
@@ -1191,13 +1733,13 @@
       "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
       "file": "assay_production/verification.py",
       "line_end": null,
-      "line_start": 576,
+      "line_start": 620,
       "related_files": [
         "assay_production/verification.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.239414+00:00",
+    "first_seen": "2026-10-24T15:58:14.063800+00:00",
     "id": "ghost-e387d045021c",
     "layer": "mechanical",
     "severity": "minor",
@@ -1224,7 +1766,7 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.239664+00:00",
+    "first_seen": "2026-10-24T15:58:14.064079+00:00",
     "id": "ghost-da64252023d5",
     "layer": "mechanical",
     "severity": "minor",
@@ -1243,13 +1785,13 @@
       "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
       "file": "assay_production/verification.py",
       "line_end": null,
-      "line_start": 998,
+      "line_start": 1053,
       "related_files": [
         "assay_production/verification.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.240076+00:00",
+    "first_seen": "2026-10-24T15:58:14.068696+00:00",
     "id": "ghost-e415f622c592",
     "layer": "mechanical",
     "severity": "minor",
@@ -1274,7 +1816,7 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.240315+00:00",
+    "first_seen": "2026-10-24T15:58:14.069000+00:00",
     "id": "ghost-e2f861d12acb",
     "layer": "mechanical",
     "severity": "minor",
@@ -1301,7 +1843,7 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.240582+00:00",
+    "first_seen": "2026-10-24T15:58:14.069391+00:00",
     "id": "ghost-d7268e7f1a51",
     "layer": "mechanical",
     "severity": "minor",
@@ -1320,13 +1862,13 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 833,
+      "line_start": 880,
       "related_files": [
         "assay_production/sandbox.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.240989+00:00",
+    "first_seen": "2026-10-24T15:58:14.069811+00:00",
     "id": "ghost-0ff8e17ac460",
     "layer": "mechanical",
     "severity": "minor",
@@ -1337,26 +1879,27 @@
     "attributes": {},
     "category": "naming",
     "confidence": null,
-    "detail": "The parameter `log_odds_value` is only ever passed a variable named `raw_odds`, and `raw_odds` is only ever passed to `log_odds_value` -- 5 call site(s) in solvar_stability_governance_cleanup.py.\nA one-to-one correspondence is the only case where two names provably denote the same thing: a parameter taking several variables is doing its job, and renaming it would collide with a name legitimately in use. Which of the two should win is yours to pick -- the parameter is the contract, the variable is the caller's local, and neither is automatically right.",
+    "detail": "The parameter `log_odds_value` is only ever passed a variable named `raw_odds`, and `raw_odds` is only ever passed to `log_odds_value` -- 10 call site(s) in solvar_stability_governance_source.recovered.py, solvar_stability_governance_cleanup.py.\nA one-to-one correspondence is the only case where two names provably denote the same thing: a parameter taking several variables is doing its job, and renaming it would collide with a name legitimately in use. Which of the two should win is yours to pick -- the parameter is the contract, the variable is the caller's local, and neither is automatically right.",
     "detector": "name_disagreement",
     "disposition": null,
     "disposition_note": "",
     "evidence": {
-      "absolute_file": "/home/user/ASSAY/specimens/pairs/solvar_stability_governance_cleanup.py",
-      "file": "specimens/pairs/solvar_stability_governance_cleanup.py",
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
       "line_end": null,
-      "line_start": 251,
+      "line_start": 247,
       "related_files": [
+        "recovered-originals/solvar_stability_governance_source.recovered.py",
         "specimens/pairs/solvar_stability_governance_cleanup.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.241213+00:00",
-    "id": "ghost-462c35bdc8e2",
+    "first_seen": "2026-10-24T15:58:14.070077+00:00",
+    "id": "ghost-a990c0976224",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "`log_odds_value` and `raw_odds` are one value under two names, across 1 file(s)"
+    "summary": "`log_odds_value` and `raw_odds` are one value under two names, across 2 file(s)"
   },
   {
     "attributes": {},
@@ -1370,18 +1913,43 @@
       "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
       "file": "assay_production/verification.py",
       "line_end": null,
-      "line_start": 190,
+      "line_start": 217,
       "related_files": [
         "assay_production/verification.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.241462+00:00",
+    "first_seen": "2026-10-24T15:58:14.070445+00:00",
     "id": "ghost-3d0083af9a41",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
     "summary": "`nodes` and `inner` are one value under two names, across 1 file(s)"
+  },
+  {
+    "attributes": {},
+    "category": "naming",
+    "confidence": null,
+    "detail": "The parameter `outcome_name` is only ever passed a variable named `outcome`, and `outcome` is only ever passed to `outcome_name` -- 1 call site(s) in cns_connector.py.\nA one-to-one correspondence is the only case where two names provably denote the same thing: a parameter taking several variables is doing its job, and renaming it would collide with a name legitimately in use. Which of the two should win is yours to pick -- the parameter is the contract, the variable is the caller's local, and neither is automatically right.",
+    "detector": "name_disagreement",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/assay_production/cns_connector.py",
+      "file": "assay_production/cns_connector.py",
+      "line_end": null,
+      "line_start": 352,
+      "related_files": [
+        "assay_production/cns_connector.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:14.070678+00:00",
+    "id": "ghost-418783c12382",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "`outcome_name` and `outcome` are one value under two names, across 1 file(s)"
   },
   {
     "attributes": {},
@@ -1401,7 +1969,7 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.241673+00:00",
+    "first_seen": "2026-10-24T15:58:14.070896+00:00",
     "id": "ghost-c8b87487b796",
     "layer": "mechanical",
     "severity": "minor",
@@ -1420,13 +1988,13 @@
       "absolute_file": "/home/user/ASSAY/assay_production/manifest_registry.py",
       "file": "assay_production/manifest_registry.py",
       "line_end": null,
-      "line_start": 224,
+      "line_start": 230,
       "related_files": [
         "assay_production/manifest_registry.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.241977+00:00",
+    "first_seen": "2026-10-24T15:58:14.071153+00:00",
     "id": "ghost-36f06652a688",
     "layer": "mechanical",
     "severity": "minor",
@@ -1445,13 +2013,13 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 730,
+      "line_start": 777,
       "related_files": [
         "assay_production/sandbox.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.242195+00:00",
+    "first_seen": "2026-10-24T15:58:14.071419+00:00",
     "id": "ghost-94d8a0d78575",
     "layer": "mechanical",
     "severity": "minor",
@@ -1476,7 +2044,7 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.242480+00:00",
+    "first_seen": "2026-10-24T15:58:14.071672+00:00",
     "id": "ghost-b085323bd60d",
     "layer": "mechanical",
     "severity": "minor",
@@ -1487,26 +2055,27 @@
     "attributes": {},
     "category": "naming",
     "confidence": null,
-    "detail": "The parameter `projected_node` is only ever passed a variable named `wrapped_projections`, and `wrapped_projections` is only ever passed to `projected_node` -- 1 call site(s) in solvar_stability_governance_cleanup.py.\nA one-to-one correspondence is the only case where two names provably denote the same thing: a parameter taking several variables is doing its job, and renaming it would collide with a name legitimately in use. Which of the two should win is yours to pick -- the parameter is the contract, the variable is the caller's local, and neither is automatically right.",
+    "detail": "The parameter `projected_node` is only ever passed a variable named `wrapped_projections`, and `wrapped_projections` is only ever passed to `projected_node` -- 2 call site(s) in solvar_stability_governance_source.recovered.py, solvar_stability_governance_cleanup.py.\nA one-to-one correspondence is the only case where two names provably denote the same thing: a parameter taking several variables is doing its job, and renaming it would collide with a name legitimately in use. Which of the two should win is yours to pick -- the parameter is the contract, the variable is the caller's local, and neither is automatically right.",
     "detector": "name_disagreement",
     "disposition": null,
     "disposition_note": "",
     "evidence": {
-      "absolute_file": "/home/user/ASSAY/specimens/pairs/solvar_stability_governance_cleanup.py",
-      "file": "specimens/pairs/solvar_stability_governance_cleanup.py",
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
       "line_end": null,
-      "line_start": 817,
+      "line_start": 715,
       "related_files": [
+        "recovered-originals/solvar_stability_governance_source.recovered.py",
         "specimens/pairs/solvar_stability_governance_cleanup.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.242737+00:00",
-    "id": "ghost-c578dafc2b26",
+    "first_seen": "2026-10-24T15:58:14.071933+00:00",
+    "id": "ghost-3045a0a3d930",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "`projected_node` and `wrapped_projections` are one value under two names, across 1 file(s)"
+    "summary": "`projected_node` and `wrapped_projections` are one value under two names, across 2 file(s)"
   },
   {
     "attributes": {},
@@ -1526,7 +2095,7 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.243031+00:00",
+    "first_seen": "2026-10-24T15:58:14.072212+00:00",
     "id": "ghost-c18ed75e42a7",
     "layer": "mechanical",
     "severity": "minor",
@@ -1545,13 +2114,13 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 441,
+      "line_start": 488,
       "related_files": [
         "assay_production/sandbox.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.243275+00:00",
+    "first_seen": "2026-10-24T15:58:14.076603+00:00",
     "id": "ghost-a0934d3ec63a",
     "layer": "mechanical",
     "severity": "minor",
@@ -1562,7 +2131,7 @@
     "attributes": {},
     "category": "naming",
     "confidence": null,
-    "detail": "The parameter `signum` is only ever passed a variable named `rebuilt_state`, and `rebuilt_state` is only ever passed to `signum` -- 1 call site(s) in solvar_stability_governance_cleanup.py.\nA one-to-one correspondence is the only case where two names provably denote the same thing: a parameter taking several variables is doing its job, and renaming it would collide with a name legitimately in use. Which of the two should win is yours to pick -- the parameter is the contract, the variable is the caller's local, and neither is automatically right.",
+    "detail": "The parameter `signum` is only ever passed a variable named `rebuilt_state`, and `rebuilt_state` is only ever passed to `signum` -- 2 call site(s) in solvar_stability_governance_source.recovered.py, solvar_stability_governance_cleanup.py.\nA one-to-one correspondence is the only case where two names provably denote the same thing: a parameter taking several variables is doing its job, and renaming it would collide with a name legitimately in use. Which of the two should win is yours to pick -- the parameter is the contract, the variable is the caller's local, and neither is automatically right.",
     "detector": "name_disagreement",
     "disposition": null,
     "disposition_note": "",
@@ -1570,19 +2139,20 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 634,
+      "line_start": 681,
       "related_files": [
         "assay_production/sandbox.py",
+        "recovered-originals/solvar_stability_governance_source.recovered.py",
         "specimens/pairs/solvar_stability_governance_cleanup.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.243487+00:00",
-    "id": "ghost-c94abc6c910f",
+    "first_seen": "2026-10-24T15:58:14.076901+00:00",
+    "id": "ghost-1466eddf80d1",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "`signum` and `rebuilt_state` are one value under two names, across 1 file(s)"
+    "summary": "`signum` and `rebuilt_state` are one value under two names, across 2 file(s)"
   },
   {
     "attributes": {},
@@ -1596,13 +2166,13 @@
       "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
       "file": "assay_production/verification.py",
       "line_end": null,
-      "line_start": 295,
+      "line_start": 322,
       "related_files": [
         "assay_production/verification.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.243787+00:00",
+    "first_seen": "2026-10-24T15:58:14.077244+00:00",
     "id": "ghost-218443423087",
     "layer": "mechanical",
     "severity": "minor",
@@ -1616,7 +2186,7 @@
     },
     "category": "dead_code",
     "confidence": null,
-    "detail": "verification.py:952 defines `Verifier.finish` with a body of `pass`, something in the scanned set calls it, and nothing in the scanned set is arranged to fill it: no abstract or Protocol base, no @abstractmethod, and no subclass overriding it with a real body.\nThis is the silent shape, which is why it is MAJOR. The call returns, the caller believes the work happened, and nothing says otherwise.\nThis says nothing about `never`. It says nothing HERE provides a body. An implementation in a repository this scan was not pointed at would settle it; scan the siblings if the answer matters.",
+    "detail": "verification.py:1007 defines `Verifier.finish` with a body of `pass`, something in the scanned set calls it, and nothing in the scanned set is arranged to fill it: no abstract or Protocol base, no @abstractmethod, and no subclass overriding it with a real body.\nThis is the silent shape, which is why it is MAJOR. The call returns, the caller believes the work happened, and nothing says otherwise.\nThis says nothing about `never`. It says nothing HERE provides a body. An implementation in a repository this scan was not pointed at would settle it; scan the siblings if the answer matters.",
     "detector": "dead_end_call",
     "disposition": null,
     "disposition_note": "",
@@ -1624,16 +2194,45 @@
       "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
       "file": "assay_production/verification.py",
       "line_end": null,
-      "line_start": 952,
+      "line_start": 1007,
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.405061+00:00",
+    "first_seen": "2026-10-24T15:58:14.228926+00:00",
     "id": "ghost-4933efbce676",
     "layer": "mechanical",
     "severity": "major",
     "status": "suppressed",
     "summary": "`Verifier.finish` is called and its body is `pass`"
+  },
+  {
+    "attributes": {
+      "copies": "2",
+      "differing": "5"
+    },
+    "category": "parallel_implementation",
+    "confidence": null,
+    "detail": "  /home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py\n  /home/user/ASSAY/specimens/pairs/solvar_stability_governance_cleanup.py\n\nThese copies no longer agree. `DynamicDelayBuffer`, `EchoStateReservoir`, `HorizonForecastingEngine`, `MacroRegimeDetector`, `SOLVARSystemKernel` differ structurally between them, so a change made to one did not reach the others. Comments, formatting and line numbers are excluded from the comparison, so this is a difference in what the code does.\nByte-identical copies are reported by `duplicate_file` instead and are deliberately not repeated here. Whether the copies are meant to exist is yours to judge: a `_v1.1` beside a `_v1.2` may be an intended archive. What this says is which definitions stopped matching.",
+    "detector": "drifted_copy",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/solvar_stability_governance_source.recovered.py",
+      "file": "recovered-originals/solvar_stability_governance_source.recovered.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [
+        "recovered-originals/solvar_stability_governance_source.recovered.py",
+        "specimens/pairs/solvar_stability_governance_cleanup.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:14.335242+00:00",
+    "id": "ghost-1bb2a758da72",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "2 copies of solvar_stability_governance_source.recovered.py define the same 34 name(s); 5 of them differ"
   },
   {
     "attributes": {
@@ -1657,7 +2256,7 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.472292+00:00",
+    "first_seen": "2026-10-24T15:58:14.335525+00:00",
     "id": "ghost-6175efe5da41",
     "layer": "mechanical",
     "severity": "major",
@@ -1666,111 +2265,11 @@
   },
   {
     "attributes": {
-      "caught": "Exception"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:524\nThis catches everything -- the missing dependency it was probably written for, and also the typo, the None, the failed write and the bug introduced next year. Nothing that goes wrong in this block can be seen again, which is why it is MAJOR.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 524,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.514057+00:00",
-    "id": "ghost-f982fbcedf5d",
-    "layer": "mechanical",
-    "severity": "major",
-    "status": "suppressed",
-    "summary": "`except Exception` at sandbox.py:524 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "OSError"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:536\n`OSError` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 536,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.514349+00:00",
-    "id": "ghost-e29c2cdb45e4",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "`except OSError` at sandbox.py:536 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "OSError"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:538\n`OSError` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 538,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.514463+00:00",
-    "id": "ghost-72e7c465c8b7",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "`except OSError` at sandbox.py:538 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "(ValueError, OSError)"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:556\n`(ValueError, OSError)` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 556,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.514563+00:00",
-    "id": "ghost-6cb5a1b78332",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "`except (ValueError, OSError)` at sandbox.py:556 does nothing with what it catches"
-  },
-  {
-    "attributes": {
       "caught": "(ProcessLookupError, PermissionError, OSError)"
     },
     "category": "vacuous_check",
     "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:600\n`(ProcessLookupError, PermissionError, OSError)` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
+    "detail": "/home/user/ASSAY/assay_production/sandbox.py:647\n`(ProcessLookupError, PermissionError, OSError)` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
     "detector": "swallowed_exception",
     "disposition": null,
     "disposition_note": "",
@@ -1778,91 +2277,16 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 600,
+      "line_start": 647,
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.514660+00:00",
-    "id": "ghost-a5d1adc0d45e",
+    "first_seen": "2026-10-24T15:58:14.394376+00:00",
+    "id": "ghost-f0c134800cd6",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "`except (ProcessLookupError, PermissionError, OSError)` at sandbox.py:600 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "OSError"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:604\n`OSError` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 604,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.514778+00:00",
-    "id": "ghost-d82e1e18b252",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "`except OSError` at sandbox.py:604 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "OSError"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:614\n`OSError` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 614,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.514886+00:00",
-    "id": "ghost-5d20268b45d9",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "`except OSError` at sandbox.py:614 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "(ValueError, OSError)"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:640\n`(ValueError, OSError)` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 640,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.514979+00:00",
-    "id": "ghost-91280f9ea5d9",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "`except (ValueError, OSError)` at sandbox.py:640 does nothing with what it catches"
+    "summary": "`except (ProcessLookupError, PermissionError, OSError)` at sandbox.py:647 does nothing with what it catches"
   },
   {
     "attributes": {
@@ -1870,7 +2294,7 @@
     },
     "category": "vacuous_check",
     "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:677\n`ProcessLookupError` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
+    "detail": "/home/user/ASSAY/assay_production/sandbox.py:724\n`ProcessLookupError` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
     "detector": "swallowed_exception",
     "disposition": null,
     "disposition_note": "",
@@ -1878,41 +2302,16 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 677,
+      "line_start": 724,
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.515073+00:00",
-    "id": "ghost-d9478eba1bd7",
+    "first_seen": "2026-10-24T15:58:14.394868+00:00",
+    "id": "ghost-dfc01d4bf282",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "`except ProcessLookupError` at sandbox.py:677 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "OSError"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:721\n`OSError` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 721,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.515180+00:00",
-    "id": "ghost-15453f30c0db",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "`except OSError` at sandbox.py:721 does nothing with what it catches"
+    "summary": "`except ProcessLookupError` at sandbox.py:724 does nothing with what it catches"
   },
   {
     "attributes": {
@@ -1920,7 +2319,7 @@
     },
     "category": "vacuous_check",
     "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:725\n`(RuntimeError, OSError)` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
+    "detail": "/home/user/ASSAY/assay_production/sandbox.py:772\n`(RuntimeError, OSError)` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
     "detector": "swallowed_exception",
     "disposition": null,
     "disposition_note": "",
@@ -1928,91 +2327,16 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 725,
+      "line_start": 772,
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.515282+00:00",
-    "id": "ghost-d2eb7d73ec9d",
+    "first_seen": "2026-10-24T15:58:14.395101+00:00",
+    "id": "ghost-d191fb07a56a",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "`except (RuntimeError, OSError)` at sandbox.py:725 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "OSError"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:736\n`OSError` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 736,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.515375+00:00",
-    "id": "ghost-9bc2c32d55aa",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "`except OSError` at sandbox.py:736 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "Exception"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:855\nThis catches everything -- the missing dependency it was probably written for, and also the typo, the None, the failed write and the bug introduced next year. Nothing that goes wrong in this block can be seen again, which is why it is MAJOR.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 855,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.515470+00:00",
-    "id": "ghost-d13c8f7f899e",
-    "layer": "mechanical",
-    "severity": "major",
-    "status": "suppressed",
-    "summary": "`except Exception` at sandbox.py:855 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "OSError"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:881\n`OSError` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
-      "file": "assay_production/sandbox.py",
-      "line_end": null,
-      "line_start": 881,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.515563+00:00",
-    "id": "ghost-155daa1caf25",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "`except OSError` at sandbox.py:881 does nothing with what it catches"
+    "summary": "`except (RuntimeError, OSError)` at sandbox.py:772 does nothing with what it catches"
   },
   {
     "attributes": {
@@ -2020,7 +2344,7 @@
     },
     "category": "vacuous_check",
     "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:899\n`(OSError, ValueError)` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
+    "detail": "/home/user/ASSAY/assay_production/sandbox.py:947\n`(OSError, ValueError)` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
     "detector": "swallowed_exception",
     "disposition": null,
     "disposition_note": "",
@@ -2028,16 +2352,16 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 899,
+      "line_start": 947,
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.515656+00:00",
-    "id": "ghost-59b7a7daffcf",
+    "first_seen": "2026-10-24T15:58:14.395607+00:00",
+    "id": "ghost-3c791a0ef8b2",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "`except (OSError, ValueError)` at sandbox.py:899 does nothing with what it catches"
+    "summary": "`except (OSError, ValueError)` at sandbox.py:947 does nothing with what it catches"
   },
   {
     "attributes": {
@@ -2045,7 +2369,7 @@
     },
     "category": "vacuous_check",
     "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:912\n`subprocess.TimeoutExpired` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
+    "detail": "/home/user/ASSAY/assay_production/sandbox.py:960\n`subprocess.TimeoutExpired` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
     "detector": "swallowed_exception",
     "disposition": null,
     "disposition_note": "",
@@ -2053,41 +2377,16 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 912,
+      "line_start": 960,
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.515773+00:00",
-    "id": "ghost-72044a8a04a9",
+    "first_seen": "2026-10-24T15:58:14.395726+00:00",
+    "id": "ghost-b116fa1a6dd7",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "`except subprocess.TimeoutExpired` at sandbox.py:912 does nothing with what it catches"
-  },
-  {
-    "attributes": {
-      "caught": "OSError"
-    },
-    "category": "vacuous_check",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/verification.py:1169\n`OSError` is narrow, so the handler hides one class of failure and may well be the intended behaviour -- an absent optional dependency is the usual case. MINOR for that reason, and worth a look rather than a fix.\nThe operation reports success either way. That is the same failure `dead_end_call` reports one level up: the caller believes the work happened.\n`contextlib.suppress` is not flagged: it says in its own name what it does.",
-    "detector": "swallowed_exception",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/verification.py",
-      "file": "assay_production/verification.py",
-      "line_end": null,
-      "line_start": 1169,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:52.515883+00:00",
-    "id": "ghost-72918c71f820",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "`except OSError` at verification.py:1169 does nothing with what it catches"
+    "summary": "`except subprocess.TimeoutExpired` at sandbox.py:960 does nothing with what it catches"
   },
   {
     "attributes": {
@@ -2107,8 +2406,8 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.515997+00:00",
-    "id": "ghost-edb3f2199549",
+    "first_seen": "2026-10-24T15:58:14.395852+00:00",
+    "id": "ghost-c78f3c90f00c",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -2132,8 +2431,8 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.516145+00:00",
-    "id": "ghost-e46169975184",
+    "first_seen": "2026-10-24T15:58:14.395994+00:00",
+    "id": "ghost-83c1fdda70d1",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -2157,8 +2456,8 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.516267+00:00",
-    "id": "ghost-c5d32fc058ab",
+    "first_seen": "2026-10-24T15:58:14.396125+00:00",
+    "id": "ghost-28913bf2da98",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -2182,8 +2481,8 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:52.516400+00:00",
-    "id": "ghost-d8752484ddb8",
+    "first_seen": "2026-10-24T15:58:14.396323+00:00",
+    "id": "ghost-da7904bc2e9a",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -2209,7 +2508,7 @@
       "related_files": [],
       "snippet": "# governance_os_full.py # ========================= # Gates # ========================= class BaseGate: def __init__(self, rules, label): self.rules = rules self.label = label def run(self, context): "
     },
-    "first_seen": "2026-10-14T18:54:52.517173+00:00",
+    "first_seen": "2026-10-24T15:58:14.397276+00:00",
     "id": "ghost-d7ba6bd5ddf2",
     "layer": "mechanical",
     "severity": "major",
@@ -2218,8 +2517,36 @@
   },
   {
     "attributes": {
-      "token_similarity": 0.994,
-      "twin": "specimens/pairs/solvar_stability_governance_cleanup.py"
+      "token_similarity": 1.0,
+      "twin": "recovered-originals/quorum_state_governance_source.recovered.py"
+    },
+    "category": "duplication",
+    "confidence": null,
+    "detail": "The unreadable file is the same content as a readable one with its formatting destroyed, which is what a paste through a chat window does to line breaks. Nothing was lost: the readable copy is the one to keep, and the unreadable one is either a duplicate to remove or a specimen to keep on purpose.",
+    "detector": "flattened_copy",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/specimens/pairs/quorum_state_governance_source.py",
+      "file": "specimens/pairs/quorum_state_governance_source.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [
+        "recovered-originals/quorum_state_governance_source.recovered.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:14.692271+00:00",
+    "id": "ghost-0f886396f22b",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "specimens/pairs/quorum_state_governance_source.py cannot be parsed, and is a copy of recovered-originals/quorum_state_governance_source.recovered.py, which can (100% of tokens match ignoring whitespace)"
+  },
+  {
+    "attributes": {
+      "token_similarity": 1.0,
+      "twin": "recovered-originals/solvar_stability_governance_source.recovered.py"
     },
     "category": "duplication",
     "confidence": null,
@@ -2233,16 +2560,16 @@
       "line_end": null,
       "line_start": null,
       "related_files": [
-        "specimens/pairs/solvar_stability_governance_cleanup.py"
+        "recovered-originals/solvar_stability_governance_source.recovered.py"
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:54.587384+00:00",
-    "id": "ghost-9c058689d07a",
+    "first_seen": "2026-10-24T15:58:17.553317+00:00",
+    "id": "ghost-c63494eaed36",
     "layer": "mechanical",
     "severity": "major",
     "status": "suppressed",
-    "summary": "specimens/pairs/solvar_stability_governance_source.py cannot be parsed, and is a copy of specimens/pairs/solvar_stability_governance_cleanup.py, which can (99% of tokens match ignoring whitespace)"
+    "summary": "specimens/pairs/solvar_stability_governance_source.py cannot be parsed, and is a copy of recovered-originals/solvar_stability_governance_source.recovered.py, which can (100% of tokens match ignoring whitespace)"
   },
   {
     "attributes": {
@@ -2265,7 +2592,7 @@
       ],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:54.757091+00:00",
+    "first_seen": "2026-10-24T15:58:17.695609+00:00",
     "id": "ghost-3a2ff837772c",
     "layer": "mechanical",
     "severity": "major",
@@ -2292,7 +2619,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:54.835317+00:00",
+    "first_seen": "2026-10-24T15:58:17.747157+00:00",
     "id": "ghost-b038c37d3f94",
     "layer": "mechanical",
     "severity": "major",
@@ -2305,107 +2632,7 @@
     },
     "category": "complexity",
     "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/manifest_registry.py:317\nThe arguments never mention the loop variable, so the call computes the same thing every iteration -- unless it has a side effect or reads something that changes, which the tree cannot see. Reported, never hoisted for you.\nMeasured redundancy across a whole run is a different finding: see `ghost-buster --profile`.",
-    "detector": "loop_invariant_call",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/manifest_registry.py",
-      "file": "assay_production/manifest_registry.py",
-      "line_end": null,
-      "line_start": 317,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:55.055302+00:00",
-    "id": "ghost-83036d136700",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "manifest_registry.py:317 `Path(...)` with arguments the loop never changes inside a loop"
-  },
-  {
-    "attributes": {
-      "kind": "loop_invariant_call"
-    },
-    "category": "complexity",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/manifest_registry.py:459\nThe arguments never mention the loop variable, so the call computes the same thing every iteration -- unless it has a side effect or reads something that changes, which the tree cannot see. Reported, never hoisted for you.\nMeasured redundancy across a whole run is a different finding: see `ghost-buster --profile`.",
-    "detector": "loop_invariant_call",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/manifest_registry.py",
-      "file": "assay_production/manifest_registry.py",
-      "line_end": null,
-      "line_start": 459,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:55.055529+00:00",
-    "id": "ghost-dd5cdc6f50c2",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "manifest_registry.py:459 `Path(...)` with arguments the loop never changes inside a loop"
-  },
-  {
-    "attributes": {
-      "kind": "loop_invariant_call"
-    },
-    "category": "complexity",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/manifest_registry.py:243\nThe arguments never mention the loop variable, so the call computes the same thing every iteration -- unless it has a side effect or reads something that changes, which the tree cannot see. Reported, never hoisted for you.\nMeasured redundancy across a whole run is a different finding: see `ghost-buster --profile`.",
-    "detector": "loop_invariant_call",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/manifest_registry.py",
-      "file": "assay_production/manifest_registry.py",
-      "line_end": null,
-      "line_start": 243,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:55.055638+00:00",
-    "id": "ghost-637592003c2d",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "manifest_registry.py:243 `Path(...)` with arguments the loop never changes inside a loop"
-  },
-  {
-    "attributes": {
-      "kind": "loop_invariant_call"
-    },
-    "category": "complexity",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/manifest_registry.py:300\nThe arguments never mention the loop variable, so the call computes the same thing every iteration -- unless it has a side effect or reads something that changes, which the tree cannot see. Reported, never hoisted for you.\nMeasured redundancy across a whole run is a different finding: see `ghost-buster --profile`.",
-    "detector": "loop_invariant_call",
-    "disposition": null,
-    "disposition_note": "",
-    "evidence": {
-      "absolute_file": "/home/user/ASSAY/assay_production/manifest_registry.py",
-      "file": "assay_production/manifest_registry.py",
-      "line_end": null,
-      "line_start": 300,
-      "related_files": [],
-      "snippet": null
-    },
-    "first_seen": "2026-10-14T18:54:55.055773+00:00",
-    "id": "ghost-b22d885963e6",
-    "layer": "mechanical",
-    "severity": "minor",
-    "status": "suppressed",
-    "summary": "manifest_registry.py:300 `Path(...)` with arguments the loop never changes inside a loop"
-  },
-  {
-    "attributes": {
-      "kind": "loop_invariant_call"
-    },
-    "category": "complexity",
-    "confidence": null,
-    "detail": "/home/user/ASSAY/assay_production/sandbox.py:848\nThe arguments never mention the loop variable, so the call computes the same thing every iteration -- unless it has a side effect or reads something that changes, which the tree cannot see. Reported, never hoisted for you.\nMeasured redundancy across a whole run is a different finding: see `ghost-buster --profile`.",
+    "detail": "/home/user/ASSAY/assay_production/sandbox.py:895\nThe arguments never mention the loop variable, so the call computes the same thing every iteration -- unless it has a side effect or reads something that changes, which the tree cannot see. Reported, never hoisted for you.\nMeasured redundancy across a whole run is a different finding: see `ghost-buster --profile`.",
     "detector": "loop_invariant_call",
     "disposition": null,
     "disposition_note": "",
@@ -2413,16 +2640,41 @@
       "absolute_file": "/home/user/ASSAY/assay_production/sandbox.py",
       "file": "assay_production/sandbox.py",
       "line_end": null,
-      "line_start": 848,
+      "line_start": 895,
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:55.055878+00:00",
-    "id": "ghost-3d27ac090744",
+    "first_seen": "2026-10-24T15:58:18.042934+00:00",
+    "id": "ghost-b5f97a599922",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
-    "summary": "sandbox.py:848 `Path(...)` with arguments the loop never changes inside a loop"
+    "summary": "sandbox.py:895 `Path(...)` with arguments the loop never changes inside a loop"
+  },
+  {
+    "attributes": {
+      "kind": "loop_invariant_call"
+    },
+    "category": "complexity",
+    "confidence": null,
+    "detail": "/home/user/ASSAY/recovered-originals/quorum_state_governance_source.recovered.py:148\nThe arguments never mention the loop variable, so the call computes the same thing every iteration -- unless it has a side effect or reads something that changes, which the tree cannot see. Reported, never hoisted for you.\nMeasured redundancy across a whole run is a different finding: see `ghost-buster --profile`.",
+    "detector": "loop_invariant_call",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "absolute_file": "/home/user/ASSAY/recovered-originals/quorum_state_governance_source.recovered.py",
+      "file": "recovered-originals/quorum_state_governance_source.recovered.py",
+      "line_end": null,
+      "line_start": 148,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-10-24T15:58:18.043067+00:00",
+    "id": "ghost-ad4ef43d4301",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "quorum_state_governance_source.recovered.py:148 `TypeError(...)` with arguments the loop never changes inside a loop"
   },
   {
     "attributes": {
@@ -2442,8 +2694,8 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:55.055991+00:00",
-    "id": "ghost-9885281404c6",
+    "first_seen": "2026-10-24T15:58:18.043236+00:00",
+    "id": "ghost-379e9ccfbd60",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -2467,8 +2719,8 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:55.056127+00:00",
-    "id": "ghost-cc978a31c223",
+    "first_seen": "2026-10-24T15:58:18.043411+00:00",
+    "id": "ghost-5d07ab57a3f1",
     "layer": "mechanical",
     "severity": "minor",
     "status": "suppressed",
@@ -2493,7 +2745,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:55.056656+00:00",
+    "first_seen": "2026-10-24T15:58:18.044047+00:00",
     "id": "ghost-4d2294d7d90f",
     "layer": "mechanical",
     "severity": "major",
@@ -2519,7 +2771,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:55.056897+00:00",
+    "first_seen": "2026-10-24T15:58:18.044293+00:00",
     "id": "ghost-de6362a4adaa",
     "layer": "mechanical",
     "severity": "minor",
@@ -2545,7 +2797,7 @@
       "related_files": [],
       "snippet": null
     },
-    "first_seen": "2026-10-14T18:54:55.076766+00:00",
+    "first_seen": "2026-10-24T15:58:18.111751+00:00",
     "id": "ghost-f6f3a9b0bd00",
     "layer": "mechanical",
     "severity": "minor",
@@ -2556,11 +2808,11 @@
     "attributes": {
       "kind": "production_ready",
       "phrase": "production-ready",
-      "test_files_seen": "5"
+      "test_files_seen": "18"
     },
     "category": "doc_drift",
     "confidence": null,
-    "detail": "A reader takes \"production-ready\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 5 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
+    "detail": "A reader takes \"production-ready\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 18 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
     "detector": "unverified_status_claim",
     "disposition": null,
     "disposition_note": "",
@@ -2572,7 +2824,7 @@
       "related_files": [],
       "snippet": "its project production-ready, battle-tested and hardened, lists \"RL Ready\","
     },
-    "first_seen": "2026-10-14T18:54:55.097895+00:00",
+    "first_seen": "2026-10-24T15:58:18.183949+00:00",
     "id": "ghost-582a06524c15",
     "layer": "mechanical",
     "severity": "minor",
@@ -2583,11 +2835,11 @@
     "attributes": {
       "kind": "production_ready",
       "phrase": "Production-ready",
-      "test_files_seen": "5"
+      "test_files_seen": "18"
     },
     "category": "doc_drift",
     "confidence": null,
-    "detail": "A reader takes \"Production-ready\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 5 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
+    "detail": "A reader takes \"Production-ready\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 18 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
     "detector": "unverified_status_claim",
     "disposition": null,
     "disposition_note": "",
@@ -2599,7 +2851,7 @@
       "related_files": [],
       "snippet": "Production-ready governance kernel for multi-agent systems. Battle-tested"
     },
-    "first_seen": "2026-10-14T18:54:55.102670+00:00",
+    "first_seen": "2026-10-24T15:58:18.197638+00:00",
     "id": "ghost-a90f3a540ec6",
     "layer": "mechanical",
     "severity": "minor",
@@ -2610,11 +2862,11 @@
     "attributes": {
       "kind": "ready_badge",
       "phrase": "RL Ready",
-      "test_files_seen": "5"
+      "test_files_seen": "18"
     },
     "category": "doc_drift",
     "confidence": null,
-    "detail": "A reader takes \"RL Ready\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 5 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
+    "detail": "A reader takes \"RL Ready\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 18 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
     "detector": "unverified_status_claim",
     "disposition": null,
     "disposition_note": "",
@@ -2626,7 +2878,7 @@
       "related_files": [],
       "snippet": "- RL Ready"
     },
-    "first_seen": "2026-10-14T18:54:55.103070+00:00",
+    "first_seen": "2026-10-24T15:58:18.197940+00:00",
     "id": "ghost-6e68629373a9",
     "layer": "mechanical",
     "severity": "minor",
@@ -2637,11 +2889,11 @@
     "attributes": {
       "kind": "ready_badge",
       "phrase": "Multi-AI Orchestration Ready",
-      "test_files_seen": "5"
+      "test_files_seen": "18"
     },
     "category": "doc_drift",
     "confidence": null,
-    "detail": "A reader takes \"Multi-AI Orchestration Ready\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 5 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
+    "detail": "A reader takes \"Multi-AI Orchestration Ready\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 18 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
     "detector": "unverified_status_claim",
     "disposition": null,
     "disposition_note": "",
@@ -2653,7 +2905,7 @@
       "related_files": [],
       "snippet": "- Multi-AI Orchestration Ready"
     },
-    "first_seen": "2026-10-14T18:54:55.103411+00:00",
+    "first_seen": "2026-10-24T15:58:18.198140+00:00",
     "id": "ghost-c12b5c949195",
     "layer": "mechanical",
     "severity": "minor",
@@ -2664,11 +2916,11 @@
     "attributes": {
       "kind": "ready_badge",
       "phrase": "Zero-Trust Ready",
-      "test_files_seen": "5"
+      "test_files_seen": "18"
     },
     "category": "doc_drift",
     "confidence": null,
-    "detail": "A reader takes \"Zero-Trust Ready\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 5 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
+    "detail": "A reader takes \"Zero-Trust Ready\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 18 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
     "detector": "unverified_status_claim",
     "disposition": null,
     "disposition_note": "",
@@ -2680,7 +2932,7 @@
       "related_files": [],
       "snippet": "- Zero-Trust Ready"
     },
-    "first_seen": "2026-10-14T18:54:55.103585+00:00",
+    "first_seen": "2026-10-24T15:58:18.198349+00:00",
     "id": "ghost-800b73df9c5a",
     "layer": "mechanical",
     "severity": "minor",
@@ -2691,11 +2943,11 @@
     "attributes": {
       "kind": "full_coverage",
       "phrase": "100% test coverage",
-      "test_files_seen": "5"
+      "test_files_seen": "18"
     },
     "category": "doc_drift",
     "confidence": null,
-    "detail": "A reader takes \"100% test coverage\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 5 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
+    "detail": "A reader takes \"100% test coverage\" as a verdict somebody reached. This scan reads no evidence for it and does not decide whether it is true; it hands the label over to be re-verified independently. The one thing the tree offers mechanically: the scan saw 18 test file(s) beside this document. A label like this with no suite behind it is the shape recorded in this project's history (a README claiming readiness for things that had not shipped).",
     "detector": "unverified_status_claim",
     "disposition": null,
     "disposition_note": "",
@@ -2707,7 +2959,7 @@
       "related_files": [],
       "snippet": "- 100% test coverage"
     },
-    "first_seen": "2026-10-14T18:54:55.103773+00:00",
+    "first_seen": "2026-10-24T15:58:18.198524+00:00",
     "id": "ghost-ebc0f46a0737",
     "layer": "mechanical",
     "severity": "minor",

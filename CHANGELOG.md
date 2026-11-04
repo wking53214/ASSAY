@@ -11,6 +11,132 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [0.11.10] - 2026-10-30
+
+Not tagged. Documentation and one docstring; no code change.
+
+### Changed
+- README (known defects) and the docstring of `tests/test_ghost_baseline.py` no longer call the suffix-includes-absolute-path problem an open ghost_tools defect: it was fixed in ghost_tools 1.10.9 (folder-independent ids) and the circuit's ghost_tools no longer has it. The baseline still omits suffixed entries because the `baseline` CI job tests Ghost 1.10.8.
+- README and the `sandbox.py` docstring said "the next run removes the abandoned folder"; the sweep has a minimum age of 900 seconds (`min_age=900`), so they now say a later run removes it once it is 15 minutes old.
+- README says an editable install finds the checkout the package sits in (the installed commands exit 2 without a checkout only for a wheel install with no `--root`, `ASSAY_ROOT` or current checkout), and the 0.11.0 entry "No test yet" now points at the 0.11.6 baseline test that guards it.
+- Version 0.11.10 (`assay_production/_version.py` and the two README examples) and this entry.
+
+## [0.11.9] - 2026-10-30
+
+Not tagged. Documentation only: the circuit is five repositories since the owner ruling of 2026-10-29. No code change.
+
+### Changed
+- `STACK.md` says five repositories (ASSAY, ghost_tools, SWIZZLE, Warden, Judge), that any actor's real change enters
+  through Warden's claim seat, that DRAFTER, BURNISH and WATCHER_MCU are released from the circuit, that a bare `--stack`
+  still requires all six checkouts, and that every run declines eight Ghost checks (eight because ghost_tools 1.10.11
+  lists the ledger as declined under `--no-ledger`, not because Warden declined a new check). New test:
+  `tests/test_docs_claims.py::test_stack_doc_names_the_five_circuit_repositories_and_not_the_old_seven`. No existing
+  test needed an edit.
+- The README CNS-pin paragraph and the `pyproject.toml` comment now count the eight repositories that pin CNS (the five
+  circuit repositories and the three released) instead of "seven", and say the circuit is five repositories; section 12 opens with a
+  roster note that it is the dated record of the old eight-repository circuit, that DRAFTER, BURNISH and WATCHER_MCU are
+  released from the circuit, and that ASSAY is not released. The dated record itself is unchanged.
+- Version 0.11.9 (`assay_production/_version.py` and the two README examples) and this entry.
+
+## [0.11.8] - 2026-10-30
+
+Not tagged. The CNS pin moves to the `v2.2.0` tag. One commit per step.
+
+### Changed
+- Pin22 step 1. The `cns` extra is pinned to `cns @ git+https://github.com/wking53214/CNS.git@v2.2.0`, with the comment
+  `# v2.2.0 = ce6bd05578a7a3e3cafa0cfa1e9a2cca8a5f171f` (a lightweight tag, so the tag is the commit), from the `v2.1.0`
+  tag. The `cns` package at v2.2.0 equals v2.1.0 except its version string. The README pin paragraph and the sentence
+  about the `cns.assay` row, `STACK.md`, the connector docstring and the install hint in
+  `assay_production/cns_connector.py` carry the same spelling. The `consumers` pins (SWIZZLE, WARDEN) and the
+  ghost_tools pin are unchanged. Pre-existing tests edited under the exact-behaviour rule, each asserting the old pin
+  text and nothing else changed: `tests/test_packaging.py` (the pinned spec, the comment line, and
+  `test_the_cns_extra_is_pinned_to_the_v2_1_0_tag`, renamed `..._v2_2_0_tag`), `tests/test_install_hints.py`
+  (`CNS_SPEC` and one install string), `tests/test_docs_claims.py`
+  (`test_readme_claim_about_the_cns_assay_row_matches_the_installed_cns`: the installed version it runs against is 2.2.0)
+  and the docstring of `tests/test_cns_assay_row.py`.
+- Pin22 step 2. Version 0.11.8 in `assay_production/_version.py` and the two README examples that show the version,
+  and this entry.
+- A Warden run that governs a tree carries eight declined checks (mutate, kernel, structure, tests, project, secrets,
+  correlate, ledger), not seven, because ghost_tools 1.10.11 lists the ledger as declined under `--no-ledger`. The
+  README section 12 quotes the 2026-10-23 self-hosting record, which had seven; that record is unchanged.
+
+## [0.11.7] - 2026-10-29
+
+Not tagged. The CNS pin moves to the `v2.1.0` tag. One commit per step.
+
+### Changed
+- Pin21 step 1. The `cns` extra is pinned to `cns @ git+https://github.com/wking53214/CNS.git@v2.1.0`, with the comment
+  `# v2.1.0 = fde931ffa89aebec95647742256ad53033bd3d02` (the commit the annotated tag peels to; the tag object is
+  `0cc90472f7edc46c3bf40079e69fb03a06718e29`), from the `v2.0.0` tag. The README pin paragraph and the sentence about
+  the `cns.assay` row, `STACK.md`, the connector docstring and the install hint in `assay_production/cns_connector.py`
+  carry the same spelling. The `consumers` pins (SWIZZLE, WARDEN) and the ghost_tools pin are unchanged. ruff, mypy and
+  `verify_manifest.py --strict` are clean against the installed CNS 2.1.0, and the suite passed with no skip other
+  than the one that needs ghost_tools, which the CI `baseline` job installs. Pre-existing tests edited under the
+  exact-behaviour rule, each asserting the old pin text and nothing else changed: `tests/test_packaging.py` (the pinned
+  spec, the comment line, and `test_the_cns_extra_is_pinned_to_the_v2_0_0_tag`, renamed `..._v2_1_0_tag`),
+  `tests/test_install_hints.py` (`CNS_SPEC` and one install string), `tests/test_docs_claims.py`
+  (`test_readme_claim_about_the_cns_assay_row_matches_the_installed_cns` now runs against 2.1.0 instead of skipping)
+  and the docstring of `tests/test_cns_assay_row.py`.
+- Pin21 step 2. Version 0.11.7 in `assay_production/_version.py` and the two README examples that show the version,
+  and this entry.
+
+## [0.11.6] - 2026-10-24
+
+The committed Ghost baseline is rebuilt and guarded, and the README says what the self-hosting record holds.
+
+### Changed
+- Step 1. `.ghost_baseline.json` was stale. With ghost_tools 5a9154d (1.10.8), `ghost-buster . --no-tests --no-branches
+  --single-repo --no-ledger --baseline .ghost_baseline.json` reported 34 of 104 entries matching nothing, 61 new findings,
+  70 suppressed, exit 1, and the circuit rejected ASSAY for it. Every finding was read. 44 of the new findings are the
+  same findings as 44 stale entries under new ids (code moved lines); 27 are in or about `recovered-originals/`, kept
+  byte for byte; 2 are new in product code and accepted knowingly (`cns_connector.py` name_disagreement, `registry_checks`
+  long_function); 4 stale entries have no replacement because the code changed. The file was rebuilt from scratch with
+  the options Warden uses (plus no branches). The entries whose id carries Ghost's place suffix were left out, because
+  that suffix includes the absolute checkout path (15 of 17 differ between two folders), so such an entry is stale in
+  every other folder; those findings stay reported. Result with Warden's options, at two folders: 0 stale. With the
+  command above: 0 stale and 2 new structure findings (undeclared numpy and matplotlib), exit 1; they are not baselined
+  because they would be stale under Warden's options. No test needed an edit.
+- Step 2. New CI job `baseline` installs ghost_tools at `5a9154d3c76670f5bf1f46d845acadfed46d7bc8` and runs the new
+  `tests/test_ghost_baseline.py`, failing on any skip. The test compares a fresh Ghost scan with the baseline in both
+  directions and requires the baseline to hold no folder-dependent id. It skips only where ghost_tools is absent, and
+  `ASSAY_REQUIRE_GHOST_BASELINE=1` makes that a failure. Shown to fail on a removed entry, an added suffixed entry and a
+  new finding.
+- Step 3. README: the stale-baseline item in the ledger; four open defects (folder-dependent ids, the two structure
+  findings, accepted findings in kept files, a stray `specimens/__pycache__` failing the run); the `consumers` pins
+  described as the last set this repository's CI tested, not the heads of SWIZZLE and WARDEN (same in the workflow
+  comments, where the "commits after tag" notes are gone); and the self-hosting section now states what the CNS record
+  holds for ASSAY (REJECT at 0.11.5 for the stale baseline) and what it does not mean. `tests/test_readme_ledger.py` holds
+  those numbers and now knows the `baseline` job. No existing test needed an edit.
+- Step 4. Version 0.11.6, and this entry.
+
+## [0.11.5] - 2026-10-22
+
+The CNS pin moves to the v2.0.0 tag, and the README is rewritten to say plainly what works, what does not and what broke.
+
+### Changed
+- Step 1. The `cns` extra is pinned to `cns @ git+https://github.com/wking53214/CNS.git@v2.0.0`, with the comment
+  `# v2.0.0 = b13e5d2f9e0e4291725f82794b89117c3d840ac1` (the commit the annotated tag peels to), spelled as in the
+  other circuit repositories. The README, `STACK.md`, the `pyproject.toml` comments, the connector docstring and
+  `INSTALL_HINT` name the new tag. Entries below about earlier releases are left as written. Against the installed
+  cns 2.0.0 the verifier's real summary line is accepted by `cns.assay.AssaySummary`, and the connector, row,
+  independence, docs, install-hint, packaging and consumer tests pass with no skips (SWIZZLE
+  `522658415b026ac3211d3fc130ba7da7c77cc400` and WARDEN `380894f0304ef40587dd29efd41b4ceccf94a5d3`, the refs the
+  `consumers` job already uses and still uses). Tests edited because they assert the pin spelling:
+  `tests/test_packaging.py` (the pinned spec, and the test is renamed `test_the_cns_extra_is_pinned_to_the_v2_0_0_tag`),
+  `tests/test_install_hints.py` (the spec), `tests/test_docs_claims.py` (the CNS version the row test runs against, so
+  it does not skip) and the docstring of `tests/test_cns_assay_row.py`. Added
+  `test_the_cns_pin_comment_names_the_commit_the_tag_peels_to`.
+- Step 2. README: a short "What This Is"; a list of what works with the test, CI job or command that shows it; what
+  does not work or is not proven; open known defects; install commands run in a fresh virtual environment; and new
+  sections "What Broke and How It Was Fixed" (checked against this file, `git log` and the recorded CI run of the failing
+  main commit), "Self-Hosting" and "Ceilings Code Cannot Fix". The README no longer says whether a release tag
+  exists. No code changed. New `tests/test_readme_ledger.py` holds the README to the repository: the tests and CI jobs it
+  names exist, the versions in the ledger are headings in this file, the required sections are present, and no
+  marketing words. One test edited because it asserted the sentence this step removes:
+  `tests/test_packaging.py::test_the_tagging_statement_is_true_and_the_same_in_both_documents` no longer requires the
+  README to say a `v0.10.0` tag exists; the half that checks this file is unchanged.
+- Step 3. Version 0.11.5, and this entry.
+
 ## [0.11.4] - 2026-10-22 (not yet tagged)
 
 Newer tested siblings, install hints that work, pinned CI libraries, and the meaning of `claims.total` written down.
