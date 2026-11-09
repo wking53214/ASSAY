@@ -10,9 +10,7 @@
 
 **What ASSAY does not do:** it does not scan production code, it does not act on the repositories it is used to grade (only Warden writes to a codebase in the circuit), it is not a product, and it has no known users outside the author's repositories.
 
-## What This Is
-
-ASSAY is a folder of real code files that were damaged in known ways, plus a written answer for each one saying what is wrong with it. A program in this repository, `verify_manifest.py`, checks on every run that those answers are still true and that nobody has changed a specimen or an answer without saying so. Other tools in the same group of repositories read the answers to see whether they find what they should. It is test data and a checker. It is not a product, and it has no users outside that group that the maintainer knows of.
+## Trying It
 
 To try it: install as in section 9, then run `python3 verify_manifest.py --strict`. Section 4 says what is proven and what is not, section 11 lists what broke in this repository and how it was fixed, and section 13 says what code cannot fix.
 
