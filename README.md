@@ -2,11 +2,15 @@
 
 *Formerly TOUCHSTONE. Renamed in October 2026; the role is unchanged.*
 
-**Specimen corpus, not a system.** Real code, really damaged, with independently-known correct answers. Two named specimens (3.6 and 3.7) are constructed reproductions of failures recorded in the ecosystem's own history rather than recovered files, and say so in their own text. Fuel for [`ghost_tools`](https://github.com/wking53214/ghost_tools), [`SWIZZLE`](https://github.com/wking53214/SWIZZLE) and [`Warden`](https://github.com/wking53214/Warden), which read the answer key as data from `assay_production/registry.json`. Absorbed retired [`VANGUARD`](https://github.com/wking53214/VANGUARD) files as evidence.
+**What ASSAY is:** the answer key for a five-repository assurance circuit. It is a specimen corpus, meaning real code files with known damage and an independently known correct answer for each one. A verifier checks on every run that those answers still hold and that no specimen or answer has changed without being recorded. Two named specimens (3.6 and 3.7) are constructed reproductions of failures recorded in the ecosystem's own history rather than recovered files, and say so in their own text. Fuel for [`ghost_tools`](https://github.com/wking53214/ghost_tools), [`SWIZZLE`](https://github.com/wking53214/SWIZZLE) and [`Warden`](https://github.com/wking53214/Warden), which read the answer key as data from `assay_production/registry.json`. Absorbed retired [`VANGUARD`](https://github.com/wking53214/VANGUARD) files as evidence.
 
-## What This Is
+**Where it sits:** ASSAY is outside the live decision path. In the circuit, the scanner ([`ghost_tools`](https://github.com/wking53214/ghost_tools)) is graded against ASSAY's key before anything is written, so ASSAY is what keeps the circuit from grading itself.
 
-ASSAY is a folder of real code files that were damaged in known ways, plus a written answer for each one saying what is wrong with it. A program in this repository, `verify_manifest.py`, checks on every run that those answers are still true and that nobody has changed a specimen or an answer without saying so. Other tools in the same group of repositories read the answers to see whether they find what they should. It is test data and a checker. It is not a product, and it has no users outside that group that the maintainer knows of.
+**The circuit:** ASSAY (answer key), `ghost_tools` (scanner), [`SWIZZLE`](https://github.com/wking53214/SWIZZLE) (attacker), [`Warden`](https://github.com/wking53214/Warden) (governor and only writer, with a named human's grant), and [`Judge`](https://github.com/wking53214/Judge) (returns ACCEPT, REJECT, or INSUFFICIENT). The full description is in [STACK.md](STACK.md).
+
+**What ASSAY does not do:** it does not scan production code, it does not act on the repositories it is used to grade (only Warden writes to a codebase in the circuit), it is not a product, and it has no known users outside the author's repositories.
+
+## Trying It
 
 To try it: install as in section 9, then run `python3 verify_manifest.py --strict`. Section 4 says what is proven and what is not, section 11 lists what broke in this repository and how it was fixed, and section 13 says what code cannot fix.
 
