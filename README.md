@@ -10,9 +10,9 @@
 
 **What ASSAY does not do:** it does not scan production code, it does not act on the repositories it is used to grade (only Warden writes to a codebase in the circuit), it is not a product, and it has no known users outside the author's repositories.
 
-## Trying It
+## What This Is
 
-To try it: install as in section 9, then run `python3 verify_manifest.py --strict`. Section 4 says what is proven and what is not, section 11 lists what broke in this repository and how it was fixed, and section 13 says what code cannot fix.
+In short, ASSAY is a test answer key: damaged code samples whose correct verdicts are known in advance, so the other tools can be graded against it. To try it: install as in section 9, then run `python3 verify_manifest.py --strict`. Section 4 says what is proven and what is not, section 11 lists what broke in this repository and how it was fixed, and section 13 says what code cannot fix.
 
 ## 1. Pipeline Position & Role
 
