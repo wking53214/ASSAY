@@ -53,14 +53,14 @@ def test_the_registry_ships_with_the_package():
     assert "registry.json" in PYPROJECT["tool"]["setuptools"]["package-data"]["assay_production"]
 
 
-def test_the_cns_extra_is_pinned_to_the_v2_3_0_tag():
+def test_the_cns_extra_is_pinned_to_the_v3_0_0_tag():
     (spec,) = PYPROJECT["project"]["optional-dependencies"]["cns"]
-    assert spec == "cns @ git+https://github.com/wking53214/CNS.git@v2.3.0"
+    assert spec == "cns @ git+https://github.com/wking53214/CNS.git@v3.0.0"
 
 
 def test_the_cns_pin_comment_names_the_commit_the_tag_peels_to():
     text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    assert '@v2.3.0"]  # v2.3.0 = 41592fb7b6735abe140f745353c09ba3eed8e7a2\n' in text
+    assert '@v3.0.0"]  # v3.0.0 = 31cb6f568219ef62cf3748701c895aa086abf1b8\n' in text
 
 
 def test_ci_runs_the_static_gates_on_three_pythons():
