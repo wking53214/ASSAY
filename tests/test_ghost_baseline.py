@@ -8,10 +8,10 @@ the baseline's, in both directions: a baseline entry that matches nothing, and a
 It runs where ghost_tools is installed. The `baseline` job in the workflow installs ghost_tools at the commit pinned
 there and sets ASSAY_REQUIRE_GHOST_BASELINE=1, which turns "ghost_tools is not installed" from a skip into a failure.
 
-Findings that share an id take a six-character place suffix. In Ghost 1.10.8, the version the `baseline` job tests,
+Findings that share an id take a six-character place suffix. In Ghost 1.10.8, a version the `baseline` job no longer tests,
 that suffix hashed the absolute path of the checkout, so one finding had a different id in each folder (15 of the
 17 suffixed ids). That was a ghost_tools defect, fixed in ghost_tools 1.10.9 (folder-independent ids): the circuit's
-ghost_tools no longer has it. The baseline holds no suffixed id (the job tests 1.10.8); those findings stay
+ghost_tools no longer has it. The baseline holds no suffixed id (the job tests 1.10.14); those findings stay
 reported. This test compares the findings WITHOUT a suffix with the baseline in both directions, and requires the
 baseline to hold no suffixed id. To rebuild the baseline, after reading the findings it will accept:
 
@@ -37,7 +37,7 @@ import pytest
 
 from conftest import ROOT
 
-GHOST_TOOLS_COMMIT = "5a9154d3c76670f5bf1f46d845acadfed46d7bc8"  # ghost_tools 1.10.8
+GHOST_TOOLS_COMMIT = "99f0e3cb14892ccefa737a01744420914e828cf1"  # ghost_tools 1.10.14
 # The options Warden passes to Ghost, plus --no-branches (a branch finding depends on the clone, not on the code).
 GHOST_OPTIONS = ("--single-repo", "--no-tests", "--no-secrets", "--no-ledger", "--no-structure", "--no-project",
                  "--no-correlate", "--no-branches")
