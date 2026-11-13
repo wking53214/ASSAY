@@ -11,6 +11,12 @@ dates from the earlier numbering (it points at the end of the work listed under
 the version of this package. Releases of 0.11.x are not tagged yet; tagging is
 the owner's decision.
 
+## [Unreleased]
+
+### Changed
+
+- CI: the `consumers` job checks out WARDEN 1.0.0 (tag `v1.0.0`, `0339c09a69497be2d2fc34d71872c8c8616c6668`) instead of 0.16.6 (`986f1d6ab1e103888a8b8a1c07706d4321dbc9c8`). `tests/test_consumers.py` passes against it (9 passed).
+
 ## [0.11.10] - 2026-10-30
 
 Not tagged. Documentation and one docstring; no code change.
