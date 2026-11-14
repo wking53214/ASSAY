@@ -24,8 +24,9 @@ def test_readme_names_the_same_cns_pin_as_pyproject():
 
 
 def test_readme_claim_about_the_cns_assay_row_matches_the_installed_cns():
-    """The README says the pinned CNS has a cns.assay row. Where that CNS is installed, check it. The pinned version is read
-    from pyproject, the pin the README check above reads, so a bump of the pin cannot leave this test comparing an old literal."""
+    """The README says the pinned CNS has a cns.assay row. Where that CNS is installed, check it.
+    The pinned version is read from pyproject, the pin the README check above reads, so a bump of
+    the pin cannot leave this test comparing an old literal."""
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
     found = re.search(r"@v(\d+\.\d+\.\d+)$", project["optional-dependencies"]["cns"][0])
     assert found is not None
