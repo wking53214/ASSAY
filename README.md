@@ -63,7 +63,7 @@ The numbers below are generated. If they ever disagree with what the verifier fi
 - **11** are `VERIFIED_BY_EXECUTION`: the verifier ran the specimen in a sandbox and asserted the behaviour the verdict names.
 - **3** are `VERIFIED_BY_STATIC_CHECK`: the verdict is a property of the file text and the verifier compared the text. Nothing was run.
 - **13** are `UNVALIDATED`: the verdict rests on a human judgement or an outside measurement the verifier does not repeat. Each entry in `registry.json` says why.
-- Files under `specimens/` whose SHA-256 is recorded and checked: **44**.
+- Files under `specimens/` whose SHA-256 is recorded and checked: **41**.
 - Specimen files that import numpy: **3**; matplotlib: **1**.
 - Unfinished-work markers (the word TO-DO in capitals) in the specimens, manifest and code: **0**.
 <!-- ASSAY-STATUS:END -->
