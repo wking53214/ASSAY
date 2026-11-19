@@ -4,7 +4,7 @@
 
 **What ASSAY is:** the answer key for a five-repository assurance circuit. It is a specimen corpus, meaning real code files with known damage and an independently known correct answer for each one. A verifier checks on every run that those answers still hold and that no specimen or answer has changed without being recorded. Two named specimens (3.6 and 3.7) are constructed reproductions of failures recorded in the ecosystem's own history rather than recovered files, and say so in their own text. Fuel for [`ghost_tools`](https://github.com/wking53214/ghost_tools), [`SWIZZLE`](https://github.com/wking53214/SWIZZLE) and [`Warden`](https://github.com/wking53214/Warden), which read the answer key as data from `assay_production/registry.json`. Absorbed retired [`VANGUARD`](https://github.com/wking53214/VANGUARD) files as evidence.
 
-**Where it sits:** ASSAY is outside the live decision path. In the circuit, the scanner ([`ghost_tools`](https://github.com/wking53214/ghost_tools)) is graded against ASSAY's key before anything is written, so ASSAY is what keeps the circuit from grading itself.
+**Where it sits:** ASSAY is outside the orchestrator path (observe-perceive's). In the circuit, the scanner ([`ghost_tools`](https://github.com/wking53214/ghost_tools)) is graded against ASSAY's key before anything is written, so ASSAY is what keeps the circuit from grading itself.
 
 **The circuit:** ASSAY (answer key), `ghost_tools` (scanner), [`SWIZZLE`](https://github.com/wking53214/SWIZZLE) (attacker), [`Warden`](https://github.com/wking53214/Warden) (governor and only writer, with a named human's grant), and [`Judge`](https://github.com/wking53214/Judge) (returns ACCEPT, REJECT, or INSUFFICIENT). The full description is in [STACK.md](STACK.md).
 
@@ -13,6 +13,19 @@
 ## What This Is
 
 In short, ASSAY is a test answer key: damaged code samples whose correct verdicts are known in advance, so the other tools can be graded against it. To try it: install as in section 9, then run `python3 verify_manifest.py --strict`. Section 4 says what is proven and what is not, section 11 lists what broke in this repository and how it was fixed, and section 13 says what code cannot fix.
+
+## Role Within ≡TACK
+
+- **What it is.** The answer key for the assurance circuit: damaged code specimens with known correct verdicts, plus a verifier that checks the key against the files on every run.
+- **What it owns.** The specimens, their recorded SHA-256 hashes, `registry.json`, and the check that the key has not drifted. In authority terms this is evidence verification of its own key. It is not policy, enforcement or authentication.
+- **What it contributes.** A fixed reference that `ghost_tools`, `SWIZZLE` and `Warden` can be graded against, so the circuit does not grade itself. Limit: the key and the scanner have the same owner, and three ghost_tools detectors were written for failure modes in this key after the scanner named none of them (ghost_tools `CHANGELOG.md`, the entry about 2026-10-07). A good score here shows the scanner still catches the cases it was built for. It does not measure how the scanner does on code it has not seen.
+- **What it does not own.** Scanning or changing production code (only Warden writes, with a named human's grant), the orchestrator path, and any judgment about whether a repository is safe.
+- **Depends on.** Python standard library. numpy and matplotlib are needed to run every claim. CNS is optional (`cns` extra).
+- **Depended on by.** `SWIZZLE` and `Warden` read `registry.json` (section 7). The `consumers` CI job checks this against pinned commits of both. Re-run on 2026-11-17 (EXECUTED): `tests/test_consumers.py` passed with nothing skipped against SWIZZLE and WARDEN at those pinned commits.
+- **Verified versus declared.** Verified on 2026-11-17 (EXECUTED, Python 3.13): `python3 verify_manifest.py --strict` exited 0 and 60 of 60 claims held. 13 of 27 entries are `UNVALIDATED`, meaning the verifier only confirms their files are unchanged. The whole test suite passed with the `cns` extra installed, so the CNS gate tests ran; its only skips were the two consumer tests and the Ghost baseline test, which were then run on their own (`tests/test_consumers.py` as above, `tests/test_ghost_baseline.py` with the pinned ghost_tools) and passed. `ruff check .` and `mypy` reported nothing. Not run: CI.
+- **Trust boundary.** Specimens run in a sandbox that is a safety net, not a wall. The CNS gate runs the candidate's own verifier with no sandbox, so point it only at a checkout you trust (section 10).
+
+Last checked 2026-11-17 at commit `4da9641`. License: Apache-2.0 (`LICENSE`). Maintainer: William N. King.
 
 ## 1. Pipeline Position & Role
 
@@ -133,6 +146,8 @@ Independently-known answers. Manifest verification. Specimens must not be "fixed
 Manifest records: specimen path, specimen class, expected verdict, MANIFEST section. Published as `assay_production/registry.json`; regenerate with `python3 -m assay_production.manifest_registry --write`.
 
 The answer exists in four places that are checked against each other on every run: the prose of `MANIFEST.md`, a generated machine block at the end of `MANIFEST.md`, the table in `assay_production/manifest_registry.py`, and `registry.json`. A difference in any direction fails verification, so flipping a verdict in one place alone is caught.
+
+What that check does not cover (EXECUTED 2026-11-17 on a scratch copy). The other three copies are compared with the table, and the re-record command writes them from the table. So a person who changes a verdict in the table and then runs `python3 -m assay_production.manifest_registry --write` gets a key that verifies. With specimen 3.1 changed from REFUSE to ACCEPT in the table: the verifier failed until the re-record, and after it `verify_manifest.py --strict` held 60 of 60 claims, the entry was still listed as `VERIFIED_BY_EXECUTION`, `registry.json` said ACCEPT, and the prose of `MANIFEST.md` still said REFUSE. The claims assert what a specimen does, not the verdict word, and nothing in the key is signed. The four copies catch drift and a one-place edit. A deliberate re-record is caught only by a person reading the diff (section 5).
 
 Fields consumers already read (`specimen_id`, `specimen_class`, `path`, `expected_verdict`, `epistemic_status`, `isolation_required`, `metadata.companions`) are unchanged. Added fields: `sha256`, `companion_sha256`, `manifest_block_sha256`, `validation` (level, which claims were asserted, what was asserted, and the reason when unvalidated). `manifest_status` now carries the derived level instead of always saying unvalidated.
 
@@ -291,7 +306,7 @@ Newest first. Each entry says what was wrong, how it was found when that is know
 
 Roster note: this section is the dated record of the old eight-repository circuit. The circuit is now five repositories (ghost_tools, SWIZZLE, ASSAY, JUDGE and WARDEN); DRAFTER, BURNISH and WATCHER_MCU are released from the circuit by owner ruling (2026-10-29). ASSAY is not released: it stays an instrument that grades the scanner.
 
-The circuit as it was then (Warden with the Drafter, Judge and Burnish seats) was run over a fresh clone of each of its eight repositories. The record is `docs/evidence/SELFHOSTING_2026-10-23.md` in the CNS repository (https://github.com/wking53214/CNS), on the branch `claude/horsemen-production-status-5wsndb` until that branch is merged.
+The circuit as it was then (Warden with the Drafter, Judge and Burnish seats) was run over a fresh clone of each of its eight repositories. The record is `docs/evidence/SELFHOSTING_2026-10-23.md` in the CNS repository (https://github.com/wking53214/CNS), on the branch `claude/horsemen-production-status-5wsndb` until that branch is merged. Checked 2026-11-17: that branch is no longer on GitHub and the record is on CNS `main`; the branch name is held by `tests/test_readme_ledger.py` and needs a paired test change to remove.
 
 For ASSAY (commit `184679c06e0a636a9a08a8403efa410b375c9429`, version 0.11.5) the record holds one run, and its decision is REJECT. The reason it gives: Ghost reported that 34 of the 104 entries in the committed `.ghost_baseline.json` matched nothing in the scan, and Warden refuses a run whose baseline is stale. Because of that refusal the target's suite, the Drafter and the finisher never ran, so the record says nothing about ASSAY's own suite under Warden. It lists 7 declined checks (mutate, kernel, structure, tests, project, secrets, correlate), 12 gaps in all, and 89 Ghost findings still reported. The cause is in this repository: the baseline was out of date with the code. It is fixed in 0.11.6 (section 11).
 
