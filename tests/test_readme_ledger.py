@@ -95,7 +95,7 @@ SELFHOSTING_FACTS = (
 
 def test_the_self_hosting_section_states_what_the_record_holds_and_what_it_does_not_mean():
     text = " ".join(section("## 12. Self-Hosting").split())
-    assert SELFHOSTING_EVIDENCE in text and "claude/horsemen-production-status-5wsndb" in text
+    assert SELFHOSTING_EVIDENCE in text and "on CNS `main`" in text
     for fact in SELFHOSTING_FACTS:
         assert fact in text, fact
     for declined in ("mutate", "kernel", "structure", "tests", "project", "secrets", "correlate"):
