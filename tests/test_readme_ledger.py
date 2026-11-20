@@ -79,7 +79,7 @@ def test_the_readme_names_the_pinned_cns_and_its_commit_once_in_the_migration_no
 
 
 # What the self-hosting record says about this repository. Copied from the CNS repository's
-# docs/evidence/SELFHOSTING_2026-10-23.md (branch claude/horsemen-production-status-5wsndb until merged), ASSAY row
+# docs/evidence/SELFHOSTING_2026-10-23.md (on CNS main), ASSAY row
 # and "What each non-ACCEPT means". If the record is replaced by a newer run, change these and the README together.
 SELFHOSTING_EVIDENCE = "docs/evidence/SELFHOSTING_2026-10-23.md"
 SELFHOSTING_FACTS = (
