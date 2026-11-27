@@ -75,6 +75,6 @@ Orchestrator path: Admission → OBSERVE/Keys → Locks → PERCEIVE → Decisio
 Assurance: ASSAY · ghost_tools · SWIZZLE · Warden · Judge  (this circuit, off the orchestrator path)
 ```
 
-CNS (public: https://github.com/wking53214/CNS) holds the interoperability contracts. No repository in the circuit modifies it. ASSAY's optional `cns` extra is pinned to the CNS v4.1.0 tag.
+CNS (public: https://github.com/wking53214/CNS) holds the interoperability contracts. No repository in the circuit modifies it. ASSAY's optional `cns` extra is pinned to the CNS v4.2.0 tag.
 
 See [README.md](README.md).
