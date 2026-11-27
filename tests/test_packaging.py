@@ -55,12 +55,12 @@ def test_the_registry_ships_with_the_package():
 
 def test_the_cns_extra_is_pinned_to_the_v3_0_0_tag():
     (spec,) = PYPROJECT["project"]["optional-dependencies"]["cns"]
-    assert spec == "cns @ git+https://github.com/wking53214/CNS.git@v4.1.0"
+    assert spec == "cns @ git+https://github.com/wking53214/CNS.git@v4.2.0"
 
 
 def test_the_cns_pin_comment_names_the_commit_the_tag_peels_to():
     text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    assert '@v4.1.0"]  # v4.1.0 = c84ef8c60079aae1753f92d9169d89081c670c22\n' in text
+    assert '@v4.2.0"]  # v4.2.0 = 670246fe5006ae15757f90e48350f57b53c56414\n' in text
 
 
 def test_ci_runs_the_static_gates_on_three_pythons():
