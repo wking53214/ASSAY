@@ -13,8 +13,10 @@ the owner's decision.
 
 ## [Unreleased]
 
+
 ### Changed
 
+- CNS pin `v4.1.0` -> `v4.2.0` (`670246fe5006ae15757f90e48350f57b53c56414`), which adds `Evidence.edit_sources`; the circuit and the repositories released from it move together. No code change here.
 - CI: the `consumers` job checks out WARDEN 1.0.0 (tag `v1.0.0`, `0339c09a69497be2d2fc34d71872c8c8616c6668`) instead of 0.16.6 (`986f1d6ab1e103888a8b8a1c07706d4321dbc9c8`). `tests/test_consumers.py` passes against it (9 passed).
 
 ## [0.11.10] - 2026-10-30
